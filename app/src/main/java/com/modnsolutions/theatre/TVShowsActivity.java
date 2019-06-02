@@ -1,10 +1,6 @@
 package com.modnsolutions.theatre;
 
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,51 +8,45 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.modnsolutions.theatre.adapter.MoviesPagerAdapter;
+import com.modnsolutions.theatre.adapter.TVShowsPagerAdapter;
 import com.modnsolutions.theatre.utils.Utilities;
 
-public class MainActivity extends AppCompatActivity
+public class TVShowsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tvshows);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabLayout tabLayout = findViewById(R.id.movies_tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_latest)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_now_playing)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_popular)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_top_rated)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_upcoming)));
+        TabLayout tabLayout = findViewById(R.id.tv_shows_tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Latest"));
+        tabLayout.addTab(tabLayout.newTab().setText("Airing Today"));
+        tabLayout.addTab(tabLayout.newTab().setText("On The Air"));
+        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
+        tabLayout.addTab(tabLayout.newTab().setText("Top Rated"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        final ViewPager viewPager = findViewById(R.id.movies_pager);
-        MoviesPagerAdapter moviesPagerAdapter = new MoviesPagerAdapter(getSupportFragmentManager(),
-                tabLayout.getTabCount());
-        viewPager.setAdapter(moviesPagerAdapter);
+        final ViewPager viewPager = findViewById(R.id.tv_shows_pager);
+        TVShowsPagerAdapter tvShowsPagerAdapter = new TVShowsPagerAdapter(
+                getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(tvShowsPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -87,33 +77,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
-        switch (item.getItemId()) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_movies:
                 Utilities.startActivity(this, MainActivity.class);
                 break;
