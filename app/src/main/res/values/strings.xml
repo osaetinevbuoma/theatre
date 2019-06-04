@@ -26,4 +26,6 @@
     <string name="tab_top_rated">Top Rated</string>
     <string name="tab_upcoming">Upcoming</string>
     <string name="toolbar_tv_shows">TV Shows</string>
+    <string name="tab_airing_today">Airing Today</string>
+    <string name="tab_on_the_air">On The Air</string>
 </resources>

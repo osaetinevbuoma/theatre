@@ -35,11 +35,10 @@ public class TVShowsActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = findViewById(R.id.tv_shows_tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Latest"));
-        tabLayout.addTab(tabLayout.newTab().setText("Airing Today"));
-        tabLayout.addTab(tabLayout.newTab().setText("On The Air"));
-        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
-        tabLayout.addTab(tabLayout.newTab().setText("Top Rated"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_airing_today)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_on_the_air)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_popular)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_top_rated)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 

@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = findViewById(R.id.movies_tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_latest)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_now_playing)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_popular)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_top_rated)));

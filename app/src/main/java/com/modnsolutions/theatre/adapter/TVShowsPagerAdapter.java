@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.modnsolutions.theatre.fragment.TVShowsAiringTodayFragment;
-import com.modnsolutions.theatre.fragment.TVShowsLatestFragment;
 import com.modnsolutions.theatre.fragment.TVShowsOnTheAirFragment;
 import com.modnsolutions.theatre.fragment.TVShowsPopularFragment;
 import com.modnsolutions.theatre.fragment.TVShowsTopRatedFragment;
@@ -21,11 +20,10 @@ public class TVShowsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: return new TVShowsLatestFragment();
-            case 1: return new TVShowsAiringTodayFragment();
-            case 2: return new TVShowsOnTheAirFragment();
-            case 3: return new TVShowsPopularFragment();
-            case 4: return new TVShowsTopRatedFragment();
+            case 0: return new TVShowsAiringTodayFragment();
+            case 1: return new TVShowsOnTheAirFragment();
+            case 2: return new TVShowsPopularFragment();
+            case 3: return new TVShowsTopRatedFragment();
             default: return null;
         }
     }

@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.modnsolutions.theatre.fragment.MoviesLatestFragment;
 import com.modnsolutions.theatre.fragment.MoviesNowPlayingFragment;
 import com.modnsolutions.theatre.fragment.MoviesPopularFragment;
 import com.modnsolutions.theatre.fragment.MoviesTopRatedFragment;
@@ -21,11 +20,10 @@ public class MoviesPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: return new MoviesLatestFragment();
-            case 1: return new MoviesNowPlayingFragment();
-            case 2: return new MoviesPopularFragment();
-            case 3: return new MoviesTopRatedFragment();
-            case 4: return new MoviesUpcomingFragment();
+            case 0: return new MoviesNowPlayingFragment();
+            case 1: return new MoviesPopularFragment();
+            case 2: return new MoviesTopRatedFragment();
+            case 3: return new MoviesUpcomingFragment();
             default: return null;
         }
     }

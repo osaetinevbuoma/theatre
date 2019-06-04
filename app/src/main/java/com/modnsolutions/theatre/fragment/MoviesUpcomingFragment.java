@@ -4,17 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.modnsolutions.theatre.MovieType;
 import com.modnsolutions.theatre.R;
+import com.modnsolutions.theatre.adapter.MovieAdapter;
+import com.modnsolutions.theatre.asynctask.FetchMoviesAsyncTask;
 
 public class MoviesUpcomingFragment extends Fragment {
-
-    private OnMoviesUpcomingFragmentListener mListener;
+    private RecyclerView mRecyclerView;
+    private ProgressBar mLoading;
+    private ProgressBar mLoadingMore;
+    private MovieAdapter mAdapter;
+    private int page = 1;
 
     public MoviesUpcomingFragment() {
         // Required empty public constructor
@@ -25,45 +35,42 @@ public class MoviesUpcomingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies_upcoming, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_movies_upcoming, container,
+                false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onMoviesUpcomingFragmentInteraction(uri);
-        }
-    }
+        mLoading = rootView.findViewById(R.id.loading);
+        mLoadingMore = rootView.findViewById(R.id.loading_more);
+        mRecyclerView = rootView.findViewById(R.id.recyclerview);
+        mAdapter = new MovieAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnMoviesUpcomingFragmentListener) {
-            mListener = (OnMoviesUpcomingFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnMoviesUpcomingFragmentListener");
-        }
-    }
+        // TODO: Check internet connectivity if fetching from remote server.
+        new FetchMoviesAsyncTask(mLoading, mAdapter, MovieType.UPCOMING).execute(page);
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                loadMore(recyclerView);
+            }
+        });
+
+        return rootView;
+    }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Load more movies from DB/remote server
+     * @param recyclerView
      */
-    public interface OnMoviesUpcomingFragmentListener {
-        // TODO: Update argument type and name
-        void onMoviesUpcomingFragmentInteraction(Uri uri);
+    private void loadMore(RecyclerView recyclerView) {
+        int lastPosition = ((GridLayoutManager) recyclerView.getLayoutManager())
+                .findLastCompletelyVisibleItemPosition();
+        if (lastPosition == mAdapter.getItemCount() - 1) {
+            mLoadingMore.setVisibility(View.VISIBLE);
+            page += 1;
+            new FetchMoviesAsyncTask(mLoadingMore, mAdapter, MovieType.UPCOMING).execute(page);
+            mRecyclerView.scrollToPosition(lastPosition + 1);
+        }
     }
 }

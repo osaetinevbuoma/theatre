@@ -14,10 +14,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'API_KEY', api_key
-            buildConfigField 'String', 'MOVIE_BASE_URL', movie_base_url
-            buildConfigField 'String', 'IMAGE_BASE_URL', image_base_url
         }
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'API_KEY', api_key
+        it.buildConfigField 'String', 'MOVIE_BASE_URL', movie_base_url
+        it.buildConfigField 'String', 'IMAGE_BASE_URL', image_base_url
+    }
+}
+
+repositories {
+    maven {
+        url  "https://dl.bintray.com/modnsolutions/plugins-libraries"
     }
 }
 
@@ -31,6 +39,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.1.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.modnsolutions:RESTHttpService:1.1'
     annotationProcessor 'androidx.room:room-compiler:2.1.0-rc01'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01'
     testImplementation 'junit:junit:4.12'
