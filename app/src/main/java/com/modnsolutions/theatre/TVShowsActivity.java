@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -73,6 +74,21 @@ public class TVShowsActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

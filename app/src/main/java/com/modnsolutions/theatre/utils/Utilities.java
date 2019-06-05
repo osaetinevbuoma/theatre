@@ -2,9 +2,12 @@ package com.modnsolutions.theatre.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,7 +23,6 @@ import java.lang.ref.WeakReference;
 public class Utilities {
     private static WeakReference<RecyclerView> mRecyclerView;
     private static WeakReference<ProgressBar> mLoading;
-    private static WeakReference<ProgressBar> mLoadingMore;
     private static WeakReference<MovieAdapter> mAdapter;
     private static int mCurrentPage;
 
@@ -46,7 +48,6 @@ public class Utilities {
         int page = 1;
         mCurrentPage = page;
         mLoading = new WeakReference<>((ProgressBar) rootView.findViewById(R.id.loading));
-        mLoadingMore = new WeakReference<>((ProgressBar) rootView.findViewById(R.id.loading_more));
         mRecyclerView = new WeakReference<>((RecyclerView) rootView.findViewById(R.id.recyclerview));
         mAdapter = new WeakReference<>(new MovieAdapter(rootView.getContext()));
         mRecyclerView.get().setAdapter(mAdapter.get());
@@ -73,12 +74,39 @@ public class Utilities {
         int lastPosition = ((GridLayoutManager) recyclerView.getLayoutManager())
                 .findLastCompletelyVisibleItemPosition();
         if (lastPosition == mAdapter.get().getItemCount() - 1) {
-            mLoadingMore.get().setVisibility(View.VISIBLE);
+            mLoading.get().setVisibility(View.VISIBLE);
             mCurrentPage += 1;
-            new FetchMoviesAsyncTask(mLoadingMore.get(), mAdapter.get(), movieType)
+            new FetchMoviesAsyncTask(mLoading.get(), mAdapter.get(), movieType)
                     .execute(mCurrentPage);
             mRecyclerView.get().scrollToPosition(lastPosition + 1);
         }
+    }
+
+    /**
+     * Check network connection.
+     *
+     * @param context
+     * @return
+     */
+    public static boolean checkInternetConnectivity(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (connectivityManager != null) {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    /**
+     * Display toast message
+     *
+     * @param context
+     * @param message
+     */
+    public static void displayToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 }

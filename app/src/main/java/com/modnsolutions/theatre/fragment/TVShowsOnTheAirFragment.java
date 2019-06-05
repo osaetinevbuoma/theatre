@@ -15,11 +15,11 @@ import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowType;
 import com.modnsolutions.theatre.adapter.TVShowAdapter;
 import com.modnsolutions.theatre.asynctask.FetchTVShowsAsyncTask;
+import com.modnsolutions.theatre.utils.Utilities;
 
 public class TVShowsOnTheAirFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ProgressBar mLoading;
-    private ProgressBar mLoadingMore;
     private TVShowAdapter mAdapter;
     private int page = 1;
 
@@ -35,14 +35,17 @@ public class TVShowsOnTheAirFragment extends Fragment {
                 false);
 
         mLoading = rootView.findViewById(R.id.loading);
-        mLoadingMore = rootView.findViewById(R.id.loading_more);
         mRecyclerView = rootView.findViewById(R.id.recyclerview);
         mAdapter = new TVShowAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
-        // TODO: Check internet connectivity if fetching from remote server.
-        new FetchTVShowsAsyncTask(mLoading, mAdapter, TVShowType.ON_THE_AIR).execute(page);
+        if (Utilities.checkInternetConnectivity(getContext()))
+            new FetchTVShowsAsyncTask(mLoading, mAdapter, TVShowType.ON_THE_AIR).execute(page);
+        else {
+            mLoading.setVisibility(View.GONE);
+            Utilities.displayToast(getContext(), getString(R.string.no_internet));
+        }
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -63,9 +66,14 @@ public class TVShowsOnTheAirFragment extends Fragment {
         int lastPosition = ((GridLayoutManager) recyclerView.getLayoutManager())
                 .findLastCompletelyVisibleItemPosition();
         if (lastPosition == mAdapter.getItemCount() - 1) {
-            mLoadingMore.setVisibility(View.VISIBLE);
+            mLoading.setVisibility(View.VISIBLE);
             page += 1;
-            new FetchTVShowsAsyncTask(mLoadingMore, mAdapter, TVShowType.ON_THE_AIR).execute(page);
+            if (Utilities.checkInternetConnectivity(getContext()))
+                new FetchTVShowsAsyncTask(mLoading, mAdapter, TVShowType.ON_THE_AIR).execute(page);
+            else {
+                mLoading.setVisibility(View.GONE);
+                Utilities.displayToast(getContext(), getString(R.string.no_internet));
+            }
             mRecyclerView.scrollToPosition(lastPosition + 1);
         }
     }
