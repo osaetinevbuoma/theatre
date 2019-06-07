@@ -74,11 +74,13 @@ public class FetchMoviesAsyncTask extends AsyncTask<Integer, Void, JSONArray> {
 
         mLoading.get().setVisibility(View.INVISIBLE);
         List<JSONObject> movies = new LinkedList<>();
-        for (int i = 0; i < array.length(); i++) {
-            try {
-                movies.add(array.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if (array != null) {
+            for (int i = 0; i < array.length(); i++) {
+                try {
+                    movies.add(array.getJSONObject(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

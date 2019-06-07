@@ -1,6 +1,7 @@
 package com.modnsolutions.theatre.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
+import com.modnsolutions.theatre.MovieDetailActivity;
 import com.modnsolutions.theatre.R;
+import com.modnsolutions.theatre.fragment.MovieInfoFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,7 +83,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         private ImageView moviePoster;
         private TextView movieTitle;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             moviePoster = itemView.findViewById(R.id.movie_poster);
@@ -89,7 +92,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Do something
+                    try {
+                        JSONObject movie = mMovies.get(getAdapterPosition());
+                        Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                        intent.putExtra(MovieInfoFragment.MOVIE_ID_INTENT, movie.getInt("id"));
+                        mContext.startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

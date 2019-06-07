@@ -12,9 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TVShowsActivity"
+        <activity
+            android:name=".MovieDetailActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.modnsolutions.theatre.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TVShowsActivity"
             android:label="@string/toolbar_tv_shows"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/toolbar_movies"

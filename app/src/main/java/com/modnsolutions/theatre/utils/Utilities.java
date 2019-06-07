@@ -18,7 +18,18 @@ import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.asynctask.FetchMoviesAsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utilities {
     private static WeakReference<RecyclerView> mRecyclerView;
@@ -107,6 +118,71 @@ public class Utilities {
      */
     public static void displayToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Extra movie genre from array
+     *
+     * @param array JSONArray of authors.
+     * @return String of authors.
+     */
+    public static String extractGenreArray(@NonNull JSONArray array) throws JSONException {
+        // Format authors into a continuous string value.
+        StringBuilder arrayBuilder = new StringBuilder();
+        for (int j = 0; j < array.length(); j++) {
+            JSONObject jsonObject = array.getJSONObject(j);
+
+            if (array.length() > 1 && j != array.length() - 1) {
+                arrayBuilder.append(jsonObject.getString("name") + ", ");
+            }
+
+            if (array.length() == 1 || j == array.length() - 1) {
+                arrayBuilder.append(jsonObject.getString("name"));
+            }
+        }
+
+        return arrayBuilder.toString();
+    }
+
+    /**
+     * Extra year from date string
+     *
+     * @param dateString
+     * @return
+     * @throws ParseException
+     */
+    public static int extractYearFromDate(String dateString) throws ParseException {
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+
+        // Date object returns year as "year - 1900"
+        return date.getYear() + 1900;
+    }
+
+    /**
+     * Convert minutes to string time.
+     *
+     * @param minutes
+     * @return
+     */
+    public static String convertMinutesToStringTime(int minutes) {
+        StringBuilder runtimeString = new StringBuilder();
+
+        int hrs = (int) Math.floor(minutes / 60f);
+        int mins = minutes - (hrs * 60);
+
+        if (hrs > 1) runtimeString.append(hrs + " hrs ");
+        else if (hrs == 1) runtimeString.append(hrs + " hr ");
+
+        if (mins > 1) runtimeString.append(mins + " mins");
+        else if (mins == 1) runtimeString.append(mins + " min");
+
+        return runtimeString.toString();
+    }
+
+    public static String formatNumber(int number) {
+        Locale locale = new Locale("en", "US");
+        NumberFormat numberFormat = NumberFormat.getInstance(locale);
+        return numberFormat.format(number);
     }
 
 }
