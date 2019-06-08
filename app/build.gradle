@@ -20,6 +20,8 @@ android {
         it.buildConfigField 'String', 'API_KEY', api_key
         it.buildConfigField 'String', 'MOVIE_BASE_URL', movie_base_url
         it.buildConfigField 'String', 'IMAGE_BASE_URL', image_base_url
+        it.buildConfigField 'String', 'YOUTUBE_IMAGE_URL', youtube_image_url
+        it.buildConfigField 'String', 'YOUTUBE_WATCH_URL', youtube_watch_url
     }
 }
 

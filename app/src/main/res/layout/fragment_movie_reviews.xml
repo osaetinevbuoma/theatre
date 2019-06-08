@@ -6,6 +6,13 @@
     android:padding="@dimen/border_padding"
     tools:context=".fragment.MovieReviewsFragment">
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/ProgressBar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reviews"
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="border_padding">16dp</dimen>
-    <dimen name="app_bar_height">430dp</dimen>
+    <dimen name="app_bar_height">410dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="movie_title_info">80dp</dimen>
     <dimen name="text_label">16sp</dimen>

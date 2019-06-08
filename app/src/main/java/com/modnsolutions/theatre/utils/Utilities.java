@@ -121,12 +121,12 @@ public class Utilities {
     }
 
     /**
-     * Extra movie genre from array
+     * Extra movie genre and cast from array
      *
      * @param array JSONArray of authors.
      * @return String of authors.
      */
-    public static String extractGenreArray(@NonNull JSONArray array) throws JSONException {
+    public static String extractNamesFromArray(@NonNull JSONArray array) throws JSONException {
         // Format authors into a continuous string value.
         StringBuilder arrayBuilder = new StringBuilder();
         for (int j = 0; j < array.length(); j++) {
@@ -179,6 +179,12 @@ public class Utilities {
         return runtimeString.toString();
     }
 
+    /**
+     * Format numbers
+     *
+     * @param number
+     * @return
+     */
     public static String formatNumber(int number) {
         Locale locale = new Locale("en", "US");
         NumberFormat numberFormat = NumberFormat.getInstance(locale);

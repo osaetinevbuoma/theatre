@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.fragment.MovieInfoFragment;
 import com.modnsolutions.theatre.fragment.MovieReviewsFragment;
-import com.modnsolutions.theatre.fragment.MovieSimilarFragment;
 
 public class MovieDetailPagerAdapter extends FragmentStatePagerAdapter {
     private Context mContext;
@@ -27,7 +26,6 @@ public class MovieDetailPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0: return new MovieInfoFragment();
             case 1: return new MovieReviewsFragment();
-            case 2: return new MovieSimilarFragment();
             default: return null;
         }
     }
@@ -43,7 +41,6 @@ public class MovieDetailPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0: return mContext.getResources().getString(R.string.tab_info);
             case 1: return mContext.getResources().getString(R.string.tab_reviews);
-            case 2: return mContext.getResources().getString(R.string.tab_similar_movies);
             default: return null;
         }
     }

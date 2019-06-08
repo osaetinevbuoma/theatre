@@ -2,6 +2,8 @@ package com.modnsolutions.theatre;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +41,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.movie_detail_tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_info)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_reviews)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.tab_similar_movies)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
@@ -65,5 +66,24 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                break;
+
+            case R.id.action_watchlist:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

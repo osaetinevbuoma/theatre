@@ -1,6 +1,7 @@
 package com.modnsolutions.theatre.utils;
 
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -183,6 +184,78 @@ public class NetworkUtils {
     }
 
     /**
+     * Get movie credits
+     *
+     * @param movieId
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject movieCredits(int movieId) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("movie")
+                .appendPath(String.valueOf(movieId))
+                .appendPath("credits")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get trailers of movies
+     *
+     * @param movieId
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject movieVideos(int movieId) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("movie")
+                .appendPath(String.valueOf(movieId))
+                .appendPath("videos")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get recommended movies based on movie ID
+     *
+     * @param movieId
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject moviesRecommended(int movieId) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("movie")
+                .appendPath(String.valueOf(movieId))
+                .appendPath("recommendations")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get similar movies to movie ID
+     *
+     * @param movieId
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject moviesSimilar(int movieId) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("movie")
+                .appendPath(String.valueOf(movieId))
+                .appendPath("similar")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
      * Get tv shows airing today.
      *
      * @param page
@@ -272,6 +345,39 @@ public class NetworkUtils {
 
         return responseObj != null && responseObj.has("results") ?
                 responseObj.getJSONArray("results") : null;
+    }
+
+    /**
+     * Get reviews of movies or tv shows
+     *
+     * @param id
+     * @param page
+     * @param isMovie
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject reviews(int id, int page, boolean isMovie) throws JSONException {
+        Uri uri;
+
+        if (isMovie) {
+            uri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                    .appendPath("movie")
+                    .appendPath(String.valueOf(id))
+                    .appendPath("reviews")
+                    .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                    .appendQueryParameter("page", String.valueOf(page))
+                    .build();
+        } else {
+            uri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                    .appendPath("tv")
+                    .appendPath(String.valueOf(id))
+                    .appendPath("reviews")
+                    .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                    .appendQueryParameter("page", String.valueOf(page))
+                    .build();
+        }
+
+        return httpService(uri);
     }
 
 }

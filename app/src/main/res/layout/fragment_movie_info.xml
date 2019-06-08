@@ -17,6 +17,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:theme="@style/ProgressBar" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,15 +151,14 @@
                             android:id="@+id/director_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Director"
+                            android:text="@string/director_label"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/director"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/director_label"
-                            android:text="Steven Spielberg" />
+                            android:layout_below="@id/director_label" />
 
                     </RelativeLayout>
 
@@ -164,15 +170,14 @@
                             android:id="@+id/cast_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cast"
+                            android:text="@string/cast_label"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/cast"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/cast_label"
-                            android:text="Samuel L. Jackson, Will Smith, Reese Weatherspoon, Mark Walberg, Jim Carey, Anita Roddick" />
+                            android:layout_below="@id/cast_label" />
 
                     </RelativeLayout>
 
@@ -195,8 +200,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="Trailers"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/trailers_label"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_label" />
 
@@ -216,18 +221,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/border_padding"
+                android:paddingBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="Recommended"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/recommended_label"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_label" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recommended"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/border_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/similar_movies_label"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_label" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/similar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
