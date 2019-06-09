@@ -151,11 +151,15 @@ public class Utilities {
      * @return
      * @throws ParseException
      */
-    public static int extractYearFromDate(String dateString) throws ParseException {
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+    public static String formatDate(String dateString) throws ParseException {
+        String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                "Nov", "Dec" };
 
-        // Date object returns year as "year - 1900"
-        return date.getYear() + 1900;
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return months[calendar.get(Calendar.MONTH)] + " " + calendar.get(Calendar.YEAR);
     }
 
     /**

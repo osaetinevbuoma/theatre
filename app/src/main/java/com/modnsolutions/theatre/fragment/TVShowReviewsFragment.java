@@ -23,14 +23,14 @@ import com.modnsolutions.theatre.utils.Utilities;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieReviewsFragment extends Fragment {
+public class TVShowReviewsFragment extends Fragment {
     private ProgressBar mLoading;
     private RecyclerView mReviewsRV;
     private ReviewsAdapter mAdapter;
     private int mCurrentPage = 1;
     private int mID;
 
-    public MovieReviewsFragment() {
+    public TVShowReviewsFragment() {
         // Required empty public constructor
     }
 
@@ -43,7 +43,7 @@ public class MovieReviewsFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         if (intent != null) {
-            mID = intent.getIntExtra(MovieInfoFragment.MOVIE_ID_INTENT, -1);
+            mID = intent.getIntExtra(TVShowInfoFragment.TV_SHOW_EXTRA, -1);
 
             mLoading = rootView.findViewById(R.id.loading);
             mAdapter = new ReviewsAdapter(getContext());
@@ -56,7 +56,7 @@ public class MovieReviewsFragment extends Fragment {
             mReviewsRV.addItemDecoration(itemDecoration);
 
             if (Utilities.checkInternetConnectivity(getContext()))
-                new FetchReviewsAsyncTask(mLoading, mAdapter, true).execute(mID,
+                new FetchReviewsAsyncTask(mLoading, mAdapter, false).execute(mID,
                         mCurrentPage);
             else {
                 mLoading.setVisibility(View.GONE);
@@ -87,7 +87,7 @@ public class MovieReviewsFragment extends Fragment {
             mLoading.setVisibility(View.VISIBLE);
             mCurrentPage += 1;
             if (Utilities.checkInternetConnectivity(getContext())) {
-                new FetchReviewsAsyncTask(mLoading, mAdapter, true).execute(mID,
+                new FetchReviewsAsyncTask(mLoading, mAdapter, false).execute(mID,
                         mCurrentPage);
             } else {
                 mLoading.setVisibility(View.GONE);

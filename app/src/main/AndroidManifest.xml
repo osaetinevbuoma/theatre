@@ -13,6 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".TVShowsDetailsActivity"
+            android:parentActivityName=".TVShowsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.modnsolutions.theatre.TVShowsActivity" />
+        </activity>
+        <activity
             android:name=".MovieDetailActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

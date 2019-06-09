@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MovieDetailActivity">
+    tools:context=".TVShowsDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -29,7 +29,7 @@
             <include
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                layout="@layout/movie_details_collapsible" />
+                layout="@layout/tv_show_details_collapsible" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -39,7 +39,6 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -49,7 +48,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/movie_detail_tab_layout"
+            android:id="@+id/tv_show_detail_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimaryDark"
@@ -57,7 +56,7 @@
             app:tabTextColor="@android:color/white" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/movie_detail_pager"
+            android:id="@+id/tv_show_detail_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

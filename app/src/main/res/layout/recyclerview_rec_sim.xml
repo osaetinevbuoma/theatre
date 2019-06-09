@@ -6,12 +6,12 @@
     android:background="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/movie_poster"
+        android:id="@+id/poster"
         android:layout_width="match_parent"
         android:layout_height="155dp" />
 
     <TextView
-        android:id="@+id/movie_title"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -20,10 +20,10 @@ public class TVShowsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0: return new TVShowsAiringTodayFragment();
-            case 1: return new TVShowsOnTheAirFragment();
-            case 2: return new TVShowsPopularFragment();
-            case 3: return new TVShowsTopRatedFragment();
+            case 0: return new TVShowsPopularFragment();
+            case 1: return new TVShowsTopRatedFragment();
+            case 2: return new TVShowsAiringTodayFragment();
+            case 3: return new TVShowsOnTheAirFragment();
             default: return null;
         }
     }

@@ -16,19 +16,20 @@ import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.MovieDetailActivity;
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.fragment.MovieInfoFragment;
+import com.modnsolutions.theatre.TVShowsDetailsActivity;
+import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class MovieSimilarAdapter extends RecyclerView.Adapter<MovieSimilarAdapter.ViewHolder> {
+public class TVShowSimilarAdapter extends RecyclerView.Adapter<TVShowSimilarAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mMovies;
+    private List<JSONObject> mTVShows;
 
-    public MovieSimilarAdapter(Context context) {
+    public TVShowSimilarAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -36,31 +37,32 @@ public class MovieSimilarAdapter extends RecyclerView.Adapter<MovieSimilarAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.recyclerview_rec_sim, parent, false);
-        return new MovieSimilarAdapter.ViewHolder(itemView);
+        View itemView = mLayoutInflater.inflate(R.layout.recyclerview_rec_sim, parent,
+                false);
+        return new TVShowSimilarAdapter.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
-            JSONObject movie = mMovies.get(position);
+            JSONObject tvShow = mTVShows.get(position);
 
             Glide.with(mContext)
                     .load(BuildConfig.IMAGE_BASE_URL + "/w154" +
-                            movie.getString("poster_path"))
+                            tvShow.getString("poster_path"))
                     .placeholder(new ColorDrawable(mContext.getResources().getColor(
                             R.color.colorPrimaryLight)))
                     .fitCenter()
-                    .into(holder.moviePoster);
-            holder.moviePoster.setContentDescription(movie.getString("title"));
+                    .into(holder.tvShowPoster);
+            holder.tvShowPoster.setContentDescription(tvShow.getString("name"));
 
             String title;
-            if (movie.getString("title").length() >= 20) {
-                title = movie.getString("title").substring(0, 20) + "...";
+            if (tvShow.getString("name").length() >= 20) {
+                title = tvShow.getString("name").substring(0, 20) + "...";
             } else {
-                title = movie.getString("title");
+                title = tvShow.getString("name");
             }
-            holder.movieTitle.setText(title);
+            holder.tvShowTitle.setText(title);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -68,33 +70,33 @@ public class MovieSimilarAdapter extends RecyclerView.Adapter<MovieSimilarAdapte
 
     @Override
     public int getItemCount() {
-        if (mMovies == null) return 0;
-        return mMovies.size();
+        if (mTVShows == null) return 0;
+        return mTVShows.size();
     }
 
-    public void setMovies(List<JSONObject> movies) {
-        if (mMovies == null) mMovies = movies;
-        else mMovies.addAll(movies);
+    public void setTVShows(List<JSONObject> tvShows) {
+        if (mTVShows == null) mTVShows = tvShows;
+        else mTVShows.addAll(tvShows);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView moviePoster;
-        private TextView movieTitle;
+        private ImageView tvShowPoster;
+        private TextView tvShowTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            moviePoster = itemView.findViewById(R.id.poster);
-            movieTitle = itemView.findViewById(R.id.title);
+            tvShowPoster = itemView.findViewById(R.id.poster);
+            tvShowTitle = itemView.findViewById(R.id.title);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
-                        JSONObject movie = mMovies.get(getAdapterPosition());
-                        Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                        intent.putExtra(MovieInfoFragment.MOVIE_ID_INTENT, movie.getInt("id"));
+                        JSONObject movie = mTVShows.get(getAdapterPosition());
+                        Intent intent = new Intent(mContext, TVShowsDetailsActivity.class);
+                        intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, movie.getInt("id"));
                         mContext.startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();

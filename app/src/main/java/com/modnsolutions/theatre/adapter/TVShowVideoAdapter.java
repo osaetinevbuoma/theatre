@@ -23,14 +23,14 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.ViewHolder> {
+public class TVShowVideoAdapter extends RecyclerView.Adapter<TVShowVideoAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<JSONObject> mVideos;
 
-    public MovieVideoAdapter(Context context) {
+    public TVShowVideoAdapter(Context context) {
         mContext = context;
-        mLayoutInflater = LayoutInflater.from(mContext);
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull

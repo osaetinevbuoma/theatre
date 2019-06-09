@@ -2,7 +2,6 @@ package com.modnsolutions.theatre.asynctask;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -12,17 +11,14 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.adapter.MovieRecommendedAdapter;
 import com.modnsolutions.theatre.adapter.MovieSimilarAdapter;
 import com.modnsolutions.theatre.adapter.MovieVideoAdapter;
 import com.modnsolutions.theatre.utils.NetworkUtils;
 import com.modnsolutions.theatre.utils.Utilities;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -169,8 +165,8 @@ public class FetchMovieDetailsAsyncTask extends AsyncTask<Integer, Void, List<JS
 
             // Movie brief details
             movieTitle.get().setText(movieDetails.getString("title"));
-            movieReleaseDate.get().setText(String.valueOf(Utilities.extractYearFromDate(movieDetails
-                    .getString("release_date"))));
+            movieReleaseDate.get().setText(Utilities.formatDate(movieDetails
+                    .getString("release_date")));
             movieRuntime.get().setText(Utilities.convertMinutesToStringTime(movieDetails.getInt(
                     "runtime")));
             movieGenre.get().setText(Utilities.extractNamesFromArray(movieDetails.getJSONArray(

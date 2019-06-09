@@ -348,6 +348,138 @@ public class NetworkUtils {
     }
 
     /**
+     * Get details of TV show
+     *
+     * @param id
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsDetails(int id) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get TV show cast and crew
+     * @param id
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsCredits(int id) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("credits")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get first page of recommendations based on tv show
+     *
+     * @param id
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsRecommendations(int id) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("recommendations")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get first page of similar tv shows
+     *
+     * @param id
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsSimilar(int id) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("similar")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get trailers for tv show
+     *
+     * @param id
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsVideos(int id) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("videos")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get details of season of tv show
+     *
+     * @param id
+     * @param seasonNum
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsSeasonDetails(int id, int seasonNum) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("seasons")
+                .appendPath(String.valueOf(seasonNum))
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Get details of episode of season of tv show
+     *
+     * @param id
+     * @param seasonNum
+     * @param episodeNum
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject tvShowsSeasonEpisodeDetails(int id, int seasonNum, int episodeNum)
+            throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("tv")
+                .appendPath(String.valueOf(id))
+                .appendPath("seasons")
+                .appendPath(String.valueOf(seasonNum))
+                .appendPath("episode")
+                .appendPath(String.valueOf(episodeNum))
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
      * Get reviews of movies or tv shows
      *
      * @param id

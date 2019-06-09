@@ -6,7 +6,7 @@
     android:background="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/movie_video_image"
+        android:id="@+id/video_image"
         android:layout_width="match_parent"
         android:layout_height="130dp" />
 
@@ -17,8 +17,8 @@
         android:src="@drawable/ic_play_circle" />
 
     <TextView
-        android:id="@+id/movie_video_name"
+        android:id="@+id/video_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movie_video_image" />
+        android:layout_below="@id/video_image" />
 </RelativeLayout>

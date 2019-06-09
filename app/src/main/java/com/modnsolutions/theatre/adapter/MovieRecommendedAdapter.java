@@ -36,7 +36,7 @@ public class MovieRecommendedAdapter extends RecyclerView.Adapter<MovieRecommend
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.recyclerview_movie_rec_sim, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.recyclerview_rec_sim, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -85,8 +85,8 @@ public class MovieRecommendedAdapter extends RecyclerView.Adapter<MovieRecommend
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            moviePoster = itemView.findViewById(R.id.movie_poster);
-            movieTitle = itemView.findViewById(R.id.movie_title);
+            moviePoster = itemView.findViewById(R.id.poster);
+            movieTitle = itemView.findViewById(R.id.title);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

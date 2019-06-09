@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/border_padding"
-    tools:context=".fragment.MovieInfoFragment">
+    tools:context=".fragment.TVShowInfoFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:textSize="@dimen/text_label"/>
 
                 <TextView
-                    android:id="@+id/movie_overview"
+                    android:id="@+id/tv_show_overview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
@@ -61,7 +61,7 @@
                     android:id="@+id/facts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/movie_facts_label"
+                    android:text="@string/tv_show_facts_label"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_label" />
 
@@ -78,17 +78,17 @@
                         android:layout_marginEnd="@dimen/border_padding">
 
                         <TextView
-                            android:id="@+id/budget_label"
+                            android:id="@+id/num_of_seasons_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/budget_label"
+                            android:text="@string/seasons_label"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/budget"
+                            android:id="@+id/seasons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/budget_label" />
+                            android:layout_below="@id/num_of_seasons_label" />
 
                     </RelativeLayout>
 
@@ -99,17 +99,17 @@
                         android:layout_marginEnd="@dimen/border_padding">
 
                         <TextView
-                            android:id="@+id/revenue_label"
+                            android:id="@+id/num_of_episodes_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/revenue_label"
+                            android:text="@string/episodes_label"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/revenue"
+                            android:id="@+id/episodes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/revenue_label" />
+                            android:layout_below="@id/num_of_episodes_label" />
 
                     </RelativeLayout>
 
@@ -149,17 +149,17 @@
                         android:layout_marginEnd="@dimen/border_padding">
 
                         <TextView
-                            android:id="@+id/director_label"
+                            android:id="@+id/last_air_date_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/director_label"
+                            android:text="@string/last_aired_label"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/director"
+                            android:id="@+id/last_aired"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/director_label" />
+                            android:layout_below="@id/last_air_date_label" />
 
                     </RelativeLayout>
 
@@ -229,7 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/recommended_label"
+                    android:text="@string/recommended_shows_label"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_label" />
 
@@ -255,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/similar_movies_label"
+                    android:text="@string/similar_tv_shows_label"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_label" />
 

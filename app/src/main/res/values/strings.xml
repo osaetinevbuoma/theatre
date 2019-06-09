@@ -44,4 +44,11 @@
     <string name="trailers_label">Trailers</string>
     <string name="recommended_label">Recommended Movies</string>
     <string name="similar_movies_label">Similar Movies</string>
+    <string name="tab_seasons">Seasons</string>
+    <string name="tv_show_facts_label">Show Facts</string>
+    <string name="recommended_shows_label">Recommended Shows</string>
+    <string name="similar_tv_shows_label">Similar Shows</string>
+    <string name="seasons_label">Seasons</string>
+    <string name="episodes_label">Episodes</string>
+    <string name="last_aired_label">Last Aired</string>
 </resources>

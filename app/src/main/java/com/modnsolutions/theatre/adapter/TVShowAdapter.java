@@ -1,6 +1,7 @@
 package com.modnsolutions.theatre.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
+import com.modnsolutions.theatre.TVShowsDetailsActivity;
+import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,13 +54,13 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.ViewHolder
                             R.color.colorPrimaryLight)))
                     .fitCenter()
                     .into(holder.tvShowPoster);
-            holder.tvShowPoster.setContentDescription(tvShow.getString("original_name"));
+            holder.tvShowPoster.setContentDescription(tvShow.getString("name"));
 
             String originalName;
-            if (tvShow.getString("original_name").length() >= 20) {
-                originalName = tvShow.getString("original_name").substring(0, 20) + "...";
+            if (tvShow.getString("name").length() >= 20) {
+                originalName = tvShow.getString("name").substring(0, 20) + "...";
             } else {
-                originalName = tvShow.getString("original_name");
+                originalName = tvShow.getString("name");
             }
             holder.tvShowOriginalName.setText(originalName);
         } catch (JSONException e) {
@@ -90,7 +93,15 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Do something
+                    try {
+                        int position = getAdapterPosition();
+                        Intent intent = new Intent(mContext, TVShowsDetailsActivity.class);
+                        intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, mTVShows.get(position)
+                                .getInt("id"));
+                        mContext.startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
