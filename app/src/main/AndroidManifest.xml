@@ -12,6 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TVShowEpisodesActivity"
+            android:parentActivityName=".TVShowsDetailsActivity"
+            android:label="@string/label_episodes">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TVShowsDetailsActivity"/>
+        </activity>
         <activity
             android:name=".TVShowsDetailsActivity"
             android:parentActivityName=".TVShowsActivity"

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
-import com.modnsolutions.theatre.MovieDetailActivity;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowsDetailsActivity;
 import com.modnsolutions.theatre.fragment.TVShowInfoFragment;

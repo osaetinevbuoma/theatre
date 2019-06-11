@@ -88,6 +88,7 @@ public class FetchTVShowDetailsAsyncTask extends AsyncTask<Integer, Void, List<J
         WeakReference<ProgressBar> progressBar = new WeakReference<>((ProgressBar) mActivity.get()
                 .findViewById(R.id.loading));
         progressBar.get().setVisibility(View.GONE);
+        mRootView.get().findViewById(R.id.loading).setVisibility(View.GONE);
 
         // Movie poster and backdrop views
         WeakReference<ImageView> tvShowBackdrop = new WeakReference<>((ImageView) mActivity.get()

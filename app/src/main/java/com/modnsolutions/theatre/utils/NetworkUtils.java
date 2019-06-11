@@ -447,7 +447,7 @@ public class NetworkUtils {
         Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
                 .appendPath("tv")
                 .appendPath(String.valueOf(id))
-                .appendPath("seasons")
+                .appendPath("season")
                 .appendPath(String.valueOf(seasonNum))
                 .appendQueryParameter("api_key", BuildConfig.API_KEY)
                 .build();
@@ -469,7 +469,7 @@ public class NetworkUtils {
         Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
                 .appendPath("tv")
                 .appendPath(String.valueOf(id))
-                .appendPath("seasons")
+                .appendPath("season")
                 .appendPath(String.valueOf(seasonNum))
                 .appendPath("episode")
                 .appendPath(String.valueOf(episodeNum))

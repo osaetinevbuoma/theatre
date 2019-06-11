@@ -51,4 +51,5 @@
     <string name="seasons_label">Seasons</string>
     <string name="episodes_label">Episodes</string>
     <string name="last_aired_label">Last Aired</string>
+    <string name="label_episodes">Episodes</string>
 </resources>
