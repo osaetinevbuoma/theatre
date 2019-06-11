@@ -26,8 +26,6 @@ import com.modnsolutions.theatre.asynctask.FetchTVShowEpisodesAsyncTask;
 import com.modnsolutions.theatre.utils.Utilities;
 
 public class TVShowEpisodesFragment extends Fragment {
-
-    private OnTVShowEpisodesFragmentInteractionListener mListener;
     private int mTVShowID;
     private int mSeasonNumber;
     private TVShowEpisodesAdapter mAdapter;
@@ -70,36 +68,5 @@ public class TVShowEpisodesFragment extends Fragment {
         }
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnTVShowEpisodesFragmentInteractionListener) {
-            mListener = (OnTVShowEpisodesFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnTVShowEpisodesFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnTVShowEpisodesFragmentInteractionListener {
-        void onTVShowEpisodesFragmentInteraction();
     }
 }

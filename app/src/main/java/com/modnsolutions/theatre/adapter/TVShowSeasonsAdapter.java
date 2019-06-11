@@ -29,10 +29,13 @@ public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdap
     private LayoutInflater mLayoutInflater;
     private List<JSONObject> mSeasons;
     private int mTVShowID;
+    private TVShowSeasonsFragment.OnTVShowSeasonsFragmentInteraction mListener;
 
-    public TVShowSeasonsAdapter(Context context) {
+    public TVShowSeasonsAdapter(Context context,
+                                TVShowSeasonsFragment.OnTVShowSeasonsFragmentInteraction listener) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        mListener = listener;
     }
 
     @NonNull
@@ -98,13 +101,8 @@ public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdap
                 public void onClick(View v) {
                     try {
                         int position = getAdapterPosition();
-
-                        Intent intent = new Intent(mContext, TVShowEpisodesActivity.class);
-                        intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, mTVShowID);
-                        intent.putExtra(TVShowSeasonsFragment.SEASON_EXTRA_INTENT, mSeasons
-                                .get(position).getInt("season_number"));
-
-                        mContext.startActivity(intent);
+                        mListener.onDisplaySeasonEpisodes(mTVShowID, mSeasons.get(position)
+                                .getInt("season_number"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

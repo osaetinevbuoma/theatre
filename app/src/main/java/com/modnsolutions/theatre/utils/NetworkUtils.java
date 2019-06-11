@@ -512,4 +512,44 @@ public class NetworkUtils {
         return httpService(uri);
     }
 
+    /**
+     * Search movies
+     *
+     * @param queryString
+     * @param page
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject searchMovies(String queryString, int page) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("search")
+                .appendPath("movie")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .appendQueryParameter("query", queryString)
+                .appendQueryParameter("page", String.valueOf(page))
+                .build();
+
+        return httpService(builtUri);
+    }
+
+    /**
+     * Search tv shows
+     *
+     * @param queryString
+     * @param page
+     * @return
+     * @throws JSONException
+     */
+    public static JSONObject searchTVShows(String queryString, int page) throws JSONException {
+        Uri builtUri = Uri.parse(BuildConfig.MOVIE_BASE_URL).buildUpon()
+                .appendPath("search")
+                .appendPath("tv")
+                .appendQueryParameter("api_key", BuildConfig.API_KEY)
+                .appendQueryParameter("query", queryString)
+                .appendQueryParameter("page", String.valueOf(page))
+                .build();
+
+        return httpService(builtUri);
+    }
+
 }

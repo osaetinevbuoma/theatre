@@ -1,23 +1,22 @@
 package com.modnsolutions.theatre;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.modnsolutions.theatre.adapter.MovieDetailPagerAdapter;
-import com.modnsolutions.theatre.adapter.TVShowDetailPagerAdapter;
-import com.modnsolutions.theatre.adapter.TVShowsPagerAdapter;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import com.google.android.material.tabs.TabLayout;
+import com.modnsolutions.theatre.adapter.TVShowDetailPagerAdapter;
+import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
+import com.modnsolutions.theatre.fragment.TVShowSeasonsFragment;
 
-public class TVShowsDetailsActivity extends AppCompatActivity {
+public class TVShowsDetailsActivity extends AppCompatActivity implements
+        TVShowSeasonsFragment.OnTVShowSeasonsFragmentInteraction {
+    public static final String TV_SHOW_DETAILS_INTENT = "TV_SHOW_DETAILS_INTENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,8 @@ public class TVShowsDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false); // Don't show default title
         getSupportActionBar().setDisplayShowCustomEnabled(true); // Display custom view
         getSupportActionBar().setCustomView(R.layout.app_bar_title);
+
+        Intent intent = getIntent();
 
         // Set up tab layout for movie details
         TabLayout tabLayout = findViewById(R.id.tv_show_detail_tab_layout);
@@ -63,6 +64,9 @@ public class TVShowsDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+        if (intent.hasExtra(TV_SHOW_DETAILS_INTENT))
+            viewPager.setCurrentItem(intent.getIntExtra(TV_SHOW_DETAILS_INTENT, -1));
     }
 
     @Override
@@ -82,5 +86,14 @@ public class TVShowsDetailsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDisplaySeasonEpisodes(int tvShowID, int seasonNum) {
+        Intent intent = new Intent(this, TVShowEpisodesActivity.class);
+        intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, tvShowID);
+        intent.putExtra(TVShowSeasonsFragment.SEASON_EXTRA_INTENT, seasonNum);
+        intent.putExtra(TV_SHOW_DETAILS_INTENT, 2);
+        startActivity(intent);
     }
 }
