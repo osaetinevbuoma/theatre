@@ -1,4 +1,4 @@
-package com.modnsolutions.theatre;
+package com.modnsolutions.theatre.enums;
 
 public enum MovieType {
     NOW_PLAYING,

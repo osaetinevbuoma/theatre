@@ -7,23 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.modnsolutions.theatre.MovieType;
+import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.asynctask.FetchMoviesAsyncTask;
-import com.modnsolutions.theatre.loader.MovieAsyncTaskLoader;
 import com.modnsolutions.theatre.utils.Utilities;
-
-import org.json.JSONObject;
-
-import java.util.List;
 
 public class MoviesNowPlayingFragment extends Fragment {
     private RecyclerView mRecyclerView;

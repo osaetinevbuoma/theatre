@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.TVShowType;
+import com.modnsolutions.theatre.enums.TVShowType;
 import com.modnsolutions.theatre.adapter.TVShowAdapter;
 import com.modnsolutions.theatre.asynctask.FetchTVShowsAsyncTask;
 import com.modnsolutions.theatre.utils.Utilities;

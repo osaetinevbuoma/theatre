@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
-import com.modnsolutions.theatre.MovieType;
+import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.utils.NetworkUtils;
 
 import org.json.JSONArray;

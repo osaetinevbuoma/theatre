@@ -78,13 +78,14 @@ public class TVShowsActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.searchable, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
+            onSearchRequested();
             return true;
         }
 
@@ -112,5 +113,14 @@ public class TVShowsActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        // Extra data to send to SearchActivity to automatically display TVShows tab after search
+        Bundle appData = new Bundle();
+        appData.putInt(SearchActivity.ACTIVITY_TAB_INTENT, 1);
+        startSearch(null, false, appData, false);
+        return super.onSearchRequested();
     }
 }

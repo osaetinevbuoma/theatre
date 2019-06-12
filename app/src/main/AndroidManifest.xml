@@ -12,12 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TVShowEpisodesActivity"
-            android:parentActivityName=".TVShowsDetailsActivity"
-            android:label="@string/label_episodes">
+        <activity android:name=".SearchActivity"
+            android:label="@string/label_search"
+            android:theme="@style/AppTheme.Extension">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".TVShowEpisodesActivity"
+            android:label="@string/label_episodes"
+            android:parentActivityName=".TVShowsDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TVShowsDetailsActivity"/>
+                android:value=".TVShowsDetailsActivity" />
         </activity>
         <activity
             android:name=".TVShowsDetailsActivity"
@@ -38,7 +48,10 @@
         <activity
             android:name=".TVShowsActivity"
             android:label="@string/toolbar_tv_shows"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".SearchActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/toolbar_movies"
@@ -48,6 +61,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".SearchActivity" />
         </activity>
     </application>
 

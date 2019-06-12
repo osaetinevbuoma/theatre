@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.modnsolutions.theatre.MovieType;
+import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.asynctask.FetchMoviesAsyncTask;

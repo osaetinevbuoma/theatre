@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.modnsolutions.theatre.TVShowType;
+import com.modnsolutions.theatre.enums.TVShowType;
 import com.modnsolutions.theatre.adapter.TVShowAdapter;
 import com.modnsolutions.theatre.utils.NetworkUtils;
 

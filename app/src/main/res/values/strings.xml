@@ -52,4 +52,9 @@
     <string name="episodes_label">Episodes</string>
     <string name="last_aired_label">Last Aired</string>
     <string name="label_episodes">Episodes</string>
+    <string name="searchable_hint">Search Movies or TV Shows</string>
+    <string name="tab_movies">Movies</string>
+    <string name="tab_tv_shows">TV Shows</string>
+    <string name="label_search">Search</string>
+    <string name="action_home">Home</string>
 </resources>

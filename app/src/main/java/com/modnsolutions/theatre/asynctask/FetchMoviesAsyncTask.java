@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.modnsolutions.theatre.MovieType;
+import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.utils.NetworkUtils;
 
