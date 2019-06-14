@@ -24,6 +24,6 @@ public class FavoriteEpisodeViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<FavoriteEpisodeEntity>> fetchFavoriteSeasonEpisdoes(int id) {
-        return repository.fetchFavoriteSeasonEpisdoes(id);
+        return repository.fetchFavoriteSeasonEpisodes(id);
     }
 }

@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.modnsolutions.theatre.db.entity.favorite.FavoriteTrailerEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTrailerEntity;
 
 import java.util.List;

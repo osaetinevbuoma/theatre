@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.modnsolutions.theatre.db.entity.favorite.FavoriteEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistEpisodeEntity;
 
 import java.util.List;

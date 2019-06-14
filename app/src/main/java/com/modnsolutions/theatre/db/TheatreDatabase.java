@@ -53,7 +53,6 @@ import com.modnsolutions.theatre.db.entity.watchlist.WatchlistEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistSeasonEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTrailerEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTypeEntity;
-import com.modnsolutions.theatre.enums.TVShowType;
 
 @Database(entities = {MovieTypeEntity.class, MovieEntity.class, MovieTypeHasMovieEntity.class,
         MovieTrailerEntity.class, MovieReviewEntity.class, TVShowTypeEntity.class, TVShowEntity.class,

@@ -23,7 +23,7 @@ public class FavoriteEpisodeRepository {
         new DBOperationAsyncTask(favoriteEpisodeDao).execute(favoriteEpisodeEntities);
     }
 
-    public LiveData<List<FavoriteEpisodeEntity>> fetchFavoriteSeasonEpisdoes(int id) {
+    public LiveData<List<FavoriteEpisodeEntity>> fetchFavoriteSeasonEpisodes(int id) {
         return favoriteEpisodeDao.fetchFavoriteSeasonEpisodes(id);
     }
 

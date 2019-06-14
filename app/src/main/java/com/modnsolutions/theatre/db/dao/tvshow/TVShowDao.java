@@ -8,8 +8,6 @@ import androidx.room.Update;
 
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 
-import java.util.Date;
-
 @Dao
 public interface TVShowDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
