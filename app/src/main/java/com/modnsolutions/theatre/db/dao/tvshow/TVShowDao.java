@@ -17,6 +17,6 @@ public interface TVShowDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(TVShowEntity... tvShowEntities);
 
-    @Query("DELETE FROM tv_show WHERE date_downloaded < :date")
-    void deleteAll(Date date);
+    @Query("DELETE FROM tv_show WHERE date_downloaded < Date(:date)")
+    void deleteAll(String date);
 }

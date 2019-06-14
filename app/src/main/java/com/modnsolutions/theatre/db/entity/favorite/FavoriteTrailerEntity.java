@@ -1,13 +1,17 @@
 package com.modnsolutions.theatre.db.entity.favorite;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favorite_trailer", foreignKeys = @ForeignKey(entity = FavoriteEntity.class,
-        parentColumns = "id", childColumns = "favoriteId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "favorite_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "favorite_id_index", value = "favorite_id"))
 public class FavoriteTrailerEntity {
+    @NonNull
     @PrimaryKey
     private String id;
 

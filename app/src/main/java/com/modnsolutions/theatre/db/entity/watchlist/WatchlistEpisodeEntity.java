@@ -3,12 +3,12 @@ package com.modnsolutions.theatre.db.entity.watchlist;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.modnsolutions.theatre.db.entity.favorite.FavoriteEntity;
-
-@Entity(tableName = "watchlist_episode", foreignKeys = @ForeignKey(entity = WatchlistEntity.class,
-        parentColumns = "id", childColumns = "seasonId", onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "watchlist_episode", foreignKeys = @ForeignKey(entity = WatchlistSeasonEntity.class,
+        parentColumns = "id", childColumns = "season_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "watchlist_season_id_index", value = "season_id"))
 public class WatchlistEpisodeEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;

@@ -8,8 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 import com.modnsolutions.theatre.db.repository.tvshow.TVShowRepository;
 
-import java.util.Date;
-
 public class TVShowViewModel extends AndroidViewModel {
     private TVShowRepository repository;
 
@@ -26,7 +24,7 @@ public class TVShowViewModel extends AndroidViewModel {
         repository.insertAll(tvShowEntities);
     }
 
-    public void deleteAll(Date date) {
+    public void deleteAll(String date) {
         repository.deleteAll(date);
     }
 }

@@ -8,8 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 import com.modnsolutions.theatre.db.repository.movie.MovieRepository;
 
-import java.util.Date;
-
 public class MovieViewModel extends AndroidViewModel {
     private MovieRepository movieRepository;
 
@@ -26,7 +24,7 @@ public class MovieViewModel extends AndroidViewModel {
         movieRepository.insertAll(movieEntities);
     }
 
-    public void deleteAll(Date date) {
+    public void deleteAll(String date) {
         movieRepository.deleteAll(date);
     }
 }

@@ -3,10 +3,12 @@ package com.modnsolutions.theatre.db.entity.favorite;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "favorite_episode", foreignKeys = @ForeignKey(entity = FavoriteEntity.class,
-        parentColumns = "id", childColumns = "seasonId", onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "favorite_episode", foreignKeys = @ForeignKey(entity = FavoriteSeasonEntity.class,
+        parentColumns = "id", childColumns = "season_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "favorite_season_id_index", value = "season_id"))
 public class FavoriteEpisodeEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;

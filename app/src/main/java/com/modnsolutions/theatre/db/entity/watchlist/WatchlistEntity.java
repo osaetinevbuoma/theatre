@@ -4,12 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteTypeEntity;
 
 @Entity(tableName = "watchlist", foreignKeys = @ForeignKey(entity = WatchlistEntity.class,
-        parentColumns = "id", childColumns = "typeId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "type_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "watchlist_type_id_index", value = "type_id"))
 public class WatchlistEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -12,7 +13,8 @@ import com.modnsolutions.theatre.db.converter.DateConverter;
 import java.util.Date;
 
 @Entity(tableName = "movie", foreignKeys = @ForeignKey(entity = MovieTypeEntity.class,
-        parentColumns = "id", childColumns = "typeId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "type_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "movie_type_id_index", value = "type_id"))
 public class MovieEntity {
     @PrimaryKey
     private int id;

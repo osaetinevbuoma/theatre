@@ -4,10 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favorite", foreignKeys = @ForeignKey(entity = FavoriteTypeEntity.class,
-        parentColumns = "id", childColumns = "typeId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "type_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "favorite_type_id_index", value = "type_id"))
 public class FavoriteEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;

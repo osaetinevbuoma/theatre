@@ -7,8 +7,6 @@ import com.modnsolutions.theatre.db.TheatreDatabase;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowDao;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 
-import java.util.Date;
-
 public class TVShowRepository {
     private TVShowDao tvShowDao;
 
@@ -25,7 +23,7 @@ public class TVShowRepository {
         new DBOperationAsyncTask(tvShowDao, 1).execute(tvShowEntities);
     }
 
-    public void deleteAll(Date date) {
+    public void deleteAll(String date) {
         new DBOperationAsyncTask(tvShowDao, 2).execute(date);
     }
 
@@ -52,7 +50,7 @@ public class TVShowRepository {
                     break;
 
                 case 2:
-                    dao.deleteAll((Date) objects[0]);
+                    dao.deleteAll((String) objects[0]);
                     break;
             }
             return null;

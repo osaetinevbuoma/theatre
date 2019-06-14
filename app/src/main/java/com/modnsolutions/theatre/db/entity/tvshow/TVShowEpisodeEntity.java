@@ -3,6 +3,7 @@ package com.modnsolutions.theatre.db.entity.tvshow;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -11,7 +12,8 @@ import com.modnsolutions.theatre.db.converter.DateConverter;
 import java.util.Date;
 
 @Entity(tableName = "tv_show_episode", foreignKeys = @ForeignKey(entity = TVShowSeasonEntity.class,
-        parentColumns = "id", childColumns = "seasonId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "season_id", onDelete = ForeignKey.CASCADE),
+        indices = @Index(name = "tv_show_season_id_index", value = "season_id"))
 public class TVShowEpisodeEntity {
     @PrimaryKey
     private int id;
