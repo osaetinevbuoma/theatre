@@ -17,9 +17,6 @@ public interface WatchlistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WatchlistEntity watchlistEntity);
 
-    @Update
-    void update(WatchlistEntity... watchlistEntities);
-
     @Delete
     void delete(WatchlistEntity watchlistEntity);
 

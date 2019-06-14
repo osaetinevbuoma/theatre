@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface WatchlistEpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(WatchlistEpisodeEntity watchlistEpisodeEntity);
+    void insertAll(WatchlistEpisodeEntity... watchlistEpisodeEntities);
 
     @Query("SELECT * FROM watchlist_episode WHERE season_id = :id")
     LiveData<List<WatchlistEpisodeEntity>> fetchWatchlistSesaonEpisodes(int id);
