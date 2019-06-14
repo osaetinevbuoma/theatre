@@ -19,5 +19,5 @@ public interface TVShowSeasonDao {
     void insertAll(TVShowSeasonEntity... tvShowSeasonEntities);
 
     @Query("SELECT * FROM tv_show_season WHERE tv_show_id = :id")
-    LiveData<List<TVShowSeasonEntity>> fetchAllSeaons(int id);
+    LiveData<List<TVShowSeasonEntity>> fetchAllSeasons(int id);
 }

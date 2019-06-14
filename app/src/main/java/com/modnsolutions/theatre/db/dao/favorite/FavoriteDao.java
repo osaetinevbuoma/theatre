@@ -17,9 +17,6 @@ public interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(FavoriteEntity favoriteEntity);
 
-    @Update
-    void update(FavoriteEntity... favoriteEntities);
-
     @Delete
     void delete(FavoriteEntity favoriteEntity);
 
@@ -27,5 +24,5 @@ public interface FavoriteDao {
     void deleteAll();
 
     @Query("SELECT * FROM favorite WHERE type_id = :id LIMIT :offset, 10")
-    LiveData<List<FavoriteEntity>> fetchFavorite(int id, int offset);
+    LiveData<List<FavoriteEntity>> fetchFavorites(int id, int offset);
 }

@@ -13,8 +13,8 @@ import java.util.List;
 @Dao
 public interface FavoriteEpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(FavoriteEpisodeEntity favoriteEpisodeEntity);
+    void insertAll(FavoriteEpisodeEntity... favoriteEpisodeEntities);
 
     @Query("SELECT * FROM favorite_episode WHERE season_id = :id")
-    LiveData<List<FavoriteEpisodeEntity>> fetchFavoriteSesaonEpisodes(int id);
+    LiveData<List<FavoriteEpisodeEntity>> fetchFavoriteSeasonEpisodes(int id);
 }
