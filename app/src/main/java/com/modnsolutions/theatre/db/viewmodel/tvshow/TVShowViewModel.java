@@ -27,4 +27,8 @@ public class TVShowViewModel extends AndroidViewModel {
     public void deleteAll(String date) {
         repository.deleteAll(date);
     }
+
+    public void update(TVShowEntity... tvShowEntities) {
+        repository.update(tvShowEntities);
+    }
 }

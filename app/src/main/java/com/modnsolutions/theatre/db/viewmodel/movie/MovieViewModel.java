@@ -24,6 +24,10 @@ public class MovieViewModel extends AndroidViewModel {
         movieRepository.insertAll(movieEntities);
     }
 
+    public void update(MovieEntity... movieEntities) {
+        movieRepository.update(movieEntities);
+    }
+
     public void deleteAll(String date) {
         movieRepository.deleteAll(date);
     }

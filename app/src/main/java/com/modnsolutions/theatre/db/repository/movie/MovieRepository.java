@@ -16,56 +16,52 @@ public class MovieRepository {
     }
 
     public void insert(MovieEntity movieEntity) {
-        new InsertAsyncTask(movieDao).execute(movieEntity);
+        new DBOperationAsyncTask(movieDao, 0).execute(movieEntity);
     }
 
     public void insertAll(MovieEntity... movieEntities) {
-        new InsertAllAsyncTask(movieDao).execute(movieEntities);
+        new DBOperationAsyncTask(movieDao, 1).execute(movieEntities);
+    }
+
+    public void update(MovieEntity... movieEntities) {
+        new DBOperationAsyncTask(movieDao, 2).execute(movieEntities);
     }
 
     public void deleteAll(String date) {
-        new DeleteAllAsyncTask(movieDao).execute(date);
+        new DBOperationAsyncTask(movieDao, 3).execute(date);
     }
 
 
-    private static class InsertAsyncTask extends AsyncTask<MovieEntity, Void, Void> {
-        private MovieDao dao;
 
-        InsertAsyncTask(MovieDao dao) {
+    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+        private MovieDao dao;
+        private int operation;
+
+        public DBOperationAsyncTask(MovieDao dao, int operation) {
             this.dao = dao;
+            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(MovieEntity... movieEntities) {
-            dao.insert(movieEntities[0]);
-            return null;
-        }
-    }
+        protected Void doInBackground(Object... objects) {
+            switch (operation) {
+                case 0:
+                    dao.insert((MovieEntity) objects[0]);
+                    break;
 
-    private static class InsertAllAsyncTask extends AsyncTask<MovieEntity, Void, Void> {
-        private MovieDao dao;
+                case 1:
+                    dao.insertAll((MovieEntity[]) objects);
+                    break;
 
-        InsertAllAsyncTask(MovieDao dao) {
-            this.dao = dao;
-        }
+                case 2:
+                    dao.update((MovieEntity[]) objects);
+                    break;
 
-        @Override
-        protected Void doInBackground(MovieEntity... movieEntities) {
-            dao.insertAll(movieEntities);
-            return null;
-        }
-    }
+                case 3:
+                    dao.deleteAll((String) objects[0]);
+                    break;
+            }
 
-    private static class DeleteAllAsyncTask extends AsyncTask<String, Void, Void> {
-        private MovieDao dao;
-
-        DeleteAllAsyncTask(MovieDao dao) {
-            this.dao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(String... dates) {
-            dao.deleteAll(dates[0]);
             return null;
         }
     }

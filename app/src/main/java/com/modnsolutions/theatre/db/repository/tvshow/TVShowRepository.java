@@ -27,6 +27,10 @@ public class TVShowRepository {
         new DBOperationAsyncTask(tvShowDao, 2).execute(date);
     }
 
+    public void update(TVShowEntity... tvShowEntities) {
+        new DBOperationAsyncTask(tvShowDao, 3).execute(tvShowEntities);
+    }
+
 
 
     private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
@@ -52,6 +56,9 @@ public class TVShowRepository {
                 case 2:
                     dao.deleteAll((String) objects[0]);
                     break;
+
+                case 3:
+                    dao.update((TVShowEntity[]) objects[0]);
             }
             return null;
         }

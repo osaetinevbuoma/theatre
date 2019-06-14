@@ -4,8 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
+
+import java.util.List;
 
 @Dao
 public interface MovieDao {
@@ -15,6 +18,17 @@ public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(MovieEntity... movieEntities);
 
+    @Update
+    void update(MovieEntity... movieEntities);
+
     @Query("DELETE FROM movie WHERE date_downloaded < Date(:date)")
     void deleteAll(String date);
+
+    // Used for testing
+    @Query("SELECT * FROM movie WHERE id = :id")
+    MovieEntity findMovieById(int id);
+
+    // Used for testing
+    @Query("SELECT * FROM movie")
+    List<MovieEntity> findAllMovies();
 }

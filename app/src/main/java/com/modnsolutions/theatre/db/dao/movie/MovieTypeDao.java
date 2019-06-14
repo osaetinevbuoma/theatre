@@ -24,4 +24,8 @@ public interface MovieTypeDao {
 
     @Query("SELECT * FROM movie_type")
     List<MovieTypeEntity> fetchAllMovieTypes();
+
+    // Used for testing.
+    @Query("SELECT * FROM movie_type WHERE id = :id")
+    MovieTypeEntity findMovieTypeById(int id);
 }
