@@ -72,9 +72,9 @@ public class TVShowEntity {
     }
 
     @Ignore
-    public TVShowEntity(int id, int typeId, String backdropPath, int episodeRuntime, String firstAirDate,
-                        String lastAirDate, String genre, String website, String name,
-                        String originalName, int numberOfEpisodes, int numberOfSeasons,
+    public TVShowEntity(int id, int typeId, String backdropPath, int episodeRuntime,
+                        String firstAirDate, String lastAirDate, String genre, String website,
+                        String name, String originalName, int numberOfEpisodes, int numberOfSeasons,
                         String overview, String posterPath, int rating, Date dateDownloaded) {
         this.id = id;
         this.typeId = typeId;

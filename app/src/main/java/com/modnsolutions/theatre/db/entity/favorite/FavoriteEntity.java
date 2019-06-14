@@ -58,8 +58,7 @@ public class FavoriteEntity {
     @ColumnInfo(name = "number_of_seasons")
     private int numberOfSeasons;
 
-    public FavoriteEntity(int id, int typeId, int remoteId) {
-        this.id = id;
+    public FavoriteEntity(int typeId, int remoteId) {
         this.typeId = typeId;
         this.remoteId = remoteId;
     }

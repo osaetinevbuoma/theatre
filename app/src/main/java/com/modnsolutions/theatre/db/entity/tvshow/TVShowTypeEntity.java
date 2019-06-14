@@ -10,8 +10,7 @@ public class TVShowTypeEntity {
 
     private String type;
 
-    public TVShowTypeEntity(int id, String type) {
-        this.id = id;
+    public TVShowTypeEntity(String type) {
         this.type = type;
     }
 

@@ -10,8 +10,7 @@ public class WatchlistTypeEntity {
 
     private String type;
 
-    public WatchlistTypeEntity(int id, String type) {
-        this.id = id;
+    public WatchlistTypeEntity(String type) {
         this.type = type;
     }
 

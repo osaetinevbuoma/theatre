@@ -10,8 +10,7 @@ public class FavoriteTypeEntity {
 
     private String type;
 
-    public FavoriteTypeEntity(int id, String type) {
-        this.id = id;
+    public FavoriteTypeEntity(String type) {
         this.type = type;
     }
 

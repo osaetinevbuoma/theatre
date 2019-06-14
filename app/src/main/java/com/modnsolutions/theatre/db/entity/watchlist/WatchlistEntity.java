@@ -60,8 +60,7 @@ public class WatchlistEntity {
     @ColumnInfo(name = "number_of_seasons")
     private int numberOfSeasons;
 
-    public WatchlistEntity(int id, int typeId, int remoteId) {
-        this.id = id;
+    public WatchlistEntity(int typeId, int remoteId) {
         this.typeId = typeId;
         this.remoteId = remoteId;
     }

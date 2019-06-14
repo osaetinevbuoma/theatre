@@ -65,10 +65,10 @@ public class MovieEntity {
     }
 
     @Ignore
-    public MovieEntity(int id, int typeId, String backdropPath, long budget, String genre, String website,
-                       String overview, String posterPath, String releaseDate, long revenue,
-                       int runtime, String title, String originalTitle, int rating, String director,
-                       String cast, Date dateDownloaded) {
+    public MovieEntity(int id, int typeId, String backdropPath, long budget, String genre,
+                       String website, String overview, String posterPath, String releaseDate,
+                       long revenue, int runtime, String title, String originalTitle, int rating,
+                       String director, String cast, Date dateDownloaded) {
         this.id = id;
         this.typeId = typeId;
         this.backdropPath = backdropPath;

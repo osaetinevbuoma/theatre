@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey;
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteEntity;
 
 @Entity(tableName = "watchlist_episode", foreignKeys = @ForeignKey(entity = WatchlistEntity.class,
-        parentColumns = "id", childColumns = "watchlistId", onDelete = ForeignKey.CASCADE))
+        parentColumns = "id", childColumns = "seasonId", onDelete = ForeignKey.CASCADE))
 public class WatchlistEpisodeEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "watchlist_id")
-    private int watchlistId;
+    @ColumnInfo(name = "season_id")
+    private int seasonId;
 
     @ColumnInfo(name = "remote_id")
     private int remoteId;
@@ -33,11 +33,11 @@ public class WatchlistEpisodeEntity {
 
     private int rating;
 
-    public WatchlistEpisodeEntity(int id, int watchlistId, int remoteId, String airDate,
+    public WatchlistEpisodeEntity(int id, int seasonId, int remoteId, String airDate,
                                   int episodeNumber, String name, String overview, String stillPath,
                                   int rating) {
         this.id = id;
-        this.watchlistId = watchlistId;
+        this.seasonId = seasonId;
         this.remoteId = remoteId;
         this.airDate = airDate;
         this.episodeNumber = episodeNumber;
@@ -55,12 +55,12 @@ public class WatchlistEpisodeEntity {
         this.id = id;
     }
 
-    public int getWatchlistId() {
-        return watchlistId;
+    public int getSeasonId() {
+        return seasonId;
     }
 
-    public void setWatchlistId(int watchlistId) {
-        this.watchlistId = watchlistId;
+    public void setSeasonId(int seasonId) {
+        this.seasonId = seasonId;
     }
 
     public int getRemoteId() {
