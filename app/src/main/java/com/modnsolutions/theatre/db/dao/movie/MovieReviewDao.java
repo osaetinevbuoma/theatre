@@ -20,4 +20,11 @@ public interface MovieReviewDao {
 
     @Query("SELECT * FROM movie_review WHERE movie_id = :movieId LIMIT :offset, 10")
     LiveData<List<MovieReviewEntity>> fetchMovieReviews(int movieId, int offset);
+
+
+    /**
+     * Used for testing
+     */
+    @Query("SELECT * FROM movie_review WHERE movie_id = :movieId")
+    List<MovieReviewEntity> fetchTestMovieReviews(int movieId);
 }

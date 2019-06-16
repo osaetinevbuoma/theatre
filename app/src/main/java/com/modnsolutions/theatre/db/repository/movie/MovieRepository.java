@@ -7,6 +7,8 @@ import com.modnsolutions.theatre.db.TheatreDatabase;
 import com.modnsolutions.theatre.db.dao.movie.MovieDao;
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 
+import java.util.Date;
+
 public class MovieRepository {
     private MovieDao movieDao;
 
@@ -16,52 +18,75 @@ public class MovieRepository {
     }
 
     public void insert(MovieEntity movieEntity) {
-        new DBOperationAsyncTask(movieDao, 0).execute(movieEntity);
+        new DBInsertOperationAsyncTask(movieDao).execute(movieEntity);
     }
 
     public void insertAll(MovieEntity... movieEntities) {
-        new DBOperationAsyncTask(movieDao, 1).execute(movieEntities);
+        new DBInsertAllOperationAsyncTask(movieDao).execute(movieEntities);
     }
 
     public void update(MovieEntity... movieEntities) {
-        new DBOperationAsyncTask(movieDao, 2).execute(movieEntities);
+        new DBUpdateOperationAsyncTask(movieDao).execute(movieEntities);
     }
 
-    public void deleteAll(String date) {
-        new DBOperationAsyncTask(movieDao, 3).execute(date);
+    public void deleteAll(Date date) {
+        new DBDeleteAllOperationAsyncTask(movieDao).execute(date);
     }
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<MovieEntity, Void, Void> {
         private MovieDao dao;
-        private int operation;
 
-        public DBOperationAsyncTask(MovieDao dao, int operation) {
+        public DBInsertOperationAsyncTask(MovieDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            switch (operation) {
-                case 0:
-                    dao.insert((MovieEntity) objects[0]);
-                    break;
+        protected Void doInBackground(MovieEntity... movieEntities) {
+            dao.insert(movieEntities[0]);
+            return null;
+        }
+    }
 
-                case 1:
-                    dao.insertAll((MovieEntity[]) objects);
-                    break;
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<MovieEntity, Void, Void> {
+        private MovieDao dao;
 
-                case 2:
-                    dao.update((MovieEntity[]) objects);
-                    break;
+        public DBInsertAllOperationAsyncTask(MovieDao dao) {
+            this.dao = dao;
+        }
 
-                case 3:
-                    dao.deleteAll((String) objects[0]);
-                    break;
-            }
+        @Override
+        protected Void doInBackground(MovieEntity... movieEntities) {
+            dao.insertAll(movieEntities);
+            return null;
+        }
+    }
 
+    private static class DBUpdateOperationAsyncTask extends AsyncTask<MovieEntity, Void, Void> {
+        private MovieDao dao;
+
+        public DBUpdateOperationAsyncTask(MovieDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(MovieEntity... movieEntities) {
+            dao.update(movieEntities);
+            return null;
+        }
+    }
+
+    private static class DBDeleteAllOperationAsyncTask extends AsyncTask<Date, Void, Void> {
+        private MovieDao dao;
+
+        public DBDeleteAllOperationAsyncTask(MovieDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Date... dates) {
+            dao.deleteAll(dates[0]);
             return null;
         }
     }

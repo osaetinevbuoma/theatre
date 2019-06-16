@@ -20,11 +20,11 @@ public class TVShowTrailerRepository {
     }
 
     public void insert(TVShowTrailerEntity tvShowTrailerEntity) {
-        new DBOperationAsyncTask(tvShowTrailerDao, 0).execute(tvShowTrailerEntity);
+        new DBInsertOperationAsyncTask(tvShowTrailerDao).execute(tvShowTrailerEntity);
     }
 
     public void insertAll(TVShowTrailerEntity... tvShowTrailerEntities) {
-        new DBOperationAsyncTask(tvShowTrailerDao, 1).execute(tvShowTrailerEntities);
+        new DBInsertAllOperationAsyncTask(tvShowTrailerDao).execute(tvShowTrailerEntities);
     }
 
     public LiveData<List<TVShowTrailerEntity>> fetchAllTVShowTrailers(int tvShowId) {
@@ -33,19 +33,30 @@ public class TVShowTrailerRepository {
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<TVShowTrailerEntity, Void, Void> {
         private TVShowTrailerDao dao;
-        private int operation;
 
-        public DBOperationAsyncTask(TVShowTrailerDao dao, int operation) {
+        public DBInsertOperationAsyncTask(TVShowTrailerDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            if (operation == 0) dao.insert((TVShowTrailerEntity) objects[0]);
-            else if (operation == 1) dao.insertAll((TVShowTrailerEntity[]) objects);
+        protected Void doInBackground(TVShowTrailerEntity... tvShowTrailerEntities) {
+            dao.insert(tvShowTrailerEntities[0]);
+            return null;
+        }
+    }
+
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<TVShowTrailerEntity, Void, Void> {
+        private TVShowTrailerDao dao;
+
+        public DBInsertAllOperationAsyncTask(TVShowTrailerDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowTrailerEntity... tvShowTrailerEntities) {
+            dao.insertAll(tvShowTrailerEntities);
             return null;
         }
     }

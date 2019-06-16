@@ -20,11 +20,11 @@ public class TVShowSeasonRepository {
     }
 
     public void insert(TVShowSeasonEntity tvShowSeasonEntity) {
-        new DBOperationAsyncTask(tvShowSeasonDao, 0).execute(tvShowSeasonEntity);
+        new DBInsertOperationAsyncTask(tvShowSeasonDao).execute(tvShowSeasonEntity);
     }
 
     public void insertAll(TVShowSeasonEntity... tvShowSeasonEntities) {
-        new DBOperationAsyncTask(tvShowSeasonDao, 1).execute(tvShowSeasonEntities);
+        new DBInsertAllOperationAsyncTask(tvShowSeasonDao).execute(tvShowSeasonEntities);
     }
 
     public LiveData<List<TVShowSeasonEntity>> fetchAllSeasons(int id) {
@@ -33,19 +33,30 @@ public class TVShowSeasonRepository {
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<TVShowSeasonEntity, Void, Void> {
         private TVShowSeasonDao dao;
-        private int operation;
 
-        public DBOperationAsyncTask(TVShowSeasonDao dao, int operation) {
+        public DBInsertOperationAsyncTask(TVShowSeasonDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            if (operation == 0) dao.insert((TVShowSeasonEntity) objects[0]);
-            else if (operation == 1) dao.insertAll((TVShowSeasonEntity[]) objects);
+        protected Void doInBackground(TVShowSeasonEntity... tvShowSeasonEntities) {
+            dao.insert(tvShowSeasonEntities[0]);
+            return null;
+        }
+    }
+
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<TVShowSeasonEntity, Void, Void> {
+        private TVShowSeasonDao dao;
+
+        public DBInsertAllOperationAsyncTask(TVShowSeasonDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowSeasonEntity... tvShowSeasonEntities) {
+            dao.insertAll(tvShowSeasonEntities);
             return null;
         }
     }

@@ -8,6 +8,9 @@ import androidx.room.Update;
 
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 
+import java.util.Date;
+import java.util.List;
+
 @Dao
 public interface TVShowDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,6 +22,15 @@ public interface TVShowDao {
     @Update
     void update(TVShowEntity... tvShowEntities);
 
-    @Query("DELETE FROM tv_show WHERE date_downloaded < Date(:date)")
-    void deleteAll(String date);
+    @Query("DELETE FROM tv_show WHERE date_downloaded < :date")
+    void deleteAll(Date date);
+
+    /**
+     * For testing
+     */
+    @Query("SELECT * FROM tv_show WHERE id = :id")
+    TVShowEntity findTVShowById(int id);
+
+    @Query("SELECT * FROM tv_show")
+    List<TVShowEntity> findAllTVShows();
 }

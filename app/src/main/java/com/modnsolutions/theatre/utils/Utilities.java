@@ -193,4 +193,18 @@ public class Utilities {
         return numberFormat.format(number);
     }
 
+    /**
+     * Return expiry date to re-download movies and tv shows which is 24 hours
+     * from download date.
+     *
+     * @return
+     */
+    public static Date expiryDate() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR, 24);
+        return calendar.getTime();
+    }
+
 }

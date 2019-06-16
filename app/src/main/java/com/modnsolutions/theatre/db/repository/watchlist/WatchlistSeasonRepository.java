@@ -28,7 +28,7 @@ public class WatchlistSeasonRepository {
     }
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBOperationAsyncTask extends AsyncTask<WatchlistSeasonEntity, Void, Void> {
         private WatchlistSeasonDao dao;
 
         public DBOperationAsyncTask(WatchlistSeasonDao dao) {
@@ -36,8 +36,8 @@ public class WatchlistSeasonRepository {
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            dao.insertAll((WatchlistSeasonEntity[]) objects);
+        protected Void doInBackground(WatchlistSeasonEntity... watchlistSeasonEntities) {
+            dao.insertAll(watchlistSeasonEntities);
             return null;
         }
     }

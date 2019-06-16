@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieTypeHasMovieEntity;
@@ -16,7 +17,17 @@ public interface MovieTypeHasMovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MovieTypeHasMovieEntity movieTypeHasMovieEntity);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM movie INNER JOIN movie_type ON movie.type_id = " +
             "movie_type.id WHERE movie_type.id = :id LIMIT :offset, 22")
     LiveData<List<MovieEntity>> fetchMoviesOfType(int id, int offset);
+
+
+    /**
+     * Used for testing
+     */
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM movie INNER JOIN movie_type ON movie.type_id = " +
+            "movie_type.id WHERE movie_type.id = :id LIMIT :offset, 22")
+    List<MovieEntity> fetchTestMoviesOfType(int id, int offset);
 }

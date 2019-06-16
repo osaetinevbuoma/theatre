@@ -28,7 +28,6 @@ public class MovieReviewEntity {
     private String content;
 
     @ColumnInfo(name = "date_downloaded")
-    @TypeConverters({DateConverter.class})
     private Date dateDownloaded;
 
     public MovieReviewEntity(String id, int movieId, String author, String content,

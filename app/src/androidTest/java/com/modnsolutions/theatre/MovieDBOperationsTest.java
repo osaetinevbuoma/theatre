@@ -11,12 +11,14 @@ import com.modnsolutions.theatre.db.dao.movie.MovieTrailerDao;
 import com.modnsolutions.theatre.db.dao.movie.MovieTypeDao;
 import com.modnsolutions.theatre.db.dao.movie.MovieTypeHasMovieDao;
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
+import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
+import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieTypeEntity;
+import com.modnsolutions.theatre.db.entity.movie.MovieTypeHasMovieEntity;
 import com.modnsolutions.theatre.utils.TestUtils;
+import com.modnsolutions.theatre.utils.Utilities;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +33,6 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class MovieDBOperationsTest {
-    private MovieTypeDao movieTypeDao;
     private MovieDao movieDao;
     private MovieReviewDao movieReviewDao;
     private MovieTrailerDao movieTrailerDao;
@@ -43,7 +44,7 @@ public class MovieDBOperationsTest {
     public void createDB() {
         database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),
                 TheatreDatabase.class).build();
-        movieTypeDao = database.movieTypeDao();
+        MovieTypeDao movieTypeDao = database.movieTypeDao();
         movieDao = database.movieDao();
         movieReviewDao = database.movieReviewDao();
         movieTrailerDao = database.movieTrailerDao();
@@ -108,9 +109,62 @@ public class MovieDBOperationsTest {
     }
 
     @Test
+    public void testJoinBetweenMovieTypeAndMovie() {
+        MovieEntity movieEntity = TestUtils.createMovie(movieTypeEntity.getId());
+        movieDao.insert(movieEntity);
+        MovieTypeHasMovieEntity movieTypeHasMovieEntity = new MovieTypeHasMovieEntity(
+                movieTypeEntity.getId(), movieEntity.getId());
+        movieTypeHasMovieDao.insert(movieTypeHasMovieEntity);
+
+        List<MovieEntity> joins = movieTypeHasMovieDao.fetchTestMoviesOfType(movieTypeEntity.getId(),
+                0);
+        assertThat(movieEntity.getTitle(), is(equalTo(joins.get(0).getTitle())));
+    }
+
+    @Test
+    public void testMovieTrailerDao() {
+        MovieEntity movieEntity = TestUtils.createMovie(movieTypeEntity.getId());
+        movieDao.insert(movieEntity);
+
+        MovieTrailerEntity movieTrailerEntity = TestUtils.createMovieTrailer(movieEntity.getId());
+        movieTrailerDao.insert(movieTrailerEntity);
+        List<MovieTrailerEntity> retrievedTrailer = movieTrailerDao.fetchTestMovieTrailers(
+                movieEntity.getId());
+        assertThat(retrievedTrailer.size(), is(equalTo(1)));
+        assertThat(movieTrailerEntity.getName(), is(equalTo(retrievedTrailer.get(0).getName())));
+
+        MovieTrailerEntity[] movieTrailerEntities = TestUtils.createMovieTrailers(movieEntity.
+                getId());
+        movieTrailerDao.insertAll(movieTrailerEntities);
+        List<MovieTrailerEntity> retrievedTrailers = movieTrailerDao.fetchTestMovieTrailers(
+                movieEntity.getId());
+        assertThat(retrievedTrailers.size(), is(equalTo(retrievedTrailer.size() +
+                movieTrailerEntities.length)));
+    }
+
+    @Test
+    public void testMovieReviewDao() {
+        MovieEntity movieEntity = TestUtils.createMovie(movieTypeEntity.getId());
+        movieDao.insert(movieEntity);
+
+        MovieReviewEntity movieReviewEntity = TestUtils.createMovieReview(movieEntity.getId());
+        movieReviewDao.insert(movieReviewEntity);
+        List<MovieReviewEntity> retrievedReview = movieReviewDao.fetchTestMovieReviews(movieEntity
+                .getId());
+        assertThat(retrievedReview.size(), is(equalTo(1)));
+        assertThat(movieReviewEntity.getAuthor(), is(equalTo(retrievedReview.get(0).getAuthor())));
+
+        MovieReviewEntity[] movieReviewEntities = TestUtils.createMovieReviews(movieEntity.getId());
+        movieReviewDao.insertAll(movieReviewEntities);
+        List<MovieReviewEntity> retrievedReviews = movieReviewDao.fetchTestMovieReviews(movieEntity
+                .getId());
+        assertThat(retrievedReviews.size(), is(equalTo(retrievedReview.size() +
+                movieReviewEntities.length)));
+    }
+
+    @Test
     public void testDeleteAllMovies() {
-        Date date = new Date();
-        movieDao.deleteAll(date.toString());
+        movieDao.deleteAll(Utilities.expiryDate());
         assertThat(movieDao.findAllMovies().size(), is(equalTo(0)));
     }
 }

@@ -28,7 +28,7 @@ public class FavoriteEpisodeRepository {
     }
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBOperationAsyncTask extends AsyncTask<FavoriteEpisodeEntity, Void, Void> {
         private FavoriteEpisodeDao dao;
 
         public DBOperationAsyncTask(FavoriteEpisodeDao dao) {
@@ -36,8 +36,8 @@ public class FavoriteEpisodeRepository {
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            dao.insertAll((FavoriteEpisodeEntity[]) objects);
+        protected Void doInBackground(FavoriteEpisodeEntity... favoriteEpisodeEntities) {
+            dao.insertAll(favoriteEpisodeEntities);
             return null;
         }
     }

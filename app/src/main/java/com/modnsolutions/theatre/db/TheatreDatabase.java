@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.modnsolutions.theatre.db.converter.DateConverter;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteDao;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteEpisodeDao;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteSeasonDao;
@@ -62,6 +64,7 @@ import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTypeEntity;
         FavoriteTypeEntity.class, WatchlistEpisodeEntity.class, WatchlistEntity.class,
         WatchlistSeasonEntity.class, WatchlistTrailerEntity.class, WatchlistTypeEntity.class},
         version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class})
 public abstract class TheatreDatabase extends RoomDatabase {
     private static TheatreDatabase INSTANCE;
 

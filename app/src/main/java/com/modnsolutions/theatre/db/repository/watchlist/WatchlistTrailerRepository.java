@@ -28,7 +28,7 @@ public class WatchlistTrailerRepository {
     }
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBOperationAsyncTask extends AsyncTask<WatchlistTrailerEntity, Void, Void> {
         private WatchlistTrailerDao dao;
 
         public DBOperationAsyncTask(WatchlistTrailerDao dao) {
@@ -36,8 +36,8 @@ public class WatchlistTrailerRepository {
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            dao.insertAll((WatchlistTrailerEntity[]) objects);
+        protected Void doInBackground(WatchlistTrailerEntity... watchlistTrailerEntities) {
+            dao.insertAll(watchlistTrailerEntities);
             return null;
         }
     }

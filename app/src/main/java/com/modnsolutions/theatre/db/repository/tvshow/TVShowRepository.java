@@ -7,6 +7,8 @@ import com.modnsolutions.theatre.db.TheatreDatabase;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowDao;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 
+import java.util.Date;
+
 public class TVShowRepository {
     private TVShowDao tvShowDao;
 
@@ -16,50 +18,75 @@ public class TVShowRepository {
     }
 
     public void insert(TVShowEntity tvShowEntity) {
-        new DBOperationAsyncTask(tvShowDao, 0).execute(tvShowEntity);
+        new DBInsertOperationAsyncTask(tvShowDao).execute(tvShowEntity);
     }
 
     public void insertAll(TVShowEntity... tvShowEntities) {
-        new DBOperationAsyncTask(tvShowDao, 1).execute(tvShowEntities);
+        new DBInsertAllOperationAsyncTask(tvShowDao).execute(tvShowEntities);
     }
 
-    public void deleteAll(String date) {
-        new DBOperationAsyncTask(tvShowDao, 2).execute(date);
+    public void deleteAll(Date date) {
+        new DBDeleteAllOperationAsyncTask(tvShowDao).execute(date);
     }
 
     public void update(TVShowEntity... tvShowEntities) {
-        new DBOperationAsyncTask(tvShowDao, 3).execute(tvShowEntities);
+        new DBUpdateOperationAsyncTask(tvShowDao).execute(tvShowEntities);
     }
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<TVShowEntity, Void, Void> {
         private TVShowDao dao;
-        private int operation;
 
-        DBOperationAsyncTask(TVShowDao dao, int operation) {
+        DBInsertOperationAsyncTask(TVShowDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            switch (operation) {
-                case 0:
-                    dao.insert((TVShowEntity) objects[0]);
-                    break;
+        protected Void doInBackground(TVShowEntity... tvShowEntities) {
+            dao.insert(tvShowEntities[0]);
+            return null;
+        }
+    }
 
-                case 1:
-                    dao.insertAll((TVShowEntity[]) objects);
-                    break;
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<TVShowEntity, Void, Void> {
+        private TVShowDao dao;
 
-                case 2:
-                    dao.deleteAll((String) objects[0]);
-                    break;
+        DBInsertAllOperationAsyncTask(TVShowDao dao) {
+            this.dao = dao;
+        }
 
-                case 3:
-                    dao.update((TVShowEntity[]) objects[0]);
-            }
+        @Override
+        protected Void doInBackground(TVShowEntity... tvShowEntities) {
+            dao.insertAll(tvShowEntities);
+            return null;
+        }
+    }
+
+    private static class DBDeleteAllOperationAsyncTask extends AsyncTask<Date, Void, Void> {
+        private TVShowDao dao;
+
+        DBDeleteAllOperationAsyncTask(TVShowDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Date... dates) {
+            dao.deleteAll(dates[0]);
+            return null;
+        }
+    }
+
+    private static class DBUpdateOperationAsyncTask extends AsyncTask<TVShowEntity, Void, Void> {
+        private TVShowDao dao;
+
+        DBUpdateOperationAsyncTask(TVShowDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowEntity... tvShowEntities) {
+            dao.update(tvShowEntities);
             return null;
         }
     }

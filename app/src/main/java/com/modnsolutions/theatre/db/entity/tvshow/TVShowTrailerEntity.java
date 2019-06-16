@@ -27,7 +27,6 @@ public class TVShowTrailerEntity {
     private String key;
 
     @ColumnInfo(name = "date_downloaded")
-    @TypeConverters({DateConverter.class})
     private Date dateDownloaded;
 
     public TVShowTrailerEntity(String id, int tvShowId, String name, String key,

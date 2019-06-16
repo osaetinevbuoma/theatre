@@ -20,4 +20,10 @@ public interface TVShowReviewDao {
 
     @Query("SELECT * FROM tv_show_review WHERE tv_show_id = :tvShowId LIMIT :offset, 10")
     LiveData<List<TVShowReviewEntity>> fetchTVShowReviews(int tvShowId, int offset);
+
+    /**
+     * For testing
+     */
+    @Query("SELECT * FROM tv_show_review WHERE tv_show_id = :tvShowId")
+    List<TVShowReviewEntity> findAllTVShowReviews(int tvShowId);
 }

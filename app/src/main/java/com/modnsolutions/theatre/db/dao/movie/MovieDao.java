@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -21,14 +22,14 @@ public interface MovieDao {
     @Update
     void update(MovieEntity... movieEntities);
 
-    @Query("DELETE FROM movie WHERE date_downloaded < Date(:date)")
-    void deleteAll(String date);
+    @Query("DELETE FROM movie WHERE date_downloaded < :date")
+    void deleteAll(Date date);
 
-    // Used for testing
+    /**
+     * Used for testing
+     */
     @Query("SELECT * FROM movie WHERE id = :id")
     MovieEntity findMovieById(int id);
-
-    // Used for testing
     @Query("SELECT * FROM movie")
     List<MovieEntity> findAllMovies();
 }

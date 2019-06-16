@@ -20,11 +20,11 @@ public class TVShowReviewRepository {
     }
 
     public void insert(TVShowReviewEntity tvShowReviewEntity) {
-        new DBOperationAsyncTask(tvShowReviewDao, 0).execute(tvShowReviewEntity);
+        new DBInsertOperationAsyncTask(tvShowReviewDao).execute(tvShowReviewEntity);
     }
 
     public void insertAll(TVShowReviewEntity... tvShowReviewEntities) {
-        new DBOperationAsyncTask(tvShowReviewDao, 1).execute(tvShowReviewEntities);
+        new DBInsertAllOperationAsyncTask(tvShowReviewDao).execute(tvShowReviewEntities);
     }
 
     public LiveData<List<TVShowReviewEntity>> fetchTVShowReviews(int tvShowId, int offset) {
@@ -33,19 +33,30 @@ public class TVShowReviewRepository {
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<TVShowReviewEntity, Void, Void> {
         private TVShowReviewDao dao;
-        private int operation;
 
-        public DBOperationAsyncTask(TVShowReviewDao dao, int operation) {
+        public DBInsertOperationAsyncTask(TVShowReviewDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            if (operation == 0) dao.insert((TVShowReviewEntity) objects[0]);
-            else if (operation == 1) dao.insertAll((TVShowReviewEntity[]) objects);
+        protected Void doInBackground(TVShowReviewEntity... tvShowReviewEntities) {
+            dao.insert(tvShowReviewEntities[0]);
+            return null;
+        }
+    }
+
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<TVShowReviewEntity, Void, Void> {
+        private TVShowReviewDao dao;
+
+        public DBInsertAllOperationAsyncTask(TVShowReviewDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowReviewEntity... tvShowReviewEntities) {
+            dao.insertAll(tvShowReviewEntities);
             return null;
         }
     }

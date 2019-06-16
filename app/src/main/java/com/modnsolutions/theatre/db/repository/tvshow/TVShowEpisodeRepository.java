@@ -20,11 +20,11 @@ public class TVShowEpisodeRepository {
     }
 
     public void insert(TVShowEpisodeEntity tvShowEpisodeEntity) {
-        new DBOperationAsyncTask(tvShowEpisodeDao, 0).execute(tvShowEpisodeEntity);
+        new DBInsertOperationAsyncTask(tvShowEpisodeDao).execute(tvShowEpisodeEntity);
     }
 
     public void insertAll(TVShowEpisodeEntity... tvShowEpisodeEntities) {
-        new DBOperationAsyncTask(tvShowEpisodeDao, 1).execute(tvShowEpisodeEntities);
+        new DBInsertAllOperationAsyncTask(tvShowEpisodeDao).execute(tvShowEpisodeEntities);
     }
 
     public LiveData<List<TVShowEpisodeEntity>> fetchAllSeasonEpisodes(int id) {
@@ -33,19 +33,30 @@ public class TVShowEpisodeRepository {
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class DBInsertOperationAsyncTask extends AsyncTask<TVShowEpisodeEntity, Void, Void> {
         private TVShowEpisodeDao dao;
-        private int operation;
 
-        public DBOperationAsyncTask(TVShowEpisodeDao dao, int operation) {
+        public DBInsertOperationAsyncTask(TVShowEpisodeDao dao) {
             this.dao = dao;
-            this.operation = operation;
         }
 
         @Override
-        protected Void doInBackground(Object... objects) {
-            if (operation == 0) dao.insert((TVShowEpisodeEntity) objects[0]);
-            else if (operation == 1) dao.insertAll((TVShowEpisodeEntity[]) objects);
+        protected Void doInBackground(TVShowEpisodeEntity... tvShowEpisodeEntities) {
+            dao.insert(tvShowEpisodeEntities[0]);
+            return null;
+        }
+    }
+
+    private static class DBInsertAllOperationAsyncTask extends AsyncTask<TVShowEpisodeEntity, Void, Void> {
+        private TVShowEpisodeDao dao;
+
+        public DBInsertAllOperationAsyncTask(TVShowEpisodeDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowEpisodeEntity... tvShowEpisodeEntities) {
+            dao.insertAll(tvShowEpisodeEntities);
             return null;
         }
     }

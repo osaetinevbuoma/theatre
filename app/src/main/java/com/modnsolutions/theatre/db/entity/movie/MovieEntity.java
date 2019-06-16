@@ -48,7 +48,6 @@ public class MovieEntity {
     private String cast;
 
     @ColumnInfo(name = "date_downloaded")
-    @TypeConverters({ DateConverter.class })
     private Date dateDownloaded;
 
     public MovieEntity(int id, int typeId, String backdropPath, String overview, String posterPath,

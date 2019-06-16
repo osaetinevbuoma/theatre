@@ -20,4 +20,10 @@ public interface TVShowEpisodeDao {
 
     @Query("SELECT * FROM tv_show_episode WHERE season_id = :id")
     LiveData<List<TVShowEpisodeEntity>> fetchAllSeasonEpisodes(int id);
+
+    /**
+     * For testing
+     */
+    @Query("SELECT * FROM tv_show_episode WHERE season_id = :id")
+    List<TVShowEpisodeEntity> findAllSeasonEpisodes(int id);
 }

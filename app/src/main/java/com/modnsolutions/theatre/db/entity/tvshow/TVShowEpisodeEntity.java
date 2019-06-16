@@ -36,7 +36,6 @@ public class TVShowEpisodeEntity {
     private int rating;
 
     @ColumnInfo(name = "date_downloaded")
-    @TypeConverters({DateConverter.class})
     private Date dateDownloaded;
 
     public TVShowEpisodeEntity(int id, int seasonId, String airDate, int episodeNumber, String name,

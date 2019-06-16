@@ -24,4 +24,10 @@ public interface TVShowTypeDao {
 
     @Query("SELECT * FROM tv_show_type")
     List<TVShowTypeEntity> fetchAllTVShowTypes();
+
+    /**
+     * Used for testing
+     */
+    @Query("SELECT * FROM tv_show_type WHERE id = :id")
+    TVShowTypeEntity findTVShowTypeById(int id);
 }

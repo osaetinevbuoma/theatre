@@ -20,4 +20,10 @@ public interface TVShowTrailerDao {
 
     @Query("SELECT * FROM tv_show_trailer WHERE tv_show_id = :tvShowId")
     LiveData<List<TVShowTrailerEntity>> fetchAllTVShowTrailers(int tvShowId);
+
+    /**
+     * For testing
+     */
+    @Query("SELECT * FROM tv_show_trailer WHERE tv_show_id = :tvShowId")
+    List<TVShowTrailerEntity> findAllTVShowTrailers(int tvShowId);
 }

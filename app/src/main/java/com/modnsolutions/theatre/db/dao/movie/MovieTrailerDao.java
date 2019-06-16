@@ -20,4 +20,11 @@ public interface MovieTrailerDao {
 
     @Query("SELECT * FROM movie_trailer WHERE movie_id = :movieId")
     LiveData<List<MovieTrailerEntity>> fetchAllMovieTrailers(int movieId);
+
+
+    /**
+     * Used for testing
+     */
+    @Query("SELECT * FROM movie_trailer WHERE movie_id = :movieId")
+    List<MovieTrailerEntity> fetchTestMovieTrailers(int movieId);
 }
