@@ -18,12 +18,21 @@ public interface TVShowSeasonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(TVShowSeasonEntity... tvShowSeasonEntities);
 
-    @Query("SELECT * FROM tv_show_season WHERE tv_show_id = :id")
-    LiveData<List<TVShowSeasonEntity>> fetchAllSeasons(int id);
+    @Query("SELECT * FROM tv_show_season WHERE popular_id = :id")
+    LiveData<List<TVShowSeasonEntity>> fetchAllPopularSeasons(int id);
+
+    @Query("SELECT * FROM tv_show_season WHERE top_rated_id = :id")
+    LiveData<List<TVShowSeasonEntity>> fetchAllTopRatedSeasons(int id);
+
+    @Query("SELECT * FROM tv_show_season WHERE airing_today_id = :id")
+    LiveData<List<TVShowSeasonEntity>> fetchAllAiringTodaySeasons(int id);
+
+    @Query("SELECT * FROM tv_show_season WHERE on_the_air_id = :id")
+    LiveData<List<TVShowSeasonEntity>> fetchAllOnTheAirSeasons(int id);
 
     /**
      * For testing
      */
-    @Query("SELECT * FROM tv_show_season WHERE tv_show_id = :id")
+    @Query("SELECT * FROM tv_show_season WHERE popular_id = :id")
     List<TVShowSeasonEntity> findAllTVShowSeasons(int id);
 }

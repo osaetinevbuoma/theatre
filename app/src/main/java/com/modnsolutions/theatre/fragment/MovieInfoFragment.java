@@ -4,31 +4,20 @@ package com.modnsolutions.theatre.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.adapter.MovieRecommendedAdapter;
 import com.modnsolutions.theatre.adapter.MovieSimilarAdapter;
 import com.modnsolutions.theatre.adapter.MovieVideoAdapter;
 import com.modnsolutions.theatre.asynctask.FetchMovieDetailsAsyncTask;
 import com.modnsolutions.theatre.utils.Utilities;
-
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.

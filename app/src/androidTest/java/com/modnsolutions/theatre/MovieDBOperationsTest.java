@@ -5,16 +5,10 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
-import com.modnsolutions.theatre.db.dao.movie.MovieDao;
 import com.modnsolutions.theatre.db.dao.movie.MovieReviewDao;
 import com.modnsolutions.theatre.db.dao.movie.MovieTrailerDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTypeDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTypeHasMovieDao;
-import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTypeEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTypeHasMovieEntity;
 import com.modnsolutions.theatre.utils.TestUtils;
 import com.modnsolutions.theatre.utils.Utilities;
 
@@ -23,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 

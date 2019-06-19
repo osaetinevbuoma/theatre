@@ -6,21 +6,14 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.modnsolutions.theatre.db.converter.DateConverter;
 
 import java.util.Date;
+import java.util.Objects;
 
-@Entity(tableName = "tv_show", foreignKeys = @ForeignKey(entity = TVShowTypeEntity.class,
-        parentColumns = "id", childColumns = "type_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "tv_show_type_id_index", value = "type_id"))
-public class TVShowEntity {
+@Entity(tableName = "tv_show_popular")
+public class TVShowPopularEntity {
     @PrimaryKey
     private int id;
-
-    @ColumnInfo(name = "type_id")
-    private int typeId;
 
     @ColumnInfo(name = "backdrop_path")
     private String backdropPath;
@@ -57,11 +50,13 @@ public class TVShowEntity {
     @ColumnInfo(name = "date_downloaded")
     private Date dateDownloaded;
 
-    public TVShowEntity(int id, int typeId, String backdropPath, String firstAirDate, String name,
-                        String originalName, String overview, String posterPath, int rating,
-                        Date dateDownloaded) {
+    @ColumnInfo(name = "expiry_date")
+    private Date expiryDate;
+
+    public TVShowPopularEntity(int id, String backdropPath, String firstAirDate, String name,
+                               String originalName, String overview, String posterPath, int rating,
+                               Date dateDownloaded, Date expiryDate) {
         this.id = id;
-        this.typeId = typeId;
         this.backdropPath = backdropPath;
         this.firstAirDate = firstAirDate;
         this.name = name;
@@ -70,15 +65,16 @@ public class TVShowEntity {
         this.posterPath = posterPath;
         this.rating = rating;
         this.dateDownloaded = dateDownloaded;
+        this.expiryDate = expiryDate;
     }
 
     @Ignore
-    public TVShowEntity(int id, int typeId, String backdropPath, int episodeRuntime,
-                        String firstAirDate, String lastAirDate, String genre, String website,
-                        String name, String originalName, int numberOfEpisodes, int numberOfSeasons,
-                        String overview, String posterPath, int rating, Date dateDownloaded) {
+    public TVShowPopularEntity(int id, String backdropPath, int episodeRuntime,
+                               String firstAirDate, String lastAirDate, String genre, String website,
+                               String name, String originalName, int numberOfEpisodes, int numberOfSeasons,
+                               String overview, String posterPath, int rating, Date dateDownloaded,
+                               Date expiryDate) {
         this.id = id;
-        this.typeId = typeId;
         this.backdropPath = backdropPath;
         this.episodeRuntime = episodeRuntime;
         this.firstAirDate = firstAirDate;
@@ -93,6 +89,7 @@ public class TVShowEntity {
         this.posterPath = posterPath;
         this.rating = rating;
         this.dateDownloaded = dateDownloaded;
+        this.expiryDate = expiryDate;
     }
 
     public int getId() {
@@ -101,14 +98,6 @@ public class TVShowEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
     }
 
     public String getBackdropPath() {
@@ -221,5 +210,36 @@ public class TVShowEntity {
 
     public void setDateDownloaded(Date dateDownloaded) {
         this.dateDownloaded = dateDownloaded;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TVShowPopularEntity that = (TVShowPopularEntity) o;
+        return id == that.id &&
+                /*episodeRuntime == that.episodeRuntime &&
+                numberOfEpisodes == that.numberOfEpisodes &&
+                numberOfSeasons == that.numberOfSeasons &&*/
+                rating == that.rating &&
+                Objects.equals(backdropPath, that.backdropPath) &&
+                Objects.equals(firstAirDate, that.firstAirDate) &&
+                /*Objects.equals(lastAirDate, that.lastAirDate) &&
+                Objects.equals(genre, that.genre) &&
+                Objects.equals(website, that.website) &&*/
+                Objects.equals(name, that.name) &&
+                Objects.equals(originalName, that.originalName) &&
+                Objects.equals(overview, that.overview) &&
+                Objects.equals(posterPath, that.posterPath) &&
+                Objects.equals(dateDownloaded, that.dateDownloaded) &&
+                Objects.equals(expiryDate, that.expiryDate);
     }
 }

@@ -27,8 +27,20 @@ public class TVShowReviewRepository {
         new DBInsertAllOperationAsyncTask(tvShowReviewDao).execute(tvShowReviewEntities);
     }
 
-    public LiveData<List<TVShowReviewEntity>> fetchTVShowReviews(int tvShowId, int offset) {
-        return tvShowReviewDao.fetchTVShowReviews(tvShowId, offset);
+    public LiveData<List<TVShowReviewEntity>> fetchPopularTVShowReviews(int tvShowId, int offset) {
+        return tvShowReviewDao.fetchPopularTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchTopRatedTVShowReviews(int tvShowId, int offset) {
+        return tvShowReviewDao.fetchTopRatedTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchAiringTodayTVShowReviews(int tvShowId, int offset) {
+        return tvShowReviewDao.fetchAiringTodayTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchOnTheAirTVShowReviews(int tvShowId, int offset) {
+        return tvShowReviewDao.fetchOnTheAirTVShowReviews(tvShowId, offset);
     }
 
 

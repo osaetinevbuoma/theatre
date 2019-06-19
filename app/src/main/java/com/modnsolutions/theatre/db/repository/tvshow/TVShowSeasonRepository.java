@@ -27,8 +27,20 @@ public class TVShowSeasonRepository {
         new DBInsertAllOperationAsyncTask(tvShowSeasonDao).execute(tvShowSeasonEntities);
     }
 
-    public LiveData<List<TVShowSeasonEntity>> fetchAllSeasons(int id) {
-        return tvShowSeasonDao.fetchAllSeasons(id);
+    public LiveData<List<TVShowSeasonEntity>> fetchAllPopularSeasons(int id) {
+        return tvShowSeasonDao.fetchAllPopularSeasons(id);
+    }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllTopRatedSeasons(int id) {
+        return tvShowSeasonDao.fetchAllTopRatedSeasons(id);
+    }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllAiringTodaySeasons(int id) {
+        return tvShowSeasonDao.fetchAllAiringTodaySeasons(id);
+    }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllOnTheAirSeasons(int id) {
+        return tvShowSeasonDao.fetchAllOnTheAirSeasons(id);
     }
 
 

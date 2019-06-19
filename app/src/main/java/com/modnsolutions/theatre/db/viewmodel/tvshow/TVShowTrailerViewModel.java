@@ -27,7 +27,19 @@ public class TVShowTrailerViewModel extends AndroidViewModel {
         repository.insertAll(tvShowTrailerEntities);
     }
 
-    public LiveData<List<TVShowTrailerEntity>> fetchAllTVShowTrailers(int tvShowId) {
-        return repository.fetchAllTVShowTrailers(tvShowId);
+    public LiveData<List<TVShowTrailerEntity>> fetchAllPopularTVShowTrailers(int tvShowId) {
+        return repository.fetchAllPopularTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllTopRatedTVShowTrailers(int tvShowId) {
+        return repository.fetchAllTopRatedTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllAiringTodayTVShowTrailers(int tvShowId) {
+        return repository.fetchAllAiringTodayTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllOnTheAirTVShowTrailers(int tvShowId) {
+        return repository.fetchAllOnTheAirTVShowTrailers(tvShowId);
     }
 }

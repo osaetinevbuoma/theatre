@@ -18,12 +18,21 @@ public interface TVShowTrailerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(TVShowTrailerEntity... trailerEntities);
 
-    @Query("SELECT * FROM tv_show_trailer WHERE tv_show_id = :tvShowId")
-    LiveData<List<TVShowTrailerEntity>> fetchAllTVShowTrailers(int tvShowId);
+    @Query("SELECT * FROM tv_show_trailer WHERE popular_id = :tvShowId")
+    LiveData<List<TVShowTrailerEntity>> fetchAllPopularTVShowTrailers(int tvShowId);
+
+    @Query("SELECT * FROM tv_show_trailer WHERE top_rated_id = :tvShowId")
+    LiveData<List<TVShowTrailerEntity>> fetchAllTopRatedTVShowTrailers(int tvShowId);
+
+    @Query("SELECT * FROM tv_show_trailer WHERE airing_today_id = :tvShowId")
+    LiveData<List<TVShowTrailerEntity>> fetchAllAiringTodayTVShowTrailers(int tvShowId);
+
+    @Query("SELECT * FROM tv_show_trailer WHERE on_the_air_id = :tvShowId")
+    LiveData<List<TVShowTrailerEntity>> fetchAllOnTheAirTVShowTrailers(int tvShowId);
 
     /**
      * For testing
      */
-    @Query("SELECT * FROM tv_show_trailer WHERE tv_show_id = :tvShowId")
+    @Query("SELECT * FROM tv_show_trailer WHERE popular_id = :tvShowId")
     List<TVShowTrailerEntity> findAllTVShowTrailers(int tvShowId);
 }

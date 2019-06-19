@@ -27,7 +27,20 @@ public class MovieReviewViewModel extends AndroidViewModel {
         repository.insertAll(movieReviewEntities);
     }
 
-    public LiveData<List<MovieReviewEntity>> fetchMovieReviews(int movieId, int offset) {
-        return repository.fetchMovieReviews(movieId, offset);
+    public LiveData<List<MovieReviewEntity>> fetchNowPlayingReviews(int movieId, int offset) {
+        return repository.fetchNowPlayingReviews(movieId, offset);
     }
+
+    public LiveData<List<MovieReviewEntity>> fetchPopularReviews(int movieId, int offset) {
+        return repository.fetchPopularReviews(movieId, offset);
+    }
+
+    public LiveData<List<MovieReviewEntity>> fetchTopRatedReviews(int movieId, int offset) {
+        return repository.fetchTopRatedReviews(movieId, offset);
+    }
+
+    public LiveData<List<MovieReviewEntity>> fetchUpcomingReviews(int movieId, int offset) {
+        return repository.fetchUpcomingReviews(movieId, offset);
+    }
+
 }

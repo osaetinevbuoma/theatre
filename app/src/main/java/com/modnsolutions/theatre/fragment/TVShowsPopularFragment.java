@@ -8,27 +8,54 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.modnsolutions.theatre.R;
+import com.modnsolutions.theatre.adapter.TVShowPopularAdapter;
+import com.modnsolutions.theatre.db.entity.tvshow.TVShowPopularEntity;
+import com.modnsolutions.theatre.db.viewmodel.tvshow.TVShowPopularViewModel;
 import com.modnsolutions.theatre.enums.TVShowType;
-import com.modnsolutions.theatre.adapter.TVShowAdapter;
-import com.modnsolutions.theatre.asynctask.FetchTVShowsAsyncTask;
+import com.modnsolutions.theatre.loader.TVShowAsyncTaskLoader;
 import com.modnsolutions.theatre.utils.Utilities;
 
-public class TVShowsPopularFragment extends Fragment {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+public class TVShowsPopularFragment extends Fragment implements LoaderManager
+        .LoaderCallbacks<List<JSONObject>> {
     private RecyclerView mRecyclerView;
     private ProgressBar mLoading;
-    private TVShowAdapter mAdapter;
-    private int page = 1;
+    private TVShowPopularAdapter mAdapter;
+    private int mCurrentPage = 1;
+    private int mPosition;
+    private static final int LOADER_ID = 1;
+    private LoaderManager mLoaderManager;
+    private static final String CURRENT_PAGE = "com.modnsolutions.TVShowsPopularFragment" +
+            ".CURRENT_PAGE";
+    private TVShowPopularViewModel mTVShowViewModel;
 
 
     public TVShowsPopularFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLoaderManager = LoaderManager.getInstance(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,13 +66,23 @@ public class TVShowsPopularFragment extends Fragment {
 
         mLoading = rootView.findViewById(R.id.loading);
         mRecyclerView = rootView.findViewById(R.id.recyclerview);
-        mAdapter = new TVShowAdapter(getContext());
+        mAdapter = new TVShowPopularAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        mTVShowViewModel = ViewModelProviders.of(this).get(TVShowPopularViewModel.class);
+        mTVShowViewModel.fetchTVShows().observe(this, new Observer<PagedList<TVShowPopularEntity>>() {
+            @Override
+            public void onChanged(PagedList<TVShowPopularEntity> tvShowPopularEntities) {
+                mAdapter.submitList(tvShowPopularEntities);
+                mLoading.setVisibility(View.GONE);
+            }
+        });
 
-        if (Utilities.checkInternetConnectivity(getContext()))
-            new FetchTVShowsAsyncTask(mLoading, mAdapter, TVShowType.POPULAR).execute(page);
-        else {
+        if (Utilities.checkInternetConnectivity(getContext())) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(CURRENT_PAGE, mCurrentPage);
+            mLoaderManager.restartLoader(LOADER_ID, bundle, this);
+        } else {
             mLoading.setVisibility(View.GONE);
             Utilities.displayToast(getContext(), getString(R.string.no_internet));
         }
@@ -70,15 +107,64 @@ public class TVShowsPopularFragment extends Fragment {
                 .findLastCompletelyVisibleItemPosition();
         if (lastPosition == mAdapter.getItemCount() - 1) {
             mLoading.setVisibility(View.VISIBLE);
-            page += 1;
-            if (Utilities.checkInternetConnectivity(getContext()))
-                new FetchTVShowsAsyncTask(mLoading, mAdapter, TVShowType.POPULAR).execute(page);
-            else {
+            mCurrentPage += 1;
+            mPosition = lastPosition + 1;
+
+            if (Utilities.checkInternetConnectivity(getContext())) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(CURRENT_PAGE, mCurrentPage);
+                mLoaderManager.restartLoader(LOADER_ID, bundle, this);
+            } else {
                 mLoading.setVisibility(View.GONE);
                 Utilities.displayToast(getContext(), getString(R.string.no_internet));
             }
-            mRecyclerView.scrollToPosition(lastPosition + 1);
         }
     }
 
+    @NonNull
+    @Override
+    public Loader<List<JSONObject>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new TVShowAsyncTaskLoader(getContext(), TVShowType.POPULAR, args.getInt(CURRENT_PAGE,
+                -1));
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<JSONObject>> loader, List<JSONObject> data) {
+        try {
+            mLoading.setVisibility(View.GONE);
+
+            if (mCurrentPage == 1 && mTVShowViewModel.findAllTVShows().size() > 0 && mTVShowViewModel
+                    .findAllTVShows().get(0).getExpiryDate().before(new Date())) {
+                mTVShowViewModel.deleteAll();
+            }
+
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject tvShow = data.get(i);
+                if (mTVShowViewModel.findTVShowById(tvShow.getInt("id")) == null) {
+                    Date dateDownloaded = new Date();
+                    Date expiryDate = Utilities.expiryDate();
+                    TVShowPopularEntity entity = new TVShowPopularEntity(tvShow.getInt("id"),
+                            tvShow.getString("backdrop_path"), tvShow.getString(
+                                    "first_air_date"), tvShow.getString("name"),
+                            tvShow.getString("original_name"), tvShow.getString(
+                                    "overview"), tvShow.getString("poster_path"),
+                            tvShow.getInt("vote_average"), dateDownloaded, expiryDate);
+                    mTVShowViewModel.insert(entity);
+                }
+            }
+
+            mRecyclerView.scrollToPosition(mPosition);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<JSONObject>> loader) {
+
+    }
 }

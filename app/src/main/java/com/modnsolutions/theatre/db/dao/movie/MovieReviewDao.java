@@ -18,13 +18,22 @@ public interface MovieReviewDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(MovieReviewEntity... movieReviewEntities);
 
-    @Query("SELECT * FROM movie_review WHERE movie_id = :movieId LIMIT :offset, 10")
-    LiveData<List<MovieReviewEntity>> fetchMovieReviews(int movieId, int offset);
+    @Query("SELECT * FROM movie_review WHERE now_playing_id = :movieId LIMIT :offset, 10")
+    LiveData<List<MovieReviewEntity>> fetchNowPlayingReviews(int movieId, int offset);
+
+    @Query("SELECT * FROM movie_review WHERE popular_id = :movieId LIMIT :offset, 10")
+    LiveData<List<MovieReviewEntity>> fetchPopularReviews(int movieId, int offset);
+
+    @Query("SELECT * FROM movie_review WHERE top_rated_id = :movieId LIMIT :offset, 10")
+    LiveData<List<MovieReviewEntity>> fetchTopRatedReviews(int movieId, int offset);
+
+    @Query("SELECT * FROM movie_review WHERE upcoming_id = :movieId LIMIT :offset, 10")
+    LiveData<List<MovieReviewEntity>> fetchUpcomingReviews(int movieId, int offset);
 
 
     /**
      * Used for testing
      */
-    @Query("SELECT * FROM movie_review WHERE movie_id = :movieId")
+    @Query("SELECT * FROM movie_review WHERE now_playing_id = :movieId")
     List<MovieReviewEntity> fetchTestMovieReviews(int movieId);
 }

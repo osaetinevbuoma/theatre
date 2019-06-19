@@ -12,16 +12,39 @@ import com.modnsolutions.theatre.db.converter.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "tv_show_trailer", foreignKeys = @ForeignKey(entity = TVShowEntity.class,
-        parentColumns = "id", childColumns = "tv_show_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "tv_show_trailer_tv_show_id_index", value = "tv_show_id"))
+@Entity(tableName = "tv_show_trailer",
+        foreignKeys = {
+                @ForeignKey(entity = TVShowPopularEntity.class, parentColumns = "id",
+                        childColumns = "popular_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowTopRatedEntity.class, parentColumns = "id",
+                        childColumns = "top_rated_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowAiringTodayEntity.class, parentColumns = "id",
+                        childColumns = "airing_today_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowOnTheAirEntity.class, parentColumns = "id",
+                        childColumns = "on_the_air_id", onDelete = ForeignKey.CASCADE)
+        },
+        indices = {
+                @Index(name = "tv_show_trailer_popular_id_index", value = "popular_id"),
+                @Index(name = "tv_show_trailer_top_rated_id_index", value = "top_rated_id"),
+                @Index(name = "tv_show_trailer_airing_today_id_index", value = "airing_today_id"),
+                @Index(name = "tv_show_trailer_on_the_air_id_index", value = "on_the_air_id")
+        })
 public class TVShowTrailerEntity {
     @NonNull
     @PrimaryKey
     private String id;
 
-    @ColumnInfo(name = "tv_show_id")
-    private int tvShowId;
+    @ColumnInfo(name = "popular_id")
+    private int popularId;
+
+    @ColumnInfo(name = "top_rated_id")
+    private int topRatedId;
+
+    @ColumnInfo(name = "airing_today_id")
+    private int airingTodayId;
+
+    @ColumnInfo(name = "on_the_air_id")
+    private int onTheAirId;
 
     private String name;
     private String key;
@@ -29,10 +52,9 @@ public class TVShowTrailerEntity {
     @ColumnInfo(name = "date_downloaded")
     private Date dateDownloaded;
 
-    public TVShowTrailerEntity(String id, int tvShowId, String name, String key,
+    public TVShowTrailerEntity(@NonNull String id, String name, String key,
                                Date dateDownloaded) {
         this.id = id;
-        this.tvShowId = tvShowId;
         this.name = name;
         this.key = key;
         this.dateDownloaded = dateDownloaded;
@@ -46,12 +68,36 @@ public class TVShowTrailerEntity {
         this.id = id;
     }
 
-    public int getTvShowId() {
-        return tvShowId;
+    public int getPopularId() {
+        return popularId;
     }
 
-    public void setTvShowId(int tvShowId) {
-        this.tvShowId = tvShowId;
+    public void setPopularId(int popularId) {
+        this.popularId = popularId;
+    }
+
+    public int getTopRatedId() {
+        return topRatedId;
+    }
+
+    public void setTopRatedId(int topRatedId) {
+        this.topRatedId = topRatedId;
+    }
+
+    public int getAiringTodayId() {
+        return airingTodayId;
+    }
+
+    public void setAiringTodayId(int airingTodayId) {
+        this.airingTodayId = airingTodayId;
+    }
+
+    public int getOnTheAirId() {
+        return onTheAirId;
+    }
+
+    public void setOnTheAirId(int onTheAirId) {
+        this.onTheAirId = onTheAirId;
     }
 
     public String getName() {

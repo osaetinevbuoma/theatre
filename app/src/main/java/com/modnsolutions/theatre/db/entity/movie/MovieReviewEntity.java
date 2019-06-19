@@ -13,16 +13,38 @@ import com.modnsolutions.theatre.db.converter.DateConverter;
 import java.util.Date;
 
 @Entity(tableName = "movie_review",
-        foreignKeys = @ForeignKey(entity = MovieEntity.class, parentColumns = "id",
-                childColumns = "movie_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "movie_review_movie_id_index", value = "movie_id"))
+        foreignKeys = {
+                @ForeignKey(entity = MovieNowPlayingEntity.class, parentColumns = "id",
+                        childColumns = "now_playing_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = MoviePopularEntity.class, parentColumns = "id",
+                        childColumns = "popular_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = MovieTopRatedEntity.class, parentColumns = "id",
+                        childColumns = "top_rated_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = MovieUpcomingEntity.class, parentColumns = "id",
+                        childColumns = "upcoming_id", onDelete = ForeignKey.CASCADE)
+        },
+        indices = {
+                @Index(name = "movie_review_now_playing_id_index", value = "now_playing_id"),
+                @Index(name = "movie_review_popular_id_index", value = "popular_id"),
+                @Index(name = "movie_review_top_rated_id_index", value = "top_rated_id"),
+                @Index(name = "movie_review_upcoming_id_index", value = "upcoming_id")
+        })
 public class MovieReviewEntity {
     @NonNull
     @PrimaryKey
     private String id;
 
-    @ColumnInfo(name = "movie_id")
-    private int movieId;
+    @ColumnInfo(name = "now_playing_id")
+    private int nowPlayingId;
+
+    @ColumnInfo(name = "popular_id")
+    private int popularId;
+
+    @ColumnInfo(name = "top_rated_id")
+    private int topRatedId;
+
+    @ColumnInfo(name = "upcoming_id")
+    private int upcomingId;
 
     private String author;
     private String content;
@@ -30,10 +52,9 @@ public class MovieReviewEntity {
     @ColumnInfo(name = "date_downloaded")
     private Date dateDownloaded;
 
-    public MovieReviewEntity(String id, int movieId, String author, String content,
+    public MovieReviewEntity(@NonNull String id, String author, String content,
                              Date dateDownloaded) {
         this.id = id;
-        this.movieId = movieId;
         this.author = author;
         this.content = content;
         this.dateDownloaded = dateDownloaded;
@@ -47,12 +68,36 @@ public class MovieReviewEntity {
         this.id = id;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public int getNowPlayingId() {
+        return nowPlayingId;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setNowPlayingId(int nowPlayingId) {
+        this.nowPlayingId = nowPlayingId;
+    }
+
+    public int getPopularId() {
+        return popularId;
+    }
+
+    public void setPopularId(int popularId) {
+        this.popularId = popularId;
+    }
+
+    public int getTopRatedId() {
+        return topRatedId;
+    }
+
+    public void setTopRatedId(int topRatedId) {
+        this.topRatedId = topRatedId;
+    }
+
+    public int getUpcomingId() {
+        return upcomingId;
+    }
+
+    public void setUpcomingId(int upcomingId) {
+        this.upcomingId = upcomingId;
     }
 
     public String getAuthor() {

@@ -18,12 +18,21 @@ public interface TVShowReviewDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(TVShowReviewEntity... tvShowReviewEntities);
 
-    @Query("SELECT * FROM tv_show_review WHERE tv_show_id = :tvShowId LIMIT :offset, 10")
-    LiveData<List<TVShowReviewEntity>> fetchTVShowReviews(int tvShowId, int offset);
+    @Query("SELECT * FROM tv_show_review WHERE popular_id = :tvShowId LIMIT :offset, 10")
+    LiveData<List<TVShowReviewEntity>> fetchPopularTVShowReviews(int tvShowId, int offset);
+
+    @Query("SELECT * FROM tv_show_review WHERE top_rated_id = :tvShowId LIMIT :offset, 10")
+    LiveData<List<TVShowReviewEntity>> fetchTopRatedTVShowReviews(int tvShowId, int offset);
+
+    @Query("SELECT * FROM tv_show_review WHERE airing_today_id = :tvShowId LIMIT :offset, 10")
+    LiveData<List<TVShowReviewEntity>> fetchAiringTodayTVShowReviews(int tvShowId, int offset);
+
+    @Query("SELECT * FROM tv_show_review WHERE on_the_air_id = :tvShowId LIMIT :offset, 10")
+    LiveData<List<TVShowReviewEntity>> fetchOnTheAirTVShowReviews(int tvShowId, int offset);
 
     /**
      * For testing
      */
-    @Query("SELECT * FROM tv_show_review WHERE tv_show_id = :tvShowId")
+    @Query("SELECT * FROM tv_show_review WHERE popular_id = :tvShowId")
     List<TVShowReviewEntity> findAllTVShowReviews(int tvShowId);
 }

@@ -27,7 +27,20 @@ public class MovieTrailerViewModel extends AndroidViewModel {
         repository.insertAll(movieTrailerEntities);
     }
 
-    public LiveData<List<MovieTrailerEntity>> fetchAllMovieTrailers(int movieId) {
-        return repository.fetchAllMovieTrailers(movieId);
+    public LiveData<List<MovieTrailerEntity>> fetchAllNowPlayingTrailers(int movieId) {
+        return repository.fetchAllNowPlayingTrailers(movieId);
     }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllPopularTrailers(int movieId) {
+        return repository.fetchAllPopularTrailers(movieId);
+    }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllTopRatedTrailers(int movieId) {
+        return repository.fetchAllTopRatedTrailers(movieId);
+    }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllUpcomingTrailers(int movieId) {
+        return repository.fetchAllUpcomingTrailers(movieId);
+    }
+
 }

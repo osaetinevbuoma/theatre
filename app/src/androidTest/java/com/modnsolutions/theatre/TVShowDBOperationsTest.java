@@ -5,32 +5,22 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowDao;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowEpisodeDao;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowReviewDao;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowSeasonDao;
 import com.modnsolutions.theatre.db.dao.tvshow.TVShowTrailerDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowTypeDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowTypeHasTVShowDao;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowReviewEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowSeasonEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowTrailerEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTypeEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTypeHasTVShowEntity;
 import com.modnsolutions.theatre.utils.TestUtils;
 import com.modnsolutions.theatre.utils.Utilities;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 

@@ -27,7 +27,20 @@ public class TVShowSeasonViewModel extends AndroidViewModel {
         repository.insertAll(tvShowSeasonEntities);
     }
 
-    public LiveData<List<TVShowSeasonEntity>> fetchAllSeasons(int id) {
-        return repository.fetchAllSeasons(id);
+    public LiveData<List<TVShowSeasonEntity>> fetchAllPopularSeasons(int id) {
+        return repository.fetchAllPopularSeasons(id);
     }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllTopRatedSeasons(int id) {
+        return repository.fetchAllTopRatedSeasons(id);
+    }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllAiringTodaySeasons(int id) {
+        return repository.fetchAllAiringTodaySeasons(id);
+    }
+
+    public LiveData<List<TVShowSeasonEntity>> fetchAllOnTheAirSeasons(int id) {
+        return repository.fetchAllOnTheAirSeasons(id);
+    }
+
 }

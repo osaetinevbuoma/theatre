@@ -11,15 +11,38 @@ import com.modnsolutions.theatre.db.converter.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "tv_show_season", foreignKeys = @ForeignKey(entity = TVShowEntity.class,
-        parentColumns = "id", childColumns = "tv_show_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "tv_show_season_tv_show_id_index", value = "tv_show_id"))
+@Entity(tableName = "tv_show_season",
+        foreignKeys = {
+                @ForeignKey(entity = TVShowPopularEntity.class, parentColumns = "id",
+                        childColumns = "popular_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowTopRatedEntity.class, parentColumns = "id",
+                        childColumns = "top_rated_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowAiringTodayEntity.class, parentColumns = "id",
+                        childColumns = "airing_today_id", onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = TVShowOnTheAirEntity.class, parentColumns = "id",
+                        childColumns = "on_the_air_id", onDelete = ForeignKey.CASCADE)
+        },
+        indices = {
+                @Index(name = "tv_show_season_popular_id_index", value = "popular_id"),
+                @Index(name = "tv_show_season_top_rated_id_index", value = "top_rated_id"),
+                @Index(name = "tv_show_season_airing_today_id_index", value = "airing_today_id"),
+                @Index(name = "tv_show_season_on_the_air_id_index", value = "on_the_air_id")
+        })
 public class TVShowSeasonEntity {
     @PrimaryKey
     private int id;
 
-    @ColumnInfo(name = "tv_show_id")
-    private int tvShowId;
+    @ColumnInfo(name = "popular_id")
+    private int popularId;
+
+    @ColumnInfo(name = "top_rated_id")
+    private int topRatedId;
+
+    @ColumnInfo(name = "airing_today_id")
+    private int airingTodayId;
+
+    @ColumnInfo(name = "on_the_air_id")
+    private int onTheAirId;
 
     @ColumnInfo(name = "air_date")
     private String airDate;
@@ -39,11 +62,10 @@ public class TVShowSeasonEntity {
     @ColumnInfo(name = "date_downloaded")
     private Date dateDownloaded;
 
-    public TVShowSeasonEntity(int id, int tvShowId, String airDate, int episodeCount, String name,
+    public TVShowSeasonEntity(int id, String airDate, int episodeCount, String name,
                               String overview, String posterPath, int seasonNumber,
                               Date dateDownloaded) {
         this.id = id;
-        this.tvShowId = tvShowId;
         this.airDate = airDate;
         this.episodeCount = episodeCount;
         this.name = name;
@@ -61,12 +83,36 @@ public class TVShowSeasonEntity {
         this.id = id;
     }
 
-    public int getTvShowId() {
-        return tvShowId;
+    public int getPopularId() {
+        return popularId;
     }
 
-    public void setTvShowId(int tvShowId) {
-        this.tvShowId = tvShowId;
+    public void setPopularId(int popularId) {
+        this.popularId = popularId;
+    }
+
+    public int getTopRatedId() {
+        return topRatedId;
+    }
+
+    public void setTopRatedId(int topRatedId) {
+        this.topRatedId = topRatedId;
+    }
+
+    public int getAiringTodayId() {
+        return airingTodayId;
+    }
+
+    public void setAiringTodayId(int airingTodayId) {
+        this.airingTodayId = airingTodayId;
+    }
+
+    public int getOnTheAirId() {
+        return onTheAirId;
+    }
+
+    public void setOnTheAirId(int onTheAirId) {
+        this.onTheAirId = onTheAirId;
     }
 
     public String getAirDate() {

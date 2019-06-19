@@ -27,9 +27,22 @@ public class MovieTrailerRepository {
         new InsertAsyncTask(movieTrailerDao, 1).execute(movieTrailerEntities);
     }
 
-    public LiveData<List<MovieTrailerEntity>> fetchAllMovieTrailers(int movieId) {
-        return movieTrailerDao.fetchAllMovieTrailers(movieId);
+    public LiveData<List<MovieTrailerEntity>> fetchAllNowPlayingTrailers(int movieId) {
+        return movieTrailerDao.fetchAllNowPlayingTrailers(movieId);
     }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllPopularTrailers(int movieId) {
+        return movieTrailerDao.fetchAllPopularTrailers(movieId);
+    }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllTopRatedTrailers(int movieId) {
+        return movieTrailerDao.fetchAllTopRatedTrailers(movieId);
+    }
+
+    public LiveData<List<MovieTrailerEntity>> fetchAllUpcomingTrailers(int movieId) {
+        return movieTrailerDao.fetchAllUpcomingTrailers(movieId);
+    }
+
 
 
 

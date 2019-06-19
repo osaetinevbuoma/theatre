@@ -4,18 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.modnsolutions.theatre.enums.MovieType;
-import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.adapter.MovieAdapter;
-import com.modnsolutions.theatre.asynctask.FetchMoviesAsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,12 +20,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 public class Utilities {
     private static WeakReference<RecyclerView> mRecyclerView;
     private static WeakReference<ProgressBar> mLoading;
-    private static WeakReference<MovieAdapter> mAdapter;
     private static int mCurrentPage;
 
     /**
@@ -53,7 +47,7 @@ public class Utilities {
      *
      * @param rootView Inflated fragment layout.
      */
-    public static void onMoviesCreateView(View rootView, final MovieType movieType) {
+    /*public static void onMoviesCreateView(View rootView, final MovieType movieType) {
         int page = 1;
         mCurrentPage = page;
         mLoading = new WeakReference<>((ProgressBar) rootView.findViewById(R.id.loading));
@@ -73,13 +67,13 @@ public class Utilities {
                 loadMore(recyclerView, movieType);
             }
         });
-    }
+    }*/
 
     /**
      * Load more movies from DB/remote server
      * @param recyclerView
      */
-    private static void loadMore(RecyclerView recyclerView, MovieType movieType) {
+    /*private static void loadMore(RecyclerView recyclerView, MovieType movieType) {
         int lastPosition = ((GridLayoutManager) recyclerView.getLayoutManager())
                 .findLastCompletelyVisibleItemPosition();
         if (lastPosition == mAdapter.get().getItemCount() - 1) {
@@ -89,7 +83,7 @@ public class Utilities {
                     .execute(mCurrentPage);
             mRecyclerView.get().scrollToPosition(lastPosition + 1);
         }
-    }
+    }*/
 
     /**
      * Check network connection.
@@ -205,6 +199,25 @@ public class Utilities {
         calendar.setTime(date);
         calendar.add(Calendar.HOUR, 24);
         return calendar.getTime();
+    }
+
+    /**
+     * Convert json array to list of json objects.
+     * @param array
+     * @return
+     */
+    public static List<JSONObject> convertJSONArrayToList(JSONArray array) {
+        List<JSONObject> list = new LinkedList<>();
+
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                list.add(array.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.utils.NetworkUtils;
+import com.modnsolutions.theatre.utils.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,32 +66,12 @@ public class MovieAsyncTaskLoader extends AsyncTaskLoader<List<JSONObject>> {
                 break;
         }
 
-        return getMovieList(results);
+        return Utilities.convertJSONArrayToList(results);
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
-    }
-
-    /**
-     * Extract movie json objects from results json array and return a list of json objects.
-     *
-     * @param results
-     * @return
-     */
-    private List<JSONObject> getMovieList(JSONArray results) {
-        List<JSONObject> movies = new LinkedList<>();
-
-        for (int i = 0; i < results.length(); i++) {
-            try {
-                movies.add(results.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return movies;
     }
 }

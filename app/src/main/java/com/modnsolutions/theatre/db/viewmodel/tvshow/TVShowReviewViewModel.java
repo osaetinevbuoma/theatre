@@ -27,7 +27,19 @@ public class TVShowReviewViewModel extends AndroidViewModel {
         repository.insertAll(tvShowReviewEntities);
     }
 
-    public LiveData<List<TVShowReviewEntity>> fetchTVShowReviews(int tvShowId, int offset) {
-        return repository.fetchTVShowReviews(tvShowId, offset);
+    public LiveData<List<TVShowReviewEntity>> fetchPopularTVShowReviews(int tvShowId, int offset) {
+        return repository.fetchPopularTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchTopRatedTVShowReviews(int tvShowId, int offset) {
+        return repository.fetchTopRatedTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchAiringTodayTVShowReviews(int tvShowId, int offset) {
+        return repository.fetchAiringTodayTVShowReviews(tvShowId, offset);
+    }
+
+    public LiveData<List<TVShowReviewEntity>> fetchOnTheAirTVShowReviews(int tvShowId, int offset) {
+        return repository.fetchOnTheAirTVShowReviews(tvShowId, offset);
     }
 }

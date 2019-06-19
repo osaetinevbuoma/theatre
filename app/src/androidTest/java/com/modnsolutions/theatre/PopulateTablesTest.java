@@ -8,12 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteTypeDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTypeDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowTypeDao;
 import com.modnsolutions.theatre.db.dao.watchlist.WatchlistTypeDao;
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteTypeEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTypeEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTypeEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTypeEntity;
 
 import org.junit.After;

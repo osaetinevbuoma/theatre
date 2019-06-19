@@ -27,8 +27,20 @@ public class TVShowTrailerRepository {
         new DBInsertAllOperationAsyncTask(tvShowTrailerDao).execute(tvShowTrailerEntities);
     }
 
-    public LiveData<List<TVShowTrailerEntity>> fetchAllTVShowTrailers(int tvShowId) {
-        return tvShowTrailerDao.fetchAllTVShowTrailers(tvShowId);
+    public LiveData<List<TVShowTrailerEntity>> fetchAllPopularTVShowTrailers(int tvShowId) {
+        return tvShowTrailerDao.fetchAllPopularTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllTopRatedTVShowTrailers(int tvShowId) {
+        return tvShowTrailerDao.fetchAllTopRatedTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllAiringTodayTVShowTrailers(int tvShowId) {
+        return tvShowTrailerDao.fetchAllAiringTodayTVShowTrailers(tvShowId);
+    }
+
+    public LiveData<List<TVShowTrailerEntity>> fetchAllOnTheAirTVShowTrailers(int tvShowId) {
+        return tvShowTrailerDao.fetchAllOnTheAirTVShowTrailers(tvShowId);
     }
 
 

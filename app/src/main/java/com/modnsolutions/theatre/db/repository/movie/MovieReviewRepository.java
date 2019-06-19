@@ -27,8 +27,20 @@ public class MovieReviewRepository {
         new InsertAsyncTask(movieReviewDao, 1).execute(movieReviewEntities);
     }
 
-    public LiveData<List<MovieReviewEntity>> fetchMovieReviews(int movieId, int offset) {
-        return movieReviewDao.fetchMovieReviews(movieId, offset);
+    public LiveData<List<MovieReviewEntity>> fetchNowPlayingReviews(int movieId, int offset) {
+        return movieReviewDao.fetchNowPlayingReviews(movieId, offset);
+    }
+
+    public LiveData<List<MovieReviewEntity>> fetchPopularReviews(int movieId, int offset) {
+        return movieReviewDao.fetchPopularReviews(movieId, offset);
+    }
+
+    public LiveData<List<MovieReviewEntity>> fetchTopRatedReviews(int movieId, int offset) {
+        return movieReviewDao.fetchTopRatedReviews(movieId, offset);
+    }
+
+    public LiveData<List<MovieReviewEntity>> fetchUpcomingReviews(int movieId, int offset) {
+        return movieReviewDao.fetchUpcomingReviews(movieId, offset);
     }
 
 

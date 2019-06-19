@@ -1,9 +1,7 @@
 package com.modnsolutions.theatre.utils;
 
-import com.modnsolutions.theatre.db.entity.movie.MovieEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowReviewEntity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowSeasonEntity;
@@ -12,13 +10,13 @@ import com.modnsolutions.theatre.db.entity.tvshow.TVShowTrailerEntity;
 import java.util.Date;
 import java.util.Random;
 
-public class TestUtils {
+/*public class TestUtils {
     public static final int ARRAY_LENGTH = 10;
 
-    /**
+    *//**
      * Create a random movie
      * @return a random movie of type MovieEntity
-     */
+     *//*
     public static MovieEntity createMovie(int movieTypeId) {
         Random random = new Random();
 
@@ -26,15 +24,15 @@ public class TestUtils {
                 "backdropPath_" + random.nextInt(), "overview_" + random.nextInt(),
                 "posterPath_" + random.nextInt(), "releaseDate_" + random.nextInt(),
                 "title_" + random.nextInt(), "originalTitle_" + random.nextInt(),
-                random.nextInt(6), new Date());
+                random.nextInt(6), new Date(), new Date());
 
         return movieEntity;
     }
 
-    /**
+    *//**
      * Create an array of random movies of size ARRAY_LENGTH
      * @return an array of random movies
-     */
+     *//*
     public static MovieEntity[] createMovies(int movieTypeId) {
         MovieEntity[] movieEntities = new MovieEntity[ARRAY_LENGTH];
         int countDown = 1;
@@ -46,11 +44,11 @@ public class TestUtils {
         return movieEntities;
     }
 
-    /**
+    *//**
      * Create test movie trailers
      * @param movieId
      * @return
-     */
+     *//*
     public static MovieTrailerEntity createMovieTrailer(int movieId) {
         Random random = new Random();
         MovieTrailerEntity trailerEntity = new MovieTrailerEntity("id_" + random.nextLong(),
@@ -59,11 +57,11 @@ public class TestUtils {
         return trailerEntity;
     }
 
-    /**
+    *//**
      * Create test movie trailer of size ARRAY_LENGTH
      * @param movieId
      * @return
-     */
+     *//*
     public static MovieTrailerEntity[] createMovieTrailers(int movieId) {
         MovieTrailerEntity[] movieTrailerEntities = new MovieTrailerEntity[ARRAY_LENGTH];
         int countdown = 1;
@@ -74,22 +72,22 @@ public class TestUtils {
         return movieTrailerEntities;
     }
 
-    /**
+    *//**
      * Create a movie review
      * @param movieId
      * @return
-     */
+     *//*
     public static MovieReviewEntity createMovieReview(int movieId) {
         Random random = new Random();
         return new MovieReviewEntity("id_"  + random.nextLong(), movieId, "author_" +
                 random.nextInt(), "content_" + random.nextInt(), new Date());
     }
 
-    /**
+    *//**
      * Create test movie reviews.
      * @param movieId
      * @return
-     */
+     *//*
     public static MovieReviewEntity[] createMovieReviews(int movieId) {
         MovieReviewEntity[] movieReviewEntities = new MovieReviewEntity[ARRAY_LENGTH];
         int countdown = 1;
@@ -181,4 +179,4 @@ public class TestUtils {
         }
         return tvShowEpisodeEntities;
     }
-}
+}*/

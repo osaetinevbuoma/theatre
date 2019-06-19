@@ -2,25 +2,16 @@ package com.modnsolutions.theatre.db.entity.movie;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.modnsolutions.theatre.db.converter.DateConverter;
 
 import java.util.Date;
+import java.util.Objects;
 
-@Entity(tableName = "movie", foreignKeys = @ForeignKey(entity = MovieTypeEntity.class,
-        parentColumns = "id", childColumns = "type_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "movie_type_id_index", value = "type_id"))
-public class MovieEntity {
+@Entity(tableName = "movie_top_rated")
+public class MovieTopRatedEntity {
     @PrimaryKey
     private int id;
-
-    @ColumnInfo(name = "type_id")
-    private int typeId;
 
     @ColumnInfo(name = "backdrop_path")
     private String backdropPath;
@@ -50,11 +41,13 @@ public class MovieEntity {
     @ColumnInfo(name = "date_downloaded")
     private Date dateDownloaded;
 
-    public MovieEntity(int id, int typeId, String backdropPath, String overview, String posterPath,
-                       String releaseDate, String title, String originalTitle, int rating,
-                       Date dateDownloaded) {
+    @ColumnInfo(name = "expiry_date")
+    private Date expiryDate;
+
+    public MovieTopRatedEntity(int id, String backdropPath, String overview, String posterPath,
+                               String releaseDate, String title, String originalTitle, int rating,
+                               Date dateDownloaded, Date expiryDate) {
         this.id = id;
-        this.typeId = typeId;
         this.backdropPath = backdropPath;
         this.overview = overview;
         this.posterPath = posterPath;
@@ -63,15 +56,15 @@ public class MovieEntity {
         this.originalTitle = originalTitle;
         this.rating = rating;
         this.dateDownloaded = dateDownloaded;
+        this.expiryDate = expiryDate;
     }
 
     @Ignore
-    public MovieEntity(int id, int typeId, String backdropPath, long budget, String genre,
-                       String website, String overview, String posterPath, String releaseDate,
-                       long revenue, int runtime, String title, String originalTitle, int rating,
-                       String director, String cast, Date dateDownloaded) {
+    public MovieTopRatedEntity(int id, String backdropPath, long budget, String genre,
+                               String website, String overview, String posterPath, String releaseDate,
+                               long revenue, int runtime, String title, String originalTitle, int rating,
+                               String director, String cast, Date dateDownloaded, Date expiryDate) {
         this.id = id;
-        this.typeId = typeId;
         this.backdropPath = backdropPath;
         this.budget = budget;
         this.genre = genre;
@@ -87,6 +80,7 @@ public class MovieEntity {
         this.director = director;
         this.cast = cast;
         this.dateDownloaded = dateDownloaded;
+        this.expiryDate = expiryDate;
     }
 
     public int getId() {
@@ -95,14 +89,6 @@ public class MovieEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
     }
 
     public String getBackdropPath() {
@@ -223,5 +209,37 @@ public class MovieEntity {
 
     public void setDateDownloaded(Date dateDownloaded) {
         this.dateDownloaded = dateDownloaded;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieTopRatedEntity that = (MovieTopRatedEntity) o;
+        return id == that.id &&
+                /*budget == that.budget &&
+                revenue == that.revenue &&
+                runtime == that.runtime &&*/
+                rating == that.rating &&
+                Objects.equals(backdropPath, that.backdropPath) &&
+                /*Objects.equals(genre, that.genre) &&
+                Objects.equals(website, that.website) &&*/
+                Objects.equals(overview, that.overview) &&
+                Objects.equals(posterPath, that.posterPath) &&
+                Objects.equals(releaseDate, that.releaseDate) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(originalTitle, that.originalTitle) &&
+                /*Objects.equals(director, that.director) &&
+                Objects.equals(cast, that.cast) &&*/
+                Objects.equals(dateDownloaded, that.dateDownloaded) &&
+                Objects.equals(expiryDate, that.expiryDate);
     }
 }
