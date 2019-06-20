@@ -1,15 +1,5 @@
 package com.modnsolutions.theatre.utils;
 
-import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowEpisodeEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowReviewEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowSeasonEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTrailerEntity;
-
-import java.util.Date;
-import java.util.Random;
-
 /*public class TestUtils {
     public static final int ARRAY_LENGTH = 10;
 

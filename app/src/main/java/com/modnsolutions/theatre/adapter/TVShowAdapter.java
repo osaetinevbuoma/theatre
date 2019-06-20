@@ -10,16 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.paging.AsyncPagedListDiffer;
-import androidx.paging.PagedList;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowsDetailsActivity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowPopularEntity;
 import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 
 import org.json.JSONException;
