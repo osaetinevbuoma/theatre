@@ -34,7 +34,7 @@ public class MoviePopularEntity {
     @ColumnInfo(name = "original_title")
     private String originalTitle;
 
-    private int rating;
+    private double rating;
     private String director;
     private String cast;
 
@@ -44,8 +44,11 @@ public class MoviePopularEntity {
     @ColumnInfo(name = "expiry_date")
     private Date expiryDate;
 
+    @Ignore
+    public MoviePopularEntity() { }
+
     public MoviePopularEntity(int id, String backdropPath, String overview, String posterPath,
-                              String releaseDate, String title, String originalTitle, int rating,
+                              String releaseDate, String title, String originalTitle, double rating,
                               Date dateDownloaded, Date expiryDate) {
         this.id = id;
         this.backdropPath = backdropPath;
@@ -62,7 +65,7 @@ public class MoviePopularEntity {
     @Ignore
     public MoviePopularEntity(int id, String backdropPath, long budget, String genre,
                               String website, String overview, String posterPath, String releaseDate,
-                              long revenue, int runtime, String title, String originalTitle, int rating,
+                              long revenue, int runtime, String title, String originalTitle, double rating,
                               String director, String cast, Date dateDownloaded, Date expiryDate) {
         this.id = id;
         this.backdropPath = backdropPath;
@@ -179,11 +182,11 @@ public class MoviePopularEntity {
         this.originalTitle = originalTitle;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

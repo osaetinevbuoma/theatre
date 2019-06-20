@@ -1,5 +1,6 @@
 package com.modnsolutions.theatre.db.dao.movie;
 
+import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -29,7 +30,15 @@ public interface MovieNowPlayingDao {
     DataSource.Factory<Integer, MovieNowPlayingEntity> fetchMovies();
 
     @Query("SELECT * FROM movie_now_playing WHERE id = :id")
-    MovieNowPlayingEntity findMovieById(int id);
+    LiveData<MovieNowPlayingEntity> findMovieById(int id);
+
+    /**
+     * Live Data jumbles up order of returned result. Therefore,
+     * this interface method returns the right order so that the save order is the same
+     * as the download order from remote server.
+     */
+    @Query("SELECT * FROM movie_now_playing WHERE id = :id")
+    MovieNowPlayingEntity findMovieByIdWithoutLiveData(int id);
 
     @Query("SELECT * FROM movie_now_playing")
     List<MovieNowPlayingEntity> findAllMovies();

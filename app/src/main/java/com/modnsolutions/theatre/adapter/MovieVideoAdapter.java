@@ -21,12 +21,13 @@ import com.modnsolutions.theatre.utils.Utilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mVideos;
+    private List<JSONObject> mVideos = new LinkedList<>();
 
     public MovieVideoAdapter(Context context) {
         mContext = context;
@@ -43,9 +44,9 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        try {
-            JSONObject video = mVideos.get(position);
+        JSONObject video = mVideos.get(position);
 
+        try {
             Glide.with(mContext)
                     .load(BuildConfig.YOUTUBE_IMAGE_URL + video.getString("key")
                             + "/0.jpg")
@@ -62,12 +63,11 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
 
     @Override
     public int getItemCount() {
-        if (mVideos == null) return 0;
         return mVideos.size();
     }
 
     public void setVideos(List<JSONObject> videos) {
-        if (mVideos == null) mVideos = videos;
+        if (mVideos.size() == 0) mVideos = videos;
         else mVideos.addAll(videos);
         notifyDataSetChanged();
     }

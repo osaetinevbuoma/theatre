@@ -113,6 +113,26 @@ public class Utilities {
     }
 
     /**
+     * Extract director name from array
+     * @param array
+     * @return
+     * @throws JSONException
+     */
+    public static String extractDirectorNameFromArray(JSONArray array) throws JSONException {
+        // Get director from crew array
+        String directorName = null;
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject crew = (JSONObject) array.get(i);
+            if (crew.getString("job").equals("Director")) {
+                directorName = crew.getString("name");
+                break;
+            }
+        }
+
+        return directorName;
+    }
+
+    /**
      * Extra movie genre and cast from array
      *
      * @param array JSONArray of authors.

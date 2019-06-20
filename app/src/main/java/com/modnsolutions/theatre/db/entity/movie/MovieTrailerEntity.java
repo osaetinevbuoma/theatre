@@ -35,16 +35,16 @@ public class MovieTrailerEntity {
     private String id;
 
     @ColumnInfo(name = "now_playing_id")
-    private int nowPlayingId;
+    private Integer nowPlayingId;
 
     @ColumnInfo(name = "popular_id")
-    private int popularId;
+    private Integer popularId;
 
     @ColumnInfo(name = "top_rated_id")
-    private int topRatedId;
+    private Integer topRatedId;
 
     @ColumnInfo(name = "upcoming_id")
-    private int upcomingId;
+    private Integer upcomingId;
 
     private String name;
     private String key;
@@ -67,35 +67,35 @@ public class MovieTrailerEntity {
         this.id = id;
     }
 
-    public int getNowPlayingId() {
+    public Integer getNowPlayingId() {
         return nowPlayingId;
     }
 
-    public void setNowPlayingId(int nowPlayingId) {
+    public void setNowPlayingId(Integer nowPlayingId) {
         this.nowPlayingId = nowPlayingId;
     }
 
-    public int getPopularId() {
+    public Integer getPopularId() {
         return popularId;
     }
 
-    public void setPopularId(int popularId) {
+    public void setPopularId(Integer popularId) {
         this.popularId = popularId;
     }
 
-    public int getTopRatedId() {
+    public Integer getTopRatedId() {
         return topRatedId;
     }
 
-    public void setTopRatedId(int topRatedId) {
+    public void setTopRatedId(Integer topRatedId) {
         this.topRatedId = topRatedId;
     }
 
-    public int getUpcomingId() {
+    public Integer getUpcomingId() {
         return upcomingId;
     }
 
-    public void setUpcomingId(int upcomingId) {
+    public void setUpcomingId(Integer upcomingId) {
         this.upcomingId = upcomingId;
     }
 

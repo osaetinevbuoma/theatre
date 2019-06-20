@@ -9,41 +9,32 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.adapter.MovieTopRatedAdapter;
-import com.modnsolutions.theatre.db.entity.movie.MovieTopRatedEntity;
-import com.modnsolutions.theatre.db.viewmodel.movie.MovieTopRatedViewModel;
+import com.modnsolutions.theatre.adapter.MovieAdapter;
 import com.modnsolutions.theatre.enums.MovieType;
 import com.modnsolutions.theatre.loader.MovieAsyncTaskLoader;
 import com.modnsolutions.theatre.utils.Utilities;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class MoviesTopRatedFragment extends Fragment implements LoaderManager
         .LoaderCallbacks<List<JSONObject>> {
     private RecyclerView mRecyclerView;
     private ProgressBar mLoading;
-    private MovieTopRatedAdapter mAdapter;
+    private MovieAdapter mAdapter;
     private int mCurrentPage = 1;
     private int mPosition;
     private static final int LOADER_ID = 3;
     private static final String CURRENT_PAGE = "com.modnsolutions.MoviesTopRatedFragment" +
             ".CURRENT_PAGE";
     private LoaderManager mLoaderManager;
-    private MovieTopRatedViewModel mMovieViewModel;
 
     public MoviesTopRatedFragment() {
         // Required empty public constructor
@@ -64,17 +55,9 @@ public class MoviesTopRatedFragment extends Fragment implements LoaderManager
 
         mLoading = rootView.findViewById(R.id.loading);
         mRecyclerView = rootView.findViewById(R.id.recyclerview);
-        mAdapter = new MovieTopRatedAdapter(getContext());
+        mAdapter = new MovieAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        mMovieViewModel = ViewModelProviders.of(this).get(MovieTopRatedViewModel.class);
-        mMovieViewModel.fetchMovies().observe(this, new Observer<PagedList<MovieTopRatedEntity>>() {
-            @Override
-            public void onChanged(PagedList<MovieTopRatedEntity> movieTopRatedEntities) {
-                mAdapter.submitList(movieTopRatedEntities);
-                mLoading.setVisibility(View.GONE);
-            }
-        });
 
         if (Utilities.checkInternetConnectivity(getContext())) {
             Bundle bundle = new Bundle();
@@ -128,35 +111,16 @@ public class MoviesTopRatedFragment extends Fragment implements LoaderManager
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<JSONObject>> loader, List<JSONObject> data) {
-        try {
-            mLoading.setVisibility(View.GONE);
+        mLoading.setVisibility(View.GONE);
 
-            if (mCurrentPage == 1 && mMovieViewModel.findAllMovies().size() > 0 && mMovieViewModel
-                    .findAllMovies().get(0).getExpiryDate().before(new Date())) {
-                mMovieViewModel.deleteAll();
-            }
-
-            for (int i = 0; i < data.size(); i++) {
-                JSONObject movie = data.get(i);
-                if (mMovieViewModel.findMovieById(movie.getInt("id")) == null) {
-                    Date dateDownloaded = new Date();
-                    Date expiryDate = Utilities.expiryDate();
-                    MovieTopRatedEntity entity = new MovieTopRatedEntity(movie.getInt("id"),
-                            movie.getString("backdrop_path"), movie.getString("overview"),
-                            movie.getString("poster_path"), movie.getString("release_date"),
-                            movie.getString("title"), movie.getString("original_title"),
-                            movie.getInt("vote_average"), dateDownloaded, expiryDate);
-                    mMovieViewModel.insert(entity);
-                }
-            }
-
+        // To avoid the adapter being set with the data already in the recyclerview
+        if (mAdapter.getItemCount() == 0) {
+            mAdapter.setMovies(data);
             mRecyclerView.scrollToPosition(mPosition);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }
+        else if (mCurrentPage * data.size() != mAdapter.getItemCount()) {
+            mAdapter.setMovies(data);
+            mRecyclerView.scrollToPosition(mPosition);
         }
     }
 

@@ -5,8 +5,6 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
-import com.modnsolutions.theatre.db.dao.movie.MovieReviewDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTrailerDao;
 import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
 import com.modnsolutions.theatre.utils.TestUtils;

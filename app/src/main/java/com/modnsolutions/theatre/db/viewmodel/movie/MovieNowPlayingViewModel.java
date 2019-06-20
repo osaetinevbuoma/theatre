@@ -47,9 +47,12 @@ public class MovieNowPlayingViewModel extends AndroidViewModel {
         return movieList;
     }
 
-    public MovieNowPlayingEntity findMovieById(int id) throws ExecutionException,
-            InterruptedException {
+    public LiveData<MovieNowPlayingEntity> findMovieById(int id) {
         return movieNowPlayingRepository.findMovieById(id);
+    }
+
+    public MovieNowPlayingEntity findMovieByIdWithoutLiveData(int id) {
+        return movieNowPlayingRepository.findMovieByIdWithoutLiveData(id);
     }
 
     public List<MovieNowPlayingEntity> findAllMovies() throws ExecutionException,

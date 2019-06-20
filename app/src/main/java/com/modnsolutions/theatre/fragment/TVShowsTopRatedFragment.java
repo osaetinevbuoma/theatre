@@ -10,41 +10,32 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.adapter.TVShowTopRatedAdapter;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTopRatedEntity;
-import com.modnsolutions.theatre.db.viewmodel.tvshow.TVShowTopRatedViewModel;
+import com.modnsolutions.theatre.adapter.TVShowAdapter;
 import com.modnsolutions.theatre.enums.TVShowType;
 import com.modnsolutions.theatre.loader.TVShowAsyncTaskLoader;
 import com.modnsolutions.theatre.utils.Utilities;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class TVShowsTopRatedFragment extends Fragment implements LoaderManager
         .LoaderCallbacks<List<JSONObject>> {
     private RecyclerView mRecyclerView;
     private ProgressBar mLoading;
-    private TVShowTopRatedAdapter mAdapter;
+    private TVShowAdapter mAdapter;
     private int mCurrentPage = 1;
     private int mPosition;
     private static final int LOADER_ID = 2;
     private LoaderManager mLoaderManager;
     private static final String CURRENT_PAGE = "com.modnsolutions.TVShowsTopRatedFragment" +
             ".CURRENT_PAGE";
-    private TVShowTopRatedViewModel mTVShowViewModel;
 
     public TVShowsTopRatedFragment() {
         // Required empty public constructor
@@ -65,17 +56,9 @@ public class TVShowsTopRatedFragment extends Fragment implements LoaderManager
 
         mLoading = rootView.findViewById(R.id.loading);
         mRecyclerView = rootView.findViewById(R.id.recyclerview);
-        mAdapter = new TVShowTopRatedAdapter(getContext());
+        mAdapter = new TVShowAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        mTVShowViewModel = ViewModelProviders.of(this).get(TVShowTopRatedViewModel.class);
-        mTVShowViewModel.fetchTVShows().observe(this, new Observer<PagedList<TVShowTopRatedEntity>>() {
-            @Override
-            public void onChanged(PagedList<TVShowTopRatedEntity> tvShowTopRatedEntities) {
-                mAdapter.submitList(tvShowTopRatedEntities);
-                mLoading.setVisibility(View.GONE);
-            }
-        });
 
         if (Utilities.checkInternetConnectivity(getContext())) {
             Bundle bundle = new Bundle();
@@ -129,36 +112,16 @@ public class TVShowsTopRatedFragment extends Fragment implements LoaderManager
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<JSONObject>> loader, List<JSONObject> data) {
-        try {
-            mLoading.setVisibility(View.GONE);
+        mLoading.setVisibility(View.GONE);
 
-            if (mCurrentPage == 1 && mTVShowViewModel.findAllTVShows().size() > 0 && mTVShowViewModel
-                    .findAllTVShows().get(0).getExpiryDate().before(new Date())) {
-                mTVShowViewModel.deleteAll();
-            }
-
-            for (int i = 0; i < data.size(); i++) {
-                JSONObject tvShow = data.get(i);
-                if (mTVShowViewModel.findTVShowById(tvShow.getInt("id")) == null) {
-                    Date dateDownloaded = new Date();
-                    Date expiryDate = Utilities.expiryDate();
-                    TVShowTopRatedEntity entity = new TVShowTopRatedEntity(tvShow.getInt("id"),
-                            tvShow.getString("backdrop_path"), tvShow.getString(
-                            "first_air_date"), tvShow.getString("name"),
-                            tvShow.getString("original_name"), tvShow.getString(
-                            "overview"), tvShow.getString("poster_path"),
-                            tvShow.getInt("vote_average"), dateDownloaded, expiryDate);
-                    mTVShowViewModel.insert(entity);
-                }
-            }
-
+        // To avoid the adapter being set with the data already in the recyclerview
+        if (mAdapter.getItemCount() == 0) {
+            mAdapter.setTVShows(data);
             mRecyclerView.scrollToPosition(mPosition);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }
+        else if (mCurrentPage * data.size() != mAdapter.getItemCount()) {
+            mAdapter.setTVShows(data);
+            mRecyclerView.scrollToPosition(mPosition);
         }
     }
 

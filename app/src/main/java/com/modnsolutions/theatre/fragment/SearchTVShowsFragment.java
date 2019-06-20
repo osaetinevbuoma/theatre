@@ -10,17 +10,26 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.adapter.SearchTVShowsAdapter;
-import com.modnsolutions.theatre.asynctask.SearchTVShowsAsyncTask;
+import com.modnsolutions.theatre.loader.SearchAsyncTaskLoader;
 import com.modnsolutions.theatre.utils.Utilities;
 
-public class SearchTVShowsFragment extends Fragment {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class SearchTVShowsFragment extends Fragment implements LoaderManager.LoaderCallbacks<JSONObject> {
 
     private OnSearchTVShowsFragmentInteractionListener mListener;
     private RecyclerView mRecyclerView;
@@ -28,9 +37,17 @@ public class SearchTVShowsFragment extends Fragment {
     private SearchTVShowsAdapter mAdapter;
     private int mCurrentPage = 1;
     private String mQueryString;
+    private LoaderManager mLoaderManager;
+    private int LOADER_ID = 2;
 
     public SearchTVShowsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLoaderManager = LoaderManager.getInstance(this);
     }
 
 
@@ -62,7 +79,7 @@ public class SearchTVShowsFragment extends Fragment {
             });
 
             if (Utilities.checkInternetConnectivity(getContext())) {
-                new SearchTVShowsAsyncTask(mLoading, mAdapter, mCurrentPage).execute(mQueryString);
+                mLoaderManager.restartLoader(LOADER_ID, null, this);
             } else {
                 mLoading.setVisibility(View.GONE);
                 Utilities.displayToast(getContext(), getString(R.string.no_internet));
@@ -100,13 +117,39 @@ public class SearchTVShowsFragment extends Fragment {
             mLoading.setVisibility(View.VISIBLE);
             mCurrentPage += 1;
             if (Utilities.checkInternetConnectivity(getContext()))
-                new SearchTVShowsAsyncTask(mLoading, mAdapter, mCurrentPage).execute(mQueryString);
+                mLoaderManager.restartLoader(LOADER_ID, null, this);
             else {
                 mLoading.setVisibility(View.GONE);
                 Utilities.displayToast(getContext(), getString(R.string.no_internet));
             }
             mRecyclerView.scrollToPosition(lastPosition + 1);
         }
+    }
+
+    @NonNull
+    @Override
+    public Loader<JSONObject> onCreateLoader(int id, @Nullable Bundle args) {
+        return new SearchAsyncTaskLoader(getContext(), mQueryString, mCurrentPage, 2);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject data) {
+        try {
+            if (mLoading != null) mLoading.setVisibility(View.GONE);
+            List<JSONObject> results = new LinkedList<>();
+            for (int i = 0; i < data.getJSONArray("results").length(); i++) {
+                JSONObject result = data.getJSONArray("results").getJSONObject(i);
+                results.add(result);
+            }
+            mAdapter.setResults(results);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<JSONObject> loader) {
+
     }
 
 

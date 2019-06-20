@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
-import com.modnsolutions.theatre.MovieDetailActivity;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowsDetailsActivity;
 import com.modnsolutions.theatre.db.entity.tvshow.TVShowPopularEntity;
-import com.modnsolutions.theatre.fragment.MovieInfoFragment;
 import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 
 public class TVShowPopularAdapter extends RecyclerView.Adapter<TVShowPopularAdapter.ViewHolder> {

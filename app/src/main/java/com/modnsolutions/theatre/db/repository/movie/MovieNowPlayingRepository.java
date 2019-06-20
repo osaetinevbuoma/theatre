@@ -37,9 +37,22 @@ public class MovieNowPlayingRepository {
         new DBDeleteAllOperationAsyncTask(movieNowPlayingDao).execute();
     }
 
-    public MovieNowPlayingEntity findMovieById(int id) throws ExecutionException,
-            InterruptedException {
-        return new DBFindMovieByIdOperationAsyncTask(movieNowPlayingDao).execute(id).get();
+    public LiveData<MovieNowPlayingEntity> findMovieById(int id) {
+        return movieNowPlayingDao.findMovieById(id);
+        /*return new DBFindMovieByIdOperationAsyncTask(movieNowPlayingDao).execute(id).get();*/
+    }
+
+    public MovieNowPlayingEntity findMovieByIdWithoutLiveData(int id) {
+        MovieNowPlayingEntity entity = null;
+        try {
+            entity = new DBFindMovieByIdOperationAsyncTask(movieNowPlayingDao).execute(id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
     }
 
     public List<MovieNowPlayingEntity> findAllMovies() throws ExecutionException,
@@ -117,7 +130,7 @@ public class MovieNowPlayingRepository {
 
         @Override
         protected MovieNowPlayingEntity doInBackground(Integer... integers) {
-            return dao.findMovieById(integers[0]);
+            return dao.findMovieByIdWithoutLiveData(integers[0]);
         }
     }
 

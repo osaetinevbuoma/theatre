@@ -17,19 +17,6 @@ import com.modnsolutions.theatre.db.dao.favorite.FavoriteSeasonDao;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteTrailerDao;
 import com.modnsolutions.theatre.db.dao.favorite.FavoriteTypeDao;
 import com.modnsolutions.theatre.db.dao.movie.MovieNowPlayingDao;
-import com.modnsolutions.theatre.db.dao.movie.MoviePopularDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieReviewDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTopRatedDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieTrailerDao;
-import com.modnsolutions.theatre.db.dao.movie.MovieUpcomingDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowAiringTodayDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowEpisodeDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowOnTheAirDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowPopularDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowReviewDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowSeasonDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowTopRatedDao;
-import com.modnsolutions.theatre.db.dao.tvshow.TVShowTrailerDao;
 import com.modnsolutions.theatre.db.dao.watchlist.WatchlistDao;
 import com.modnsolutions.theatre.db.dao.watchlist.WatchlistEpisodeDao;
 import com.modnsolutions.theatre.db.dao.watchlist.WatchlistSeasonDao;
@@ -40,31 +27,14 @@ import com.modnsolutions.theatre.db.entity.favorite.FavoriteEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteSeasonEntity;
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteTrailerEntity;
 import com.modnsolutions.theatre.db.entity.favorite.FavoriteTypeEntity;
-import com.modnsolutions.theatre.db.entity.movie.MoviePopularEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieReviewEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTopRatedEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieTrailerEntity;
 import com.modnsolutions.theatre.db.entity.movie.MovieNowPlayingEntity;
-import com.modnsolutions.theatre.db.entity.movie.MovieUpcomingEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowAiringTodayEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowEpisodeEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowOnTheAirEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowPopularEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowReviewEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowSeasonEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTopRatedEntity;
-import com.modnsolutions.theatre.db.entity.tvshow.TVShowTrailerEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistEpisodeEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistSeasonEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTrailerEntity;
 import com.modnsolutions.theatre.db.entity.watchlist.WatchlistTypeEntity;
 
-@Database(entities = {MovieNowPlayingEntity.class, MoviePopularEntity.class, MovieTopRatedEntity.class,
-        MovieUpcomingEntity.class, MovieTrailerEntity.class, MovieReviewEntity.class,
-        TVShowPopularEntity.class, TVShowTopRatedEntity.class, TVShowAiringTodayEntity.class,
-        TVShowOnTheAirEntity.class, TVShowTrailerEntity.class, TVShowSeasonEntity.class,
-        TVShowEpisodeEntity.class, TVShowReviewEntity.class, FavoriteEpisodeEntity.class,
+@Database(entities = {MovieNowPlayingEntity.class, FavoriteEpisodeEntity.class,
         FavoriteSeasonEntity.class, FavoriteTrailerEntity.class, FavoriteEntity.class,
         FavoriteTypeEntity.class, WatchlistEpisodeEntity.class, WatchlistEntity.class,
         WatchlistSeasonEntity.class, WatchlistTrailerEntity.class, WatchlistTypeEntity.class},
@@ -74,19 +44,6 @@ public abstract class TheatreDatabase extends RoomDatabase {
     private static TheatreDatabase INSTANCE;
 
     public abstract MovieNowPlayingDao movieNowPlayingDao();
-    public abstract MoviePopularDao moviePopularDao();
-    public abstract MovieTopRatedDao movieTopRatedDao();
-    public abstract MovieUpcomingDao movieUpcomingDao();
-    public abstract MovieReviewDao movieReviewDao();
-    public abstract MovieTrailerDao movieTrailerDao();
-    public abstract TVShowPopularDao tvShowPopularDao();
-    public abstract TVShowTopRatedDao tvShowTopRatedDao();
-    public abstract TVShowAiringTodayDao tvShowAiringTodayDao();
-    public abstract TVShowOnTheAirDao tvShowOnTheAirDao();
-    public abstract TVShowTrailerDao tvShowTrailerDao();
-    public abstract TVShowSeasonDao tvShowSeasonDao();
-    public abstract TVShowEpisodeDao tvShowEpisodeDao();
-    public abstract TVShowReviewDao tvShowReviewDao();
     public abstract FavoriteEpisodeDao favoriteEpisodeDao();
     public abstract FavoriteSeasonDao favoriteSeasonDao();
     public abstract FavoriteTrailerDao favoriteTrailerDao();
