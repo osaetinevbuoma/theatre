@@ -30,6 +30,20 @@ public class TheatreSaveTypeRepository {
         return entity;
     }
 
+    public TheatreSaveTypeEntity findOneByType(String type) {
+        TheatreSaveTypeEntity entity = null;
+
+        try {
+            entity = new DBOperation2AsyncTask(theatreSaveTypeDao).execute(type).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
+
 
 
     private static class DBOperationAsyncTask extends AsyncTask<Integer, Void, TheatreSaveTypeEntity> {
@@ -42,6 +56,19 @@ public class TheatreSaveTypeRepository {
         @Override
         protected TheatreSaveTypeEntity doInBackground(Integer... integers) {
             return dao.findOneById(integers[0]);
+        }
+    }
+
+    private static class DBOperation2AsyncTask extends AsyncTask<String, Void, TheatreSaveTypeEntity> {
+        private TheatreSaveTypeDao dao;
+
+        public DBOperation2AsyncTask(TheatreSaveTypeDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected TheatreSaveTypeEntity doInBackground(String... strings) {
+            return dao.findOneByType(strings[0]);
         }
     }
 }

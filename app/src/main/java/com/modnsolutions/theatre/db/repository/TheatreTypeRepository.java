@@ -30,6 +30,20 @@ public class TheatreTypeRepository {
         return entity;
     }
 
+    public TheatreTypeEntity findOneByType(String type) {
+        TheatreTypeEntity entity = null;
+
+        try {
+            entity = new DBOperation2AsyncTask(theatreTypeDao).execute(type).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
+
 
 
     private static class DBOperationAsyncTask extends AsyncTask<Integer, Void, TheatreTypeEntity> {
@@ -42,6 +56,19 @@ public class TheatreTypeRepository {
         @Override
         protected TheatreTypeEntity doInBackground(Integer... integers) {
             return dao.findOneById(integers[0]);
+        }
+    }
+
+    private static class DBOperation2AsyncTask extends AsyncTask<String, Void, TheatreTypeEntity> {
+        private TheatreTypeDao dao;
+
+        public DBOperation2AsyncTask(TheatreTypeDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected TheatreTypeEntity doInBackground(String... strings) {
+            return dao.findOneByType(strings[0]);
         }
     }
 }

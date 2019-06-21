@@ -44,4 +44,8 @@ public class TheatreViewModel extends AndroidViewModel {
         return new LivePagedListBuilder<>(dao.findByTheatreTypeAndTheatreSaveType(
                 theatreTypeId, theatreSaveTypeId), 20).build();
     }
+
+    public TheatreEntity findOneByRemoteId(int remoteId) {
+        return repository.findOneByRemoteId(remoteId);
+    }
 }

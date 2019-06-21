@@ -19,4 +19,8 @@ public class TheatreTypeViewModel extends AndroidViewModel {
     public TheatreTypeEntity findOneById(int id) {
         return repository.findOneById(id);
     }
+
+    public TheatreTypeEntity findOneByType(String type) {
+        return repository.findOneByType(type);
+    }
 }

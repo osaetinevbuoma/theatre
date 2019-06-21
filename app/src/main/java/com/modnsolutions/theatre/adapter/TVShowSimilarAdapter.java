@@ -22,12 +22,13 @@ import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class TVShowSimilarAdapter extends RecyclerView.Adapter<TVShowSimilarAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mTVShows;
+    private List<JSONObject> mTVShows = new LinkedList<>();
 
     public TVShowSimilarAdapter(Context context) {
         mContext = context;
@@ -70,13 +71,17 @@ public class TVShowSimilarAdapter extends RecyclerView.Adapter<TVShowSimilarAdap
 
     @Override
     public int getItemCount() {
-        if (mTVShows == null) return 0;
         return mTVShows.size();
     }
 
     public void setTVShows(List<JSONObject> tvShows) {
-        if (mTVShows == null) mTVShows = tvShows;
+        if (mTVShows.size() == 0) mTVShows = tvShows;
         else mTVShows.addAll(tvShows);
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        mTVShows.clear();
         notifyDataSetChanged();
     }
 

@@ -72,6 +72,11 @@ public class MovieVideoAdapter extends RecyclerView.Adapter<MovieVideoAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public void removeAll() {
+        mVideos.clear();
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView videoImage;
         private TextView videoName;

@@ -21,12 +21,13 @@ import com.modnsolutions.theatre.fragment.MovieInfoFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class MovieRecommendedAdapter extends RecyclerView.Adapter<MovieRecommendedAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mMovies;
+    private List<JSONObject> mMovies = new LinkedList<>();
 
     public MovieRecommendedAdapter(Context context) {
         mContext = context;
@@ -68,13 +69,17 @@ public class MovieRecommendedAdapter extends RecyclerView.Adapter<MovieRecommend
 
     @Override
     public int getItemCount() {
-        if (mMovies == null) return 0;
         return mMovies.size();
     }
 
     public void setMovies(List<JSONObject> movies) {
-        if (mMovies == null) mMovies = movies;
+        if (mMovies.size() == 0) mMovies = movies;
         else mMovies.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        mMovies.clear();
         notifyDataSetChanged();
     }
 

@@ -24,10 +24,10 @@ public class TheatreEntity {
     private int id;
 
     @ColumnInfo(name = "theatre_type_id")
-    private int theatreTypeId;
+    private Integer theatreTypeId;
 
     @ColumnInfo(name = "theatre_save_type_id")
-    private int theatreSaveTypeId;
+    private Integer theatreSaveTypeId;
 
     @ColumnInfo(name = "remote_id")
     private int remoteId;
@@ -72,14 +72,7 @@ public class TheatreEntity {
     @ColumnInfo(name = "number_of_seasons")
     private int numberOfSeasons;
 
-    @Ignore
     public TheatreEntity() { }
-
-    public TheatreEntity(int theatreTypeId, int theatreSaveTypeId, int remoteId) {
-        this.theatreSaveTypeId = theatreSaveTypeId;
-        this.theatreTypeId = theatreTypeId;
-        this.remoteId = remoteId;
-    }
 
     public int getId() {
         return id;
@@ -89,19 +82,19 @@ public class TheatreEntity {
         this.id = id;
     }
 
-    public int getTheatreTypeId() {
+    public Integer getTheatreTypeId() {
         return theatreTypeId;
     }
 
-    public void setTheatreTypeId(int theatreTypeId) {
+    public void setTheatreTypeId(Integer theatreTypeId) {
         this.theatreTypeId = theatreTypeId;
     }
 
-    public int getTheatreSaveTypeId() {
+    public Integer getTheatreSaveTypeId() {
         return theatreSaveTypeId;
     }
 
-    public void setTheatreSaveTypeId(int theatreSaveTypeId) {
+    public void setTheatreSaveTypeId(Integer theatreSaveTypeId) {
         this.theatreSaveTypeId = theatreSaveTypeId;
     }
 

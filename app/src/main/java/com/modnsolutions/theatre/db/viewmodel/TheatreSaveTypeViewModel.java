@@ -19,4 +19,8 @@ public class TheatreSaveTypeViewModel extends AndroidViewModel {
     public TheatreSaveTypeEntity findOneById(int id) {
         return repository.findOneById(id);
     }
+
+    public TheatreSaveTypeEntity findOneByType(String type) {
+        return repository.findOneByType(type);
+    }
 }

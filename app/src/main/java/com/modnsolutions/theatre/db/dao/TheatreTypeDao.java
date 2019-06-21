@@ -19,4 +19,7 @@ public interface TheatreTypeDao {
 
     @Query("SELECT * FROM theatre_type WHERE id = :id")
     TheatreTypeEntity findOneById(int id);
+
+    @Query("SELECT * FROM theatre_type WHERE type = :type")
+    TheatreTypeEntity findOneByType(String type);
 }

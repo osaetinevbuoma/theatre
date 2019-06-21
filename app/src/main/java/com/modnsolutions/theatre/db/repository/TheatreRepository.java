@@ -9,6 +9,8 @@ import com.modnsolutions.theatre.db.TheatreDatabase;
 import com.modnsolutions.theatre.db.dao.TheatreDao;
 import com.modnsolutions.theatre.db.entity.TheatreEntity;
 
+import java.util.concurrent.ExecutionException;
+
 public class TheatreRepository {
     private TheatreDao theatreDao;
 
@@ -32,6 +34,20 @@ public class TheatreRepository {
         return theatreDao.findOneById(id);
     }
 
+    public TheatreEntity findOneByRemoteId(int remoteId) {
+        TheatreEntity entity = null;
+
+        try {
+            entity = new DBFindOneByRemoteIdAsyncTask(theatreDao).execute(remoteId).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
+
 
 
     private static class DBOperationAsyncTask extends AsyncTask<TheatreEntity, Void, Void> {
@@ -51,6 +67,19 @@ public class TheatreRepository {
                 case 3: dao.delete(theatreEntities[0]);
             }
             return null;
+        }
+    }
+
+    private static class DBFindOneByRemoteIdAsyncTask extends AsyncTask<Integer, Void, TheatreEntity> {
+        private TheatreDao dao;
+
+        public DBFindOneByRemoteIdAsyncTask(TheatreDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected TheatreEntity doInBackground(Integer... integers) {
+            return dao.findOneByRemoteId(integers[0]);
         }
     }
 }

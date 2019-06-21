@@ -1,17 +1,32 @@
 package com.modnsolutions.theatre;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.modnsolutions.theatre.adapter.MovieDetailPagerAdapter;
+import com.modnsolutions.theatre.db.entity.TheatreEntity;
+import com.modnsolutions.theatre.db.entity.TheatreSaveTypeEntity;
+import com.modnsolutions.theatre.db.entity.TheatreTypeEntity;
+import com.modnsolutions.theatre.db.viewmodel.TheatreSaveTypeViewModel;
+import com.modnsolutions.theatre.db.viewmodel.TheatreTypeViewModel;
+import com.modnsolutions.theatre.db.viewmodel.TheatreViewModel;
+
+import static com.modnsolutions.theatre.fragment.MovieInfoFragment.MOVIE_ID_INTENT;
 
 public class MovieDetailActivity extends AppCompatActivity {
+    private int mMovieId;
+    private TheatreEntity mTheatreEntity;
+    private TheatreViewModel mTheatreViewModel;
+    private TheatreSaveTypeViewModel mTheatreSaveTypeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +71,33 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+        mMovieId = intent.getIntExtra(MOVIE_ID_INTENT, -1);
+
+        mTheatreSaveTypeViewModel = ViewModelProviders.of(this)
+                .get(TheatreSaveTypeViewModel.class);
+        mTheatreViewModel = ViewModelProviders.of(this).get(TheatreViewModel.class);
+        mTheatreEntity = mTheatreViewModel.findOneByRemoteId(mMovieId);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_program_detail, menu);
+
+        MenuItem favoriteIcon = menu.getItem(0);
+        MenuItem watchlistIcon = menu.getItem(1);
+
+        if (mTheatreEntity != null && mTheatreEntity.getTheatreSaveTypeId() ==
+                mTheatreSaveTypeViewModel.findOneByType("Favorite").getId()) {
+            favoriteIcon.setIcon(R.drawable.ic_action_favorite);
+        }
+
+        if (mTheatreEntity != null && mTheatreEntity.getTheatreSaveTypeId() ==
+                mTheatreSaveTypeViewModel.findOneByType("Watchlist").getId()) {
+            watchlistIcon.setIcon(R.drawable.ic_action_watchlist_added);
+        }
+
         return true;
     }
 

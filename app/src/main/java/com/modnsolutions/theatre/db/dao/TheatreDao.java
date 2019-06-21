@@ -29,4 +29,7 @@ public interface TheatreDao {
 
     @Query("SELECT * FROM theatre WHERE id = :id")
     LiveData<TheatreEntity> findOneById(int id);
+
+    @Query("SELECT * FROM theatre WHERE remote_id = :remoteId")
+    TheatreEntity findOneByRemoteId(int remoteId);
 }

@@ -211,6 +211,7 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
                 JSONObject video = movieVideos.getJSONArray("results").getJSONObject(i);
                 videos.add(video);
             }
+            mTrailersAdapter.removeAll();
             mTrailersAdapter.setVideos(videos);
 
             // Set recommended movies
@@ -219,6 +220,7 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
                 JSONObject movie = movieRecommended.getJSONArray("results").getJSONObject(i);
                 recMovies.add(movie);
             }
+            mMovieRecommendedAdapter.removeAll();
             mMovieRecommendedAdapter.setMovies(recMovies);
 
             // Set similar movies
@@ -227,6 +229,7 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
                 JSONObject movie = movieSimilar.getJSONArray("results").getJSONObject(i);
                 similarMovies.add(movie);
             }
+            mMovieSimilarAdapter.removeAll();
             mMovieSimilarAdapter.setMovies(similarMovies);
         } catch (JSONException e) {
             e.printStackTrace();

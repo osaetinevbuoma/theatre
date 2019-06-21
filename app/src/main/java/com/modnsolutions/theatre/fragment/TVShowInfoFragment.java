@@ -213,6 +213,7 @@ public class TVShowInfoFragment extends Fragment implements LoaderManager.Loader
                 JSONObject video = tvShowVideos.getJSONArray("results").getJSONObject(i);
                 videos.add(video);
             }
+            mTrailerAdapter.removeAll();
             mTrailerAdapter.setVideos(videos);
 
             // Set recommended tv shows
@@ -223,6 +224,7 @@ public class TVShowInfoFragment extends Fragment implements LoaderManager.Loader
                         .getJSONObject(i);
                 recTVShows.add(tvShow);
             }
+            mRecommendedAdapter.removeAll();
             mRecommendedAdapter.setTVShows(recTVShows);
 
             // Set similar tv shows
@@ -233,6 +235,7 @@ public class TVShowInfoFragment extends Fragment implements LoaderManager.Loader
                         .getJSONObject(i);
                 similarTVShows.add(tvShow);
             }
+            mSimilarAdapter.removeAll();
             mSimilarAdapter.setTVShows(similarTVShows);
         } catch (JSONException e) {
             e.printStackTrace();
