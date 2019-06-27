@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.adapter.MovieRecommendedAdapter;
@@ -48,6 +50,16 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
     private final int LOADER_ID = 1;
     private View mRootView;
 
+    // boolean to know if main FAB is in open or closed state
+    private boolean isFabExpanded = false;
+    private FloatingActionButton mFabMain;
+    private FloatingActionButton mFabActionFavorite;
+    private FloatingActionButton mFabActionWatchlist;
+    private LinearLayout mFabFavorite;
+    private LinearLayout mFabWatchlist;
+    private TextView mFabCardFavorite;
+    private TextView mFabCardWatchlist;
+
     public static final String MOVIE_ID_INTENT = "MOVIE_ID_INTENT";
 
     public MovieInfoFragment() {
@@ -70,6 +82,40 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
         Intent intent = getActivity().getIntent();
         if (intent != null) {
             mMovieId = intent.getIntExtra(MOVIE_ID_INTENT, -1);
+
+            mFabMain = getActivity().findViewById(R.id.fab);
+            mFabActionFavorite = getActivity().findViewById(R.id.fab_action_favorite);
+            mFabActionWatchlist = getActivity().findViewById(R.id.fab_action_watchlist);
+            mFabFavorite = getActivity().findViewById(R.id.fab_favorite);
+            mFabWatchlist = getActivity().findViewById(R.id.fab_watchlist);
+            mFabCardFavorite = getActivity().findViewById(R.id.fab_card_favorite);
+            mFabCardWatchlist = getActivity().findViewById(R.id.fab_card_watchlist);
+
+            // Expand main fab if not expanded and collapse if not collapsed.
+            mFabMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isFabExpanded) closeFabSubMenus();
+                    else openFabSubMenus();
+                }
+            });
+
+            mFabActionFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.displayToast(getContext(), "Clicked Add to favorite.");
+                }
+            });
+
+            mFabActionWatchlist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.displayToast(getContext(), "Clicked Add to watchlist.");
+                }
+            });
+
+            // Default state of fab should be collapsed.
+            closeFabSubMenus();
 
             // Trailers recyclerview
             mTrailersRV = mRootView.findViewById(R.id.trailers);
@@ -105,6 +151,26 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
         }
 
         return mRootView;
+    }
+
+    /**
+     * Open FAB submenus.
+     */
+    private void openFabSubMenus() {
+        mFabFavorite.setVisibility(View.VISIBLE);
+        mFabWatchlist.setVisibility(View.VISIBLE);
+        mFabMain.setImageResource(R.drawable.ic_action_close);
+        isFabExpanded = true;
+    }
+
+    /**
+     * Close FAB submenus.
+     */
+    private void closeFabSubMenus() {
+        mFabFavorite.setVisibility(View.GONE);
+        mFabWatchlist.setVisibility(View.GONE);
+        mFabMain.setImageResource(R.drawable.ic_action_save);
+        isFabExpanded = false;
     }
 
     @NonNull

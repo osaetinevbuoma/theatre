@@ -27,4 +27,9 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="FabStyle" parent="AppTheme">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">bottom|end</item>
+    </style>
+
 </resources>

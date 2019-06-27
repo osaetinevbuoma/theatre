@@ -64,4 +64,6 @@
 
     </LinearLayout>
 
+    <include layout="@layout/fab_submenu" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
