@@ -65,8 +65,8 @@ public abstract class TheatreDatabase extends RoomDatabase {
 
     private static RoomDatabase.Callback populateTables = new RoomDatabase.Callback() {
         @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
             new PopulateTablesAsyncTask(INSTANCE).execute();
         }
     };
