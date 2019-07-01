@@ -33,7 +33,7 @@ import com.modnsolutions.theatre.db.entity.movie.MovieNowPlayingEntity;
 @Database(entities = {TheatreTypeEntity.class, TheatreSaveTypeEntity.class, TheatreEntity.class,
         SaveTypeHasTheatreEntity.class, TrailerEntity.class, WatchlistEntity.class,
         SeasonEntity.class, EpisodeEntity.class, MovieNowPlayingEntity.class},
-        version = 1, exportSchema = false)
+        version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class TheatreDatabase extends RoomDatabase {
     private static TheatreDatabase INSTANCE;
@@ -53,6 +53,8 @@ public abstract class TheatreDatabase extends RoomDatabase {
             synchronized (TheatreDatabase.class) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                         TheatreDatabase.class, "theatre")
+                        // TODO: This changes for proper migration for production app
+                        .fallbackToDestructiveMigration()
                         .addCallback(populateTables)
                         .build();
             }
