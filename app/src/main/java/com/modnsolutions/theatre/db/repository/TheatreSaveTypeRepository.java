@@ -4,23 +4,23 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
-import com.modnsolutions.theatre.db.dao.TheatreSaveTypeDao;
-import com.modnsolutions.theatre.db.entity.TheatreSaveTypeEntity;
+import com.modnsolutions.theatre.db.dao.TheatreTypeDao;
+import com.modnsolutions.theatre.db.entity.TheatreTypeEntity;
 
 import java.util.concurrent.ExecutionException;
 
-public class TheatreSaveTypeRepository {
-    private TheatreSaveTypeDao theatreSaveTypeDao;
+public class TheatreTypeRepository {
+    private TheatreTypeDao theatreTypeDao;
 
-    public TheatreSaveTypeRepository(Application application) {
-        theatreSaveTypeDao = TheatreDatabase.getInstance(application).theatreSaveTypeDao();
+    public TheatreTypeRepository(Application application) {
+        theatreTypeDao = TheatreDatabase.getInstance(application).theatreTypeDao();
     }
 
-    public TheatreSaveTypeEntity findOneById(int id) {
-        TheatreSaveTypeEntity entity = null;
+    public TheatreTypeEntity findOneById(int id) {
+        TheatreTypeEntity entity = null;
 
         try {
-            entity = new DBOperationAsyncTask(theatreSaveTypeDao).execute(id).get();
+            entity = new DBOperationAsyncTask(theatreTypeDao).execute(id).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -30,11 +30,11 @@ public class TheatreSaveTypeRepository {
         return entity;
     }
 
-    public TheatreSaveTypeEntity findOneByType(String type) {
-        TheatreSaveTypeEntity entity = null;
+    public TheatreTypeEntity findOneByType(String type) {
+        TheatreTypeEntity entity = null;
 
         try {
-            entity = new DBOperation2AsyncTask(theatreSaveTypeDao).execute(type).get();
+            entity = new DBOperation2AsyncTask(theatreTypeDao).execute(type).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -46,28 +46,28 @@ public class TheatreSaveTypeRepository {
 
 
 
-    private static class DBOperationAsyncTask extends AsyncTask<Integer, Void, TheatreSaveTypeEntity> {
-        private TheatreSaveTypeDao dao;
+    private static class DBOperationAsyncTask extends AsyncTask<Integer, Void, TheatreTypeEntity> {
+        private TheatreTypeDao dao;
 
-        public DBOperationAsyncTask(TheatreSaveTypeDao dao) {
+        public DBOperationAsyncTask(TheatreTypeDao dao) {
             this.dao = dao;
         }
 
         @Override
-        protected TheatreSaveTypeEntity doInBackground(Integer... integers) {
+        protected TheatreTypeEntity doInBackground(Integer... integers) {
             return dao.findOneById(integers[0]);
         }
     }
 
-    private static class DBOperation2AsyncTask extends AsyncTask<String, Void, TheatreSaveTypeEntity> {
-        private TheatreSaveTypeDao dao;
+    private static class DBOperation2AsyncTask extends AsyncTask<String, Void, TheatreTypeEntity> {
+        private TheatreTypeDao dao;
 
-        public DBOperation2AsyncTask(TheatreSaveTypeDao dao) {
+        public DBOperation2AsyncTask(TheatreTypeDao dao) {
             this.dao = dao;
         }
 
         @Override
-        protected TheatreSaveTypeEntity doInBackground(String... strings) {
+        protected TheatreTypeEntity doInBackground(String... strings) {
             return dao.findOneByType(strings[0]);
         }
     }

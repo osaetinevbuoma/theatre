@@ -12,7 +12,7 @@ import androidx.room.Update;
 import com.modnsolutions.theatre.db.entity.TheatreEntity;
 
 @Dao
-public interface TheatreDao {
+public interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TheatreEntity... theatreEntities);
 
@@ -22,10 +22,8 @@ public interface TheatreDao {
     @Delete
     void delete(TheatreEntity theatreEntity);
 
-    @Query("SELECT * FROM theatre WHERE theatre_type_id = :theatreTypeId AND " +
-            "theatre_save_type_id = :theatreSaveTypeId")
-    DataSource.Factory<Integer, TheatreEntity> findByTheatreTypeAndTheatreSaveType(
-            int theatreTypeId, int theatreSaveTypeId);
+    @Query("SELECT * FROM theatre WHERE theatre_type_id = :theatreTypeId")
+    DataSource.Factory<Integer, TheatreEntity> findFavoriteByTheatreType(int theatreTypeId);
 
     @Query("SELECT * FROM theatre WHERE id = :id")
     LiveData<TheatreEntity> findOneById(int id);

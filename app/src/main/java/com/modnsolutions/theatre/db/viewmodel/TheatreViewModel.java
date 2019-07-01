@@ -13,22 +13,22 @@ import com.modnsolutions.theatre.db.dao.TheatreDao;
 import com.modnsolutions.theatre.db.entity.TheatreEntity;
 import com.modnsolutions.theatre.db.repository.TheatreRepository;
 
-public class TheatreViewModel extends AndroidViewModel {
+public class FavoriteViewModel extends AndroidViewModel {
     private TheatreRepository repository;
     private TheatreDao dao;
 
-    public TheatreViewModel(@NonNull Application application) {
+    public FavoriteViewModel(@NonNull Application application) {
         super(application);
         repository = new TheatreRepository(application);
-        dao = TheatreDatabase.getInstance(application).theatreDao();
+        dao = TheatreDatabase.getInstance(application).favoriteDao();
     }
 
-    public void insert(TheatreEntity... theatreEntities) {
-        repository.insert(theatreEntities);
+    public void insert(TheatreEntity... favoriteEntities) {
+        repository.insert(favoriteEntities);
     }
 
-    public void update(TheatreEntity... theatreEntities) {
-        repository.update(theatreEntities);
+    public void update(TheatreEntity... favoriteEntities) {
+        repository.update(favoriteEntities);
     }
 
     public void delete(TheatreEntity theatreEntity) {
@@ -39,10 +39,9 @@ public class TheatreViewModel extends AndroidViewModel {
         return repository.findOneById(id);
     }
 
-    public LiveData<PagedList<TheatreEntity>> findByTheatreTypeAndTheatreSaveType(
-            int theatreTypeId, int theatreSaveTypeId) {
-        return new LivePagedListBuilder<>(dao.findByTheatreTypeAndTheatreSaveType(
-                theatreTypeId, theatreSaveTypeId), 20).build();
+    public LiveData<PagedList<TheatreEntity>> findFavoriteByTheatreType(int theatreTypeId) {
+        return new LivePagedListBuilder<>(dao.findFavoriteByTheatreType(theatreTypeId),
+                20).build();
     }
 
     public TheatreEntity findOneByRemoteId(int remoteId) {

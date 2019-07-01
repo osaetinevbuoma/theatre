@@ -5,22 +5,22 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.modnsolutions.theatre.db.entity.TheatreSaveTypeEntity;
-import com.modnsolutions.theatre.db.repository.TheatreSaveTypeRepository;
+import com.modnsolutions.theatre.db.entity.TheatreTypeEntity;
+import com.modnsolutions.theatre.db.repository.TheatreTypeRepository;
 
-public class TheatreSaveTypeViewModel extends AndroidViewModel {
-    private TheatreSaveTypeRepository repository;
+public class TheatreTypeViewModel extends AndroidViewModel {
+    private TheatreTypeRepository repository;
 
-    public TheatreSaveTypeViewModel(@NonNull Application application) {
+    public TheatreTypeViewModel(@NonNull Application application) {
         super(application);
-        repository = new TheatreSaveTypeRepository(application);
+        repository = new TheatreTypeRepository(application);
     }
 
-    public TheatreSaveTypeEntity findOneById(int id) {
+    public TheatreTypeEntity findOneById(int id) {
         return repository.findOneById(id);
     }
 
-    public TheatreSaveTypeEntity findOneByType(String type) {
+    public TheatreTypeEntity findOneByType(String type) {
         return repository.findOneByType(type);
     }
 }

@@ -19,13 +19,13 @@ import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowsDetailsActivity;
-import com.modnsolutions.theatre.db.entity.TheatreEntity;
+import com.modnsolutions.theatre.db.entity.FavoriteEntity;
 import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
 
 public class TheatreAdapter extends RecyclerView.Adapter<TheatreAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private final AsyncPagedListDiffer<TheatreEntity> mDiffer = new AsyncPagedListDiffer(
+    private final AsyncPagedListDiffer<FavoriteEntity> mDiffer = new AsyncPagedListDiffer(
             this, DIFF_CALLBACK);
 
     public TheatreAdapter(Context context) {
@@ -43,7 +43,7 @@ public class TheatreAdapter extends RecyclerView.Adapter<TheatreAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TheatreEntity entity = mDiffer.getItem(position);
+        FavoriteEntity entity = mDiffer.getItem(position);
 
         Glide.with(mContext)
                 .load(BuildConfig.IMAGE_BASE_URL + "/w154" +
@@ -68,21 +68,21 @@ public class TheatreAdapter extends RecyclerView.Adapter<TheatreAdapter.ViewHold
         return mDiffer.getItemCount();
     }
 
-    public void submitList(PagedList<TheatreEntity> pagedList) {
+    public void submitList(PagedList<FavoriteEntity> pagedList) {
         mDiffer.submitList(pagedList);
     }
 
-    public static final DiffUtil.ItemCallback<TheatreEntity> DIFF_CALLBACK = new DiffUtil
-            .ItemCallback<TheatreEntity>() {
+    public static final DiffUtil.ItemCallback<FavoriteEntity> DIFF_CALLBACK = new DiffUtil
+            .ItemCallback<FavoriteEntity>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TheatreEntity oldItem,
-                                       @NonNull TheatreEntity newItem) {
+        public boolean areItemsTheSame(@NonNull FavoriteEntity oldItem,
+                                       @NonNull FavoriteEntity newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TheatreEntity oldItem,
-                                          @NonNull TheatreEntity newItem) {
+        public boolean areContentsTheSame(@NonNull FavoriteEntity oldItem,
+                                          @NonNull FavoriteEntity newItem) {
             return oldItem.equals(newItem);
         }
     };
@@ -100,7 +100,7 @@ public class TheatreAdapter extends RecyclerView.Adapter<TheatreAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TheatreEntity entity = mDiffer.getItem(getAdapterPosition());
+                    FavoriteEntity entity = mDiffer.getItem(getAdapterPosition());
                     Intent intent = new Intent(mContext, TVShowsDetailsActivity.class);
                     intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, entity.getId());
                     mContext.startActivity(intent);

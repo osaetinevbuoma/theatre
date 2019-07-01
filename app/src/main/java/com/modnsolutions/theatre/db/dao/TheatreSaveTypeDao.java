@@ -5,21 +5,21 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.modnsolutions.theatre.db.entity.TheatreSaveTypeEntity;
+import com.modnsolutions.theatre.db.entity.TheatreTypeEntity;
 
 import java.util.List;
 
 @Dao
-public interface TheatreSaveTypeDao {
+public interface TheatreTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TheatreSaveTypeEntity... theatreSaveTypeEntities);
+    void insert(TheatreTypeEntity... theatreTypeEntities);
 
-    @Query("SELECT * FROM theatre_save_type")
-    List<TheatreSaveTypeEntity> findAll();
+    @Query("SELECT * FROM theatre_type")
+    List<TheatreTypeEntity> findAll();
 
-    @Query("SELECT * FROM theatre_save_type WHERE id = :id")
-    TheatreSaveTypeEntity findOneById(int id);
+    @Query("SELECT * FROM theatre_type WHERE id = :id")
+    TheatreTypeEntity findOneById(int id);
 
-    @Query("SELECT * FROM theatre_save_type WHERE type = :type")
-    TheatreSaveTypeEntity findOneByType(String type);
+    @Query("SELECT * FROM theatre_type WHERE type = :type")
+    TheatreTypeEntity findOneByType(String type);
 }

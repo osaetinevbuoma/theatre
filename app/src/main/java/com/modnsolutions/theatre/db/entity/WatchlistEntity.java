@@ -3,24 +3,31 @@ package com.modnsolutions.theatre.db.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Objects;
 
-@Entity(tableName = "favorite", foreignKeys = {
+@Entity(tableName = "theatre", foreignKeys = {
             @ForeignKey(entity = TheatreTypeEntity.class, parentColumns = "id",
-                    childColumns = "theatre_type_id", onDelete = ForeignKey.CASCADE)
+                    childColumns = "theatre_type_id", onDelete = ForeignKey.CASCADE),
+            @ForeignKey(entity = TheatreSaveTypeEntity.class, parentColumns = "id",
+                    childColumns = "theatre_save_type_id", onDelete = ForeignKey.CASCADE)
         },
         indices = {
-                @Index(name = "favorite_theatre_type_id_index", value = "theatre_type_id")
+                @Index(name = "theatre_type_id_index", value = "theatre_type_id"),
+                @Index(name = "theatre_save_type_id_index", value = "theatre_save_type_id")
         })
-public class FavoriteEntity {
+public class TheatreEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "theatre_type_id")
     private Integer theatreTypeId;
+
+    @ColumnInfo(name = "theatre_save_type_id")
+    private Integer theatreSaveTypeId;
 
     @ColumnInfo(name = "remote_id")
     private int remoteId;
@@ -65,7 +72,7 @@ public class FavoriteEntity {
     @ColumnInfo(name = "number_of_seasons")
     private int numberOfSeasons;
 
-    public FavoriteEntity() { }
+    public TheatreEntity() { }
 
     public int getId() {
         return id;
@@ -81,6 +88,14 @@ public class FavoriteEntity {
 
     public void setTheatreTypeId(Integer theatreTypeId) {
         this.theatreTypeId = theatreTypeId;
+    }
+
+    public Integer getTheatreSaveTypeId() {
+        return theatreSaveTypeId;
+    }
+
+    public void setTheatreSaveTypeId(Integer theatreSaveTypeId) {
+        this.theatreSaveTypeId = theatreSaveTypeId;
     }
 
     public int getRemoteId() {
@@ -247,9 +262,10 @@ public class FavoriteEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FavoriteEntity that = (FavoriteEntity) o;
+        TheatreEntity that = (TheatreEntity) o;
         return id == that.id &&
                 theatreTypeId == that.theatreTypeId &&
+                theatreSaveTypeId == that.theatreSaveTypeId &&
                 remoteId == that.remoteId &&
                 budget == that.budget &&
                 revenue == that.revenue &&
