@@ -12,7 +12,7 @@ import com.modnsolutions.theatre.db.repository.TrailerRepository;
 import java.util.List;
 
 public class TrailerViewModel extends AndroidViewModel {
-    TrailerRepository repository;
+    private TrailerRepository repository;
 
     public TrailerViewModel(@NonNull Application application) {
         super(application);

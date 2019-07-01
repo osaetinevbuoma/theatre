@@ -10,6 +10,7 @@ import com.modnsolutions.theatre.db.dao.SeasonDao;
 import com.modnsolutions.theatre.db.entity.SeasonEntity;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class SeasonRepository {
     private SeasonDao seasonDao;
@@ -26,6 +27,20 @@ public class SeasonRepository {
         return seasonDao.findByTheatreId(theatreId);
     }
 
+    public SeasonEntity findByRemoteId(int remoteId) {
+        SeasonEntity entity = null;
+
+        try {
+            entity = new DBFindByIdAsyncTask(seasonDao).execute(remoteId).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
+
 
 
     private static class DBOperationAsyncTask extends AsyncTask<SeasonEntity, Void, Void> {
@@ -39,6 +54,19 @@ public class SeasonRepository {
         protected Void doInBackground(SeasonEntity... seasonEntities) {
             dao.insert(seasonEntities);
             return null;
+        }
+    }
+
+    private static class DBFindByIdAsyncTask extends AsyncTask<Integer, Void, SeasonEntity> {
+        private SeasonDao dao;
+
+        public DBFindByIdAsyncTask(SeasonDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected SeasonEntity doInBackground(Integer... integers) {
+            return dao.findByRemoteId(integers[0]);
         }
     }
 }

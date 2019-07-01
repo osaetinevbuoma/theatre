@@ -7,14 +7,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.modnsolutions.theatre.db.entity.SeasonEntity;
-import com.modnsolutions.theatre.db.entity.TrailerEntity;
 import com.modnsolutions.theatre.db.repository.SeasonRepository;
-import com.modnsolutions.theatre.db.repository.TrailerRepository;
 
 import java.util.List;
 
 public class SeasonViewModel extends AndroidViewModel {
-    SeasonRepository repository;
+    private SeasonRepository repository;
 
     public SeasonViewModel(@NonNull Application application) {
         super(application);
@@ -27,5 +25,9 @@ public class SeasonViewModel extends AndroidViewModel {
 
     public LiveData<List<SeasonEntity>> findByTheatreId(int theatreId) {
         return repository.findByTheatreId(theatreId);
+    }
+
+    public SeasonEntity findByRemoteId(int remoteId) {
+        return repository.findByRemoteId(remoteId);
     }
 }

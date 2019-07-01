@@ -14,20 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
 import com.modnsolutions.theatre.R;
+import com.modnsolutions.theatre.db.entity.EpisodeEntity;
 import com.modnsolutions.theatre.utils.Utilities;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.List;
 
-public class TVShowEpisodesAdapter extends RecyclerView.Adapter<TVShowEpisodesAdapter.ViewHolder> {
+public class TheatreEpisodesAdapter extends RecyclerView.Adapter<TheatreEpisodesAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mEpisodes;
+    private List<EpisodeEntity> mEpisodes;
 
-    public TVShowEpisodesAdapter(Context context) {
+    public TheatreEpisodesAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -43,23 +41,21 @@ public class TVShowEpisodesAdapter extends RecyclerView.Adapter<TVShowEpisodesAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
-            JSONObject episode = mEpisodes.get(position);
+            EpisodeEntity episode = mEpisodes.get(position);
 
             Glide.with(mContext)
                     .load(BuildConfig.IMAGE_BASE_URL + "/w500" +
-                            episode.getString("still_path"))
+                            episode.getStillPath())
                     .placeholder(new ColorDrawable(mContext.getResources().getColor(
                             R.color.colorPrimaryLight)))
                     .centerCrop()
                     .into(holder.episodeStillImage);
-            holder.episodeStillImage.setContentDescription(episode.getString("name"));
+            holder.episodeStillImage.setContentDescription(episode.getName());
 
-            holder.episodeNumber.setText(String.valueOf(episode.getInt("episode_number")));
-            holder.episodeAirDate.setText(Utilities.formatDate(episode.getString("air_date")));
-            holder.episodeName.setText(episode.getString("name"));
-            holder.episodeOverview.setText(episode.getString("overview"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+            holder.episodeNumber.setText(String.valueOf(episode.getEpisodeNumber()));
+            holder.episodeAirDate.setText(Utilities.formatDate(episode.getAirDate()));
+            holder.episodeName.setText(episode.getName());
+            holder.episodeOverview.setText(episode.getOverview());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -71,10 +67,17 @@ public class TVShowEpisodesAdapter extends RecyclerView.Adapter<TVShowEpisodesAd
         return mEpisodes.size();
     }
 
-    public void setEpisodes(List<JSONObject> episodes) {
+    public void setEpisodes(List<EpisodeEntity> episodes) {
         if (mEpisodes == null) mEpisodes = episodes;
         else mEpisodes.addAll(episodes);
         notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        if (mEpisodes != null) {
+            mEpisodes.clear();
+            notifyDataSetChanged();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

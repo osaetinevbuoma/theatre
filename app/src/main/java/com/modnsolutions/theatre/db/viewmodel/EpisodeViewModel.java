@@ -28,4 +28,8 @@ public class EpisodeViewModel extends AndroidViewModel {
     public LiveData<List<EpisodeEntity>> findBySeasonId(int seasonId) {
         return repository.findBySeasonId(seasonId);
     }
+
+    public EpisodeEntity[] findAllBySeasonId(int seasonId) {
+        return repository.findAllBySeasonId(seasonId);
+    }
 }

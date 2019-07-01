@@ -17,7 +17,7 @@
     <string name="menu_send">Send</string>
     <string name="action_movies">Movies</string>
     <string name="action_tv_shows">TV Shows</string>
-    <string name="action_favorite">Favorite</string>
+    <string name="action_favorite">Favorites</string>
     <string name="action_watchlist">Watchlist</string>
     <string name="toolbar_movies">Movies</string>
     <string name="tab_latest">Latest</string>
@@ -61,4 +61,8 @@
     <string name="label_add_to_watchlist">Add to Watchlist</string>
     <string name="label_remove_from_favorite">Remove from Favorite</string>
     <string name="label_remove_from_watchlist">Remove from Watchlist</string>
+    <string name="favorite_movies_no_theatre">No movies in your favorite list.</string>
+    <string name="watchlist_movies_no_theatre">No movies in your watchlist.</string>
+    <string name="favorite_tvshow_no_theatre">No tv shows in your favorite list.</string>
+    <string name="watchlist_tvshow_no_theatre">No tv shows in your watchlist.</string>
 </resources>

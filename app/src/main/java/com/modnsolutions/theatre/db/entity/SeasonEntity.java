@@ -6,15 +6,20 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "season", foreignKeys = @ForeignKey(entity = TheatreEntity.class,
-        parentColumns = "id", childColumns = "theatre_id", onDelete = ForeignKey.CASCADE),
-        indices = @Index(name = "season_theatre_id_index", value = "theatre_id"))
+@Entity(tableName = "season",
+        foreignKeys = {
+            @ForeignKey(entity = TheatreEntity.class, parentColumns = "id",
+                    childColumns = "theatre_id", onDelete = ForeignKey.CASCADE)
+        },
+        indices = {
+            @Index(name = "season_theatre_id_index", value = "theatre_id")
+        })
 public class SeasonEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "theatre_id")
-    private int theatreId;
+    private Integer theatreId;
 
     @ColumnInfo(name = "remote_id")
     private int remoteId;
@@ -34,9 +39,8 @@ public class SeasonEntity {
     @ColumnInfo(name = "season_number")
     private int seasonNumber;
 
-    public SeasonEntity(int id, int theatreId, int remoteId, String airDate, int episodeCount,
+    public SeasonEntity(int theatreId, int remoteId, String airDate, int episodeCount,
                         String name, String overview, String posterPath, int seasonNumber) {
-        this.id = id;
         this.theatreId = theatreId;
         this.remoteId = remoteId;
         this.airDate = airDate;
@@ -55,11 +59,11 @@ public class SeasonEntity {
         this.id = id;
     }
 
-    public int getTheatreId() {
+    public Integer getTheatreId() {
         return theatreId;
     }
 
-    public void setTheatreId(int theatreId) {
+    public void setTheatreId(Integer theatreId) {
         this.theatreId = theatreId;
     }
 

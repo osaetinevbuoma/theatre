@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -52,6 +53,12 @@ public class TVShowsDetailsActivity extends AppCompatActivity implements
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                // Display FAB button only when displaying movie info fragment.
+                if (tab.getPosition() == 0)
+                    findViewById(R.id.fab_frame).setVisibility(View.VISIBLE);
+                else
+                    findViewById(R.id.fab_frame).setVisibility(View.GONE);
             }
 
             @Override
@@ -67,25 +74,6 @@ public class TVShowsDetailsActivity extends AppCompatActivity implements
 
         if (intent.hasExtra(TV_SHOW_DETAILS_INTENT))
             viewPager.setCurrentItem(intent.getIntExtra(TV_SHOW_DETAILS_INTENT, -1));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_program_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_favorite:
-                break;
-
-            case R.id.action_watchlist:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

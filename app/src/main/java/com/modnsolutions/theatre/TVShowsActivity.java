@@ -104,9 +104,11 @@ public class TVShowsActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_favorite:
+                Utilities.startActivity(this, FavoriteActivity.class);
                 break;
 
             case R.id.nav_watch_list:
+                Utilities.startActivity(this, WatchlistActivity.class);
                 break;
         }
 

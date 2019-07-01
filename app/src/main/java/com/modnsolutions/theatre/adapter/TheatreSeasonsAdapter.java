@@ -14,28 +14,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
+import com.modnsolutions.theatre.EpisodeActivity;
 import com.modnsolutions.theatre.R;
-import com.modnsolutions.theatre.TVShowEpisodesActivity;
-import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
+import com.modnsolutions.theatre.db.entity.SeasonEntity;
 import com.modnsolutions.theatre.fragment.TVShowSeasonsFragment;
+import com.modnsolutions.theatre.fragment.TheatreTVShowDetailsEpisodeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdapter.ViewHolder> {
+import static com.modnsolutions.theatre.fragment.TheatreTVShowDetailsEpisodeFragment.SEASON_ID_INTENT;
+import static com.modnsolutions.theatre.fragment.TheatreTVShowDetailsEpisodeFragment.SEASON_NUMBER_INTENT;
+import static com.modnsolutions.theatre.fragment.TheatreTVShowDetailsEpisodeFragment.THEATRE_ID_INTENT;
+
+public class TheatreSeasonsAdapter extends RecyclerView.Adapter<TheatreSeasonsAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<JSONObject> mSeasons;
-    private int mTVShowID;
-    private TVShowSeasonsFragment.OnTVShowSeasonsFragmentInteraction mListener;
+    private List<SeasonEntity> mSeasons;
 
-    public TVShowSeasonsAdapter(Context context,
-                                TVShowSeasonsFragment.OnTVShowSeasonsFragmentInteraction listener) {
+    public TheatreSeasonsAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mListener = listener;
     }
 
     @NonNull
@@ -49,23 +50,19 @@ public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        try {
-            JSONObject season = mSeasons.get(position);
+        SeasonEntity season = mSeasons.get(position);
 
-            Glide.with(mContext)
-                    .load(BuildConfig.IMAGE_BASE_URL + "/w154" +
-                            season.getString("poster_path"))
-                    .placeholder(new ColorDrawable(mContext.getResources().getColor(
-                            R.color.colorPrimaryLight)))
-                    .fitCenter()
-                    .into(holder.mTVSeasonPoster);
-            holder.mTVSeasonPoster.setContentDescription(season.getString("name"));
+        Glide.with(mContext)
+                .load(BuildConfig.IMAGE_BASE_URL + "/w154" +
+                        season.getPosterPath())
+                .placeholder(new ColorDrawable(mContext.getResources().getColor(
+                        R.color.colorPrimaryLight)))
+                .fitCenter()
+                .into(holder.mTVSeasonPoster);
+        holder.mTVSeasonPoster.setContentDescription(season.getName());
 
-            holder.mTVSeasonName.setText(season.getString("name"));
-            holder.mTVSeasonOverview.setText(season.getString("overview"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        holder.mTVSeasonName.setText(season.getName());
+        holder.mTVSeasonOverview.setText(season.getOverview());
     }
 
     @Override
@@ -74,14 +71,10 @@ public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdap
         return mSeasons.size();
     }
 
-    public void setSeasons(List<JSONObject> seasons) {
+    public void setSeasons(List<SeasonEntity> seasons) {
         if (mSeasons == null) mSeasons = seasons;
         else mSeasons.addAll(seasons);
         notifyDataSetChanged();
-    }
-
-    public void setTVShowID(int id) {
-        mTVShowID = id;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -99,13 +92,12 @@ public class TVShowSeasonsAdapter extends RecyclerView.Adapter<TVShowSeasonsAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        int position = getAdapterPosition();
-                        mListener.onDisplaySeasonEpisodes(mTVShowID, mSeasons.get(position)
-                                .getInt("season_number"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    int position = getAdapterPosition();
+                    Intent intent = new Intent(mContext, EpisodeActivity.class);
+                    intent.putExtra(SEASON_ID_INTENT, mSeasons.get(position).getId());
+                    intent.putExtra(THEATRE_ID_INTENT, mSeasons.get(position).getTheatreId());
+                    intent.putExtra(SEASON_NUMBER_INTENT, mSeasons.get(position).getSeasonNumber());
+                    mContext.startActivity(intent);
                 }
             });
         }

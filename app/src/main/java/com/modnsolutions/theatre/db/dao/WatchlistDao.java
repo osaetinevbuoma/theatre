@@ -9,27 +9,25 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.modnsolutions.theatre.db.entity.FavoriteEntity;
+import com.modnsolutions.theatre.db.entity.WatchlistEntity;
 
 @Dao
-public interface TheatreDao {
+public interface WatchlistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(FavoriteEntity... theatreEntities);
+    void insert(WatchlistEntity... watchlistEntities);
 
     @Update
-    void update(FavoriteEntity... theatreEntities);
+    void update(WatchlistEntity... watchlistEntities);
 
     @Delete
-    void delete(FavoriteEntity favoriteEntity);
+    void delete(WatchlistEntity watchlistEntity);
 
-    @Query("SELECT * FROM theatre WHERE theatre_type_id = :theatreTypeId AND " +
-            "theatre_save_type_id = :theatreSaveTypeId")
-    DataSource.Factory<Integer, FavoriteEntity> findByTheatreTypeAndTheatreSaveType(
-            int theatreTypeId, int theatreSaveTypeId);
+    @Query("SELECT * FROM watchlist WHERE theatre_type_id = :theatreTypeId")
+    DataSource.Factory<Integer, WatchlistEntity> findWatchlistByTheatreType(int theatreTypeId);
 
-    @Query("SELECT * FROM theatre WHERE id = :id")
-    LiveData<FavoriteEntity> findOneById(int id);
+    @Query("SELECT * FROM watchlist WHERE id = :id")
+    LiveData<WatchlistEntity> findOneById(int id);
 
-    @Query("SELECT * FROM theatre WHERE remote_id = :remoteId")
-    FavoriteEntity findOneByRemoteId(int remoteId);
+    @Query("SELECT * FROM watchlist WHERE remote_id = :remoteId")
+    WatchlistEntity findOneByRemoteId(int remoteId);
 }

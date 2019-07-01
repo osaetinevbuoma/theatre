@@ -17,14 +17,14 @@ import androidx.room.Index;
             @Index(name = "save_type_has_theatre_type_id_index", value = "save_type_id"),
             @Index(name = "save_type_has_theatre_id_index", value = "theatre_id")
         })
-public class SaveTypeHasTheatre {
+public class SaveTypeHasTheatreEntity {
     @ColumnInfo(name = "save_type_id")
     private int saveTypeId;
 
     @ColumnInfo(name = "theatre_id")
     private int theatreId;
 
-    public SaveTypeHasTheatre(int saveTypeId, int theatreId) {
+    public SaveTypeHasTheatreEntity(int saveTypeId, int theatreId) {
         this.saveTypeId = saveTypeId;
         this.theatreId = theatreId;
     }

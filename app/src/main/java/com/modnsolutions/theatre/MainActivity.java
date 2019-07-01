@@ -3,20 +3,20 @@ package com.modnsolutions.theatre;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.modnsolutions.theatre.adapter.MoviesPagerAdapter;
+import com.modnsolutions.theatre.db.TheatreDatabase;
+import com.modnsolutions.theatre.db.viewmodel.TheatreTypeViewModel;
 import com.modnsolutions.theatre.utils.Utilities;
 
 public class MainActivity extends AppCompatActivity
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        // Hack to force room to create database and initialize defaults on start up.
+        ViewModelProviders.of(this).get(TheatreTypeViewModel.class).findOneById(1);
     }
 
     @Override
@@ -111,9 +114,11 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_favorite:
+                Utilities.startActivity(this, FavoriteActivity.class);
                 break;
 
             case R.id.nav_watch_list:
+                Utilities.startActivity(this, WatchlistActivity.class);
                 break;
         }
 

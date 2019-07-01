@@ -9,43 +9,42 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.modnsolutions.theatre.db.TheatreDatabase;
-import com.modnsolutions.theatre.db.dao.TheatreDao;
-import com.modnsolutions.theatre.db.entity.FavoriteEntity;
-import com.modnsolutions.theatre.db.repository.TheatreRepository;
+import com.modnsolutions.theatre.db.dao.WatchlistDao;
+import com.modnsolutions.theatre.db.entity.WatchlistEntity;
+import com.modnsolutions.theatre.db.repository.WatchlistRepository;
 
-public class TheatreViewModel extends AndroidViewModel {
-    private TheatreRepository repository;
-    private TheatreDao dao;
+public class WatchlistViewModel extends AndroidViewModel {
+    private WatchlistRepository repository;
+    private WatchlistDao dao;
 
-    public TheatreViewModel(@NonNull Application application) {
+    public WatchlistViewModel(@NonNull Application application) {
         super(application);
-        repository = new TheatreRepository(application);
-        dao = TheatreDatabase.getInstance(application).theatreDao();
+        repository = new WatchlistRepository(application);
+        dao = TheatreDatabase.getInstance(application).watchlistDao();
     }
 
-    public void insert(FavoriteEntity... theatreEntities) {
-        repository.insert(theatreEntities);
+    public void insert(WatchlistEntity... watchlistEntities) {
+        repository.insert(watchlistEntities);
     }
 
-    public void update(FavoriteEntity... theatreEntities) {
-        repository.update(theatreEntities);
+    public void update(WatchlistEntity... watchlistEntities) {
+        repository.update(watchlistEntities);
     }
 
-    public void delete(FavoriteEntity favoriteEntity) {
+    public void delete(WatchlistEntity favoriteEntity) {
         repository.delete(favoriteEntity);
     }
 
-    public LiveData<FavoriteEntity> findOneById(int id) {
+    public LiveData<WatchlistEntity> findOneById(int id) {
         return repository.findOneById(id);
     }
 
-    public LiveData<PagedList<FavoriteEntity>> findByTheatreTypeAndTheatreSaveType(
-            int theatreTypeId, int theatreSaveTypeId) {
-        return new LivePagedListBuilder<>(dao.findByTheatreTypeAndTheatreSaveType(
-                theatreTypeId, theatreSaveTypeId), 20).build();
+    public LiveData<PagedList<WatchlistEntity>> findWatchlistByTheatreType(int theatreTypeId) {
+        return new LivePagedListBuilder<>(dao.findWatchlistByTheatreType(theatreTypeId),
+                20).build();
     }
 
-    public FavoriteEntity findOneByRemoteId(int remoteId) {
+    public WatchlistEntity findOneByRemoteId(int remoteId) {
         return repository.findOneByRemoteId(remoteId);
     }
 }

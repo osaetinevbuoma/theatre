@@ -17,4 +17,7 @@ public interface EpisodeDao {
 
     @Query("SELECT * FROM episode WHERE season_id = :seasonId")
     LiveData<List<EpisodeEntity>> findBySeasonId(int seasonId);
+
+    @Query("SELECT * FROM episode WHERE season_id = :seasonId")
+    EpisodeEntity[] findAllBySeasonId(int seasonId);
 }

@@ -31,12 +31,11 @@ public class EpisodeEntity {
     @ColumnInfo(name = "still_path")
     private String stillPath;
 
-    private int rating;
+    private double rating;
 
-    public EpisodeEntity(int id, int seasonId, int remoteId, String airDate,
+    public EpisodeEntity(int seasonId, int remoteId, String airDate,
                          int episodeNumber, String name, String overview, String stillPath,
-                         int rating) {
-        this.id = id;
+                         double rating) {
         this.seasonId = seasonId;
         this.remoteId = remoteId;
         this.airDate = airDate;
@@ -111,11 +110,11 @@ public class EpisodeEntity {
         this.stillPath = stillPath;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }

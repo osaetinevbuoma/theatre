@@ -17,20 +17,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.modnsolutions.theatre.BuildConfig;
+import com.modnsolutions.theatre.MovieDetailActivity;
 import com.modnsolutions.theatre.R;
 import com.modnsolutions.theatre.TVShowsDetailsActivity;
-import com.modnsolutions.theatre.db.entity.FavoriteEntity;
+import com.modnsolutions.theatre.TheatreMovieDetailsActivity;
+import com.modnsolutions.theatre.TheatreTVShowDetailsActivity;
+import com.modnsolutions.theatre.db.entity.TheatreEntity;
+import com.modnsolutions.theatre.fragment.MovieInfoFragment;
 import com.modnsolutions.theatre.fragment.TVShowInfoFragment;
+import com.modnsolutions.theatre.fragment.TheatreMovieDetailsFragment;
 
-public class TheatreFavoriteAdapter extends RecyclerView.Adapter<TheatreFavoriteAdapter.ViewHolder> {
+import static com.modnsolutions.theatre.TheatreMovieDetailsActivity.NAVIGATION_FROM_WATCHLIST;
+import static com.modnsolutions.theatre.fragment.TheatreTVShowDetailsFragment.THEATRE_TVSHOW_ID_INTENT;
+
+public class TheatreWatchlistAdapter extends RecyclerView.Adapter<TheatreWatchlistAdapter.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private final AsyncPagedListDiffer<FavoriteEntity> mDiffer = new AsyncPagedListDiffer(
+    private final AsyncPagedListDiffer<TheatreEntity> mDiffer = new AsyncPagedListDiffer(
             this, DIFF_CALLBACK);
+    private boolean isMovie;
 
-    public TheatreFavoriteAdapter(Context context) {
+    public TheatreWatchlistAdapter(Context context, boolean isMovie) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.isMovie = isMovie;
     }
 
     @NonNull
@@ -43,7 +53,7 @@ public class TheatreFavoriteAdapter extends RecyclerView.Adapter<TheatreFavorite
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FavoriteEntity entity = mDiffer.getItem(position);
+        TheatreEntity entity = mDiffer.getItem(position);
 
         Glide.with(mContext)
                 .load(BuildConfig.IMAGE_BASE_URL + "/w154" +
@@ -68,21 +78,21 @@ public class TheatreFavoriteAdapter extends RecyclerView.Adapter<TheatreFavorite
         return mDiffer.getItemCount();
     }
 
-    public void submitList(PagedList<FavoriteEntity> pagedList) {
+    public void submitList(PagedList<TheatreEntity> pagedList) {
         mDiffer.submitList(pagedList);
     }
 
-    public static final DiffUtil.ItemCallback<FavoriteEntity> DIFF_CALLBACK = new DiffUtil
-            .ItemCallback<FavoriteEntity>() {
+    public static final DiffUtil.ItemCallback<TheatreEntity> DIFF_CALLBACK = new DiffUtil
+            .ItemCallback<TheatreEntity>() {
         @Override
-        public boolean areItemsTheSame(@NonNull FavoriteEntity oldItem,
-                                       @NonNull FavoriteEntity newItem) {
+        public boolean areItemsTheSame(@NonNull TheatreEntity oldItem,
+                                       @NonNull TheatreEntity newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull FavoriteEntity oldItem,
-                                          @NonNull FavoriteEntity newItem) {
+        public boolean areContentsTheSame(@NonNull TheatreEntity oldItem,
+                                          @NonNull TheatreEntity newItem) {
             return oldItem.equals(newItem);
         }
     };
@@ -94,16 +104,27 @@ public class TheatreFavoriteAdapter extends RecyclerView.Adapter<TheatreFavorite
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            poster = itemView.findViewById(R.id.tv_show_poster);
-            title = itemView.findViewById(R.id.tv_show_original_name);
+            poster = itemView.findViewById(R.id.theatre_poster);
+            title = itemView.findViewById(R.id.theatre_title);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FavoriteEntity entity = mDiffer.getItem(getAdapterPosition());
-                    Intent intent = new Intent(mContext, TVShowsDetailsActivity.class);
-                    intent.putExtra(TVShowInfoFragment.TV_SHOW_EXTRA, entity.getId());
-                    mContext.startActivity(intent);
+                    TheatreEntity entity = mDiffer.getItem(getAdapterPosition());
+
+                    if (isMovie) {
+                        Intent intent = new Intent(mContext, TheatreMovieDetailsActivity.class);
+                        intent.putExtra(TheatreMovieDetailsFragment.THEATRE_MOVIE_ID_INTENT,
+                                entity.getId());
+                        intent.putExtra(NAVIGATION_FROM_WATCHLIST, true);
+                        mContext.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(mContext, TheatreTVShowDetailsActivity.class);
+                        intent.putExtra(THEATRE_TVSHOW_ID_INTENT, entity.getId());
+                        intent.putExtra(TheatreTVShowDetailsActivity.NAVIGATION_FROM_WATCHLIST,
+                                true);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
         }

@@ -17,4 +17,7 @@ public interface SeasonDao {
 
     @Query("SELECT * FROM season WHERE theatre_id = :theatreId")
     LiveData<List<SeasonEntity>> findByTheatreId(int theatreId);
+
+    @Query("SELECT * FROM season WHERE remote_id = :remoteId")
+    SeasonEntity findByRemoteId(int remoteId);
 }
