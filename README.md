@@ -1,7 +1,7 @@
 # Theatre
 
 Theatre is an android app that uses [The Movie Database API](https://www.themoviedb.org) as the 
-remote server to curate movies and television shows. Your can get an API by signing up. 
+remote server to curate movies and television shows. You can get an API by signing up. 
 
 Theatre allows you to save favorite movies and 
 shows, keep a watchlist of your choosing and search for movies and shows. The app leverages Android
