@@ -76,7 +76,7 @@
                 android:top="7dp"
                 android:left="7dp"
                 android:right="7dp" />
-            <solid android:color="@android:color/white" />
+            <solid android:color="@android:color/transparent" />
             <corners android:radius="3dp" />
         </shape>
     </item>

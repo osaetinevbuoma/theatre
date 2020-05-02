@@ -14,20 +14,26 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.modnsolutions.theatre.adapter.TheatrePagerAdapter;
+import com.modnsolutions.theatre.databinding.ActivityFavoriteBinding;
 import com.modnsolutions.theatre.utils.Utilities;
 
 public class FavoriteActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ActivityFavoriteBinding activityFavoriteBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite);
+
+        activityFavoriteBinding = ActivityFavoriteBinding.inflate(getLayoutInflater());
+        setContentView(activityFavoriteBinding.getRoot());
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        DrawerLayout drawer = activityFavoriteBinding.drawerLayout;
+        NavigationView navigationView = activityFavoriteBinding.navView;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -65,7 +71,7 @@ public class FavoriteActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = activityFavoriteBinding.drawerLayout;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -95,8 +101,7 @@ public class FavoriteActivity extends AppCompatActivity
                 break;
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        activityFavoriteBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
