@@ -24,7 +24,3 @@ in mind.**
 <img src="/screenshots/screenshot_4.jpg" width="200px" /> &nbsp; <img src="/screenshots/screenshot_5.jpg" width="200px" /> &nbsp;
 <img src="/screenshots/screenshot_6.jpg" width="200px" /> &nbsp; <img src="/screenshots/screenshot_7.jpg" width="200px" /> &nbsp;
 <img src="/screenshots/screenshot_8.jpg" width="200px" /> &nbsp; <img src="/screenshots/screenshot_9.jpg" width="200px" /> &nbsp;
-
-## APK
-
-Download the apk [here](apk/theatre.apk).
