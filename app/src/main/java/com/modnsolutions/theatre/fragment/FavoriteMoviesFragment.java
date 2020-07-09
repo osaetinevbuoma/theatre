@@ -53,7 +53,7 @@ public class FavoriteMoviesFragment extends Fragment {
                 .get(SaveTypeHasTheatreViewModel.class);
         int theatreTypeId = theatreTypeViewModel.findOneByType("Movies").getId();
         int typeId = typeViewModel.findOneByType("Favorites").getId();
-        viewModel.findByTheatreType(typeId, theatreTypeId).observe(this,
+        viewModel.findByTheatreType(typeId, theatreTypeId).observe(getViewLifecycleOwner(),
                 new Observer<PagedList<TheatreEntity>>() {
             @Override
             public void onChanged(PagedList<TheatreEntity> theatreEntities) {
