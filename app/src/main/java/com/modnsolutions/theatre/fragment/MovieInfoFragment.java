@@ -496,7 +496,7 @@ public class MovieInfoFragment extends Fragment implements LoaderManager
             }
             mMovieSimilarAdapter.removeAll();
             mMovieSimilarAdapter.setMovies(similarMovies);
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
         }
     }
