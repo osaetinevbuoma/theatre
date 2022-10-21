@@ -1,24 +1,17 @@
 package com.modnsolutions.theatre.utils;
 
 import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-
-import com.modnsolutions.JsonHTTPService;
 import com.modnsolutions.theatre.BuildConfig;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class NetworkUtils {
 
@@ -89,8 +82,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -112,8 +103,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -135,8 +124,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -158,8 +145,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -179,7 +164,6 @@ public class NetworkUtils {
                 .appendQueryParameter("api_key", BuildConfig.API_KEY)
                 .build();
 
-        //return JsonHTTPService.get(builtUri.toString(), null, true);
         return httpService(builtUri);
     }
 
@@ -270,8 +254,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -293,8 +275,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -316,8 +296,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?
@@ -339,8 +317,6 @@ public class NetworkUtils {
                 .appendQueryParameter("page", String.valueOf(page))
                 .build();
 
-        /*JSONObject responseObj = JsonHTTPService.get(builtUri.toString(), null,
-                false);*/
         JSONObject responseObj = httpService(builtUri);
 
         return responseObj != null && responseObj.has("results") ?

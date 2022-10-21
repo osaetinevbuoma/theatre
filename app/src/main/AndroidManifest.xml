@@ -44,7 +44,8 @@
         <activity
             android:name=".SearchActivity"
             android:label="@string/label_search"
-            android:theme="@style/AppTheme.Extension">
+            android:theme="@style/AppTheme.Extension"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -88,7 +89,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/toolbar_movies"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
